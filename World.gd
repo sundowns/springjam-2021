@@ -48,6 +48,11 @@ func _input(event):
 			selection_tool.change_to_build_cursor()
 			emit_signal("mode_changed", true)
 			return
+		if event.is_action_pressed("destroy"):
+			if current_selection:
+				current_selection.destroy()
+				var plant_map_point = map.world_to_map(current_selection.global_transform.origin)
+				map.set_cell_item(plant_map_point.x, plant_map_point.y, plant_map_point.z, -1)
 
 func _physics_process(_delta):
 	if !in_menu:

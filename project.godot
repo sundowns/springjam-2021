@@ -40,6 +40,12 @@ config/icon="res://icon.png"
 
 Global="*res://shared/global.gd"
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/aspect="keep_width"
+
 [input]
 
 ui_left={
@@ -103,6 +109,11 @@ plant_5={
 build_mode={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":66,"unicode":0,"echo":false,"script":null)
+ ]
+}
+destroy={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
  ]
 }
 

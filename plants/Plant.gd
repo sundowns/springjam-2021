@@ -17,3 +17,6 @@ func set_grid_placement(_grid_position: Vector3):
 func set_selection(new_status: bool):
 	is_selected = new_status
 	selected_particles.emitting = is_selected
+
+func destroy():
+	queue_free()
