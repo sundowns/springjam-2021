@@ -2,11 +2,10 @@
 
 [ext_resource path="res://schematics/Schematic.gd" type="Script" id=1]
 [ext_resource path="res://materials/schematic_overlay.tres" type="Material" id=2]
-[ext_resource path="res://materials/recolourable_particle.tres" type="Material" id=3]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.546559, 1 )
-colors = PoolColorArray( 0.972549, 0.784314, 0.407843, 0, 0.972549, 0.784314, 0.407843, 1 )
+offsets = PoolRealArray( 0.271255, 1 )
+colors = PoolColorArray( 0.411765, 0.807843, 0.933333, 0.262745, 0.411765, 0.807843, 0.933333, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
@@ -20,8 +19,13 @@ tangential_accel = 2.0
 tangential_accel_random = 1.0
 color_ramp = SubResource( 2 )
 
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.411765, 0.811765, 0.937255, 1 )
+
 [sub_resource type="CubeMesh" id=4]
-material = ExtResource( 3 )
+material = SubResource( 5 )
 size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" type="Spatial"]
@@ -36,7 +40,7 @@ material_override = ExtResource( 2 )
 [node name="BuildTween" type="Tween" parent="."]
 
 [node name="BuildingParticles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72403, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21356, 0 )
 amount = 12
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 4 )

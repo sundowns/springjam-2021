@@ -4,4 +4,4 @@
 flags_transparent = true
 flags_unshaded = true
 params_diffuse_mode = 4
-albedo_color = Color( 0.972549, 0.784314, 0.407843, 0.403922 )
+albedo_color = Color( 0.819608, 0.701961, 1, 0.392157 )

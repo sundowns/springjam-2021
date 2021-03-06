@@ -10,10 +10,12 @@ onready var particles: Particles = $BuildingParticles
 
 func _ready():
 	particles.emitting = true 
-#	tween.interpolate_property(mesh_instance.material_override, "albedo.a")
-#	tween.start()
-#	(object: Object, property: NodePath, initial_val: Variant, final_val: Variant, duration: float, trans_type: TransitionType = 0, ease_type: EaseType = 2, delay: float = 0
+	mesh_instance.material_override = mesh_instance.material_override.duplicate()
+	tween.interpolate_property(mesh_instance.material_override, "albedo_color:a", 0.0, 0.3, build_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.start()
 	build_timer.start(build_time)
+	yield(get_tree().create_timer(build_time - 2.0), "timeout")
+	particles.emitting = false
 
 func _on_BuildTimer_timeout():
 	spawn_plant()
