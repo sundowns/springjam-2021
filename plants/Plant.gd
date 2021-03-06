@@ -2,10 +2,10 @@ extends Spatial
 class_name Plant
 
 onready var selected_particles: Particles = $SelectedParticles
+onready var production_tick_timer: Timer = $ProductionTickTimer
 
-export(float) var max_water_level: float = 100.0
-export(float) var starting_water_level: float = 50.0
-onready var current_water_level: float = max_water_level
+export(float) var minimum_producing_water_level: float = 0.0
+export(float) var production_tick_duration: float = 3.0
 
 var grid_position: Vector3 = Vector3.ZERO
 var is_selected: bool = false setget set_selection
@@ -27,17 +27,19 @@ class PlantItemSlot:
 	var current_item_type: int
 	var item_count: int
 	var allowed_item_types: Array
-	func _init(_is_input: bool, _is_output: bool, _max_item_count: int, _allowed_item_types: Array):
+	func _init(_is_input: bool, _is_output: bool, _max_item_count: int, _allowed_item_types: Array, start_full: bool = false):
 		is_input = _is_input
 		is_output = _is_output
 		max_item_count = _max_item_count
-		current_item_type = ItemType.EMPTY 
+		current_item_type = ItemType.EMPTY
 		item_count = 0
 		allowed_item_types = _allowed_item_types
+		if start_full:
+			item_count = max_item_count
 	func add_items(item_delta: int):
-		item_count += item_delta
+		item_count = min(item_count + item_delta, max_item_count)
 	func remove_items(item_delta: int):
-		item_count -= item_delta
+		item_count = max(item_count - item_delta, 0)
 	func empty():
 		item_count = 0
 	func allows(item_type: int) -> bool:
@@ -48,6 +50,8 @@ class PlantItemSlot:
 				break
 		return allowed
 
+func _ready():
+	production_tick_timer.start(production_tick_duration)
 
 func set_grid_placement(_grid_position: Vector3):
 	grid_position = _grid_position
@@ -58,3 +62,7 @@ func set_selection(new_status: bool):
 
 func destroy():
 	queue_free()
+
+func produce():
+	emit_signal("produced_resource")
+	production_tick_timer.start(production_tick_duration)

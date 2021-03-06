@@ -37,3 +37,6 @@ shape = SubResource( 1 )
 emitting = false
 process_material = ExtResource( 4 )
 draw_pass_1 = SubResource( 2 )
+
+[node name="ProductionTickTimer" type="Timer" parent="."]
+[connection signal="timeout" from="ProductionTickTimer" to="." method="produce"]
