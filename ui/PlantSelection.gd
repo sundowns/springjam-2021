@@ -16,4 +16,3 @@ func _input(event):
 func clear_all_selections():
 	for child in schematic_container.get_children():
 		child.update_selection(false)
-

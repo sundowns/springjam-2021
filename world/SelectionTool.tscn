@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://SelectionTool.gd" type="Script" id=1]
+[ext_resource path="res://schematics/WatervineSchematic.tscn" type="PackedScene" id=2]
+[ext_resource path="res://schematics/SunflowerSchematic.tscn" type="PackedScene" id=3]
+[ext_resource path="res://materials/selection_tool_shader.tres" type="Material" id=4]
+[ext_resource path="res://world/BuildCursorMesh.tres" type="CubeMesh" id=5]
+[ext_resource path="res://world/SelectionCursorMesh.tres" type="CylinderMesh" id=6]
+
+[node name="SelectionTool" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+script = ExtResource( 1 )
+schematics = [ ExtResource( 3 ), ExtResource( 2 ) ]
+build_cursor_mesh = ExtResource( 5 )
+selection_cursor_mesh = ExtResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+material_override = ExtResource( 4 )
+
+[node name="WorldRayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, -2000 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="SelectionRayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -200, 0 )
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
