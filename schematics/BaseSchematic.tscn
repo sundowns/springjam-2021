@@ -4,3 +4,8 @@
 
 [node name="Schematic" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+[node name="BuildTimer" type="Timer" parent="."]
+[connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
