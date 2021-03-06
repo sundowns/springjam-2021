@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://schematics/Schematic.gd" type="Script" id=1]
 [ext_resource path="res://materials/schematic_overlay.tres" type="Material" id=2]
+[ext_resource path="res://materials/recolourable_particle.tres" type="Material" id=3]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.125926, 0.792593 )
+colors = PoolColorArray( 0.819608, 0.701961, 1, 0, 0.341176, 0.262745, 0.407843, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -8, 0 )
+tangential_accel = 2.0
+tangential_accel_random = 1.0
+color_ramp = SubResource( 3 )
+
+[sub_resource type="CubeMesh" id=7]
+material = ExtResource( 3 )
+size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" type="Spatial"]
 script = ExtResource( 1 )
@@ -11,4 +32,12 @@ transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
 material_override = ExtResource( 2 )
 
 [node name="BuildTimer" type="Timer" parent="."]
+
+[node name="BuildTween" type="Tween" parent="."]
+
+[node name="BuildingParticles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72403, 0 )
+amount = 12
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 7 )
 [connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]

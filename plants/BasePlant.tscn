@@ -1,32 +1,16 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://plants/Plant.gd" type="Script" id=1]
 [ext_resource path="res://assets/flower_yellowC.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://plants/PlantSelectionArea.gd" type="Script" id=3]
+[ext_resource path="res://materials/particles/plant_selection.tres" type="Material" id=4]
+[ext_resource path="res://materials/recolourable_particle.tres" type="Material" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.6, 0.5, 0.6 )
 
-[sub_resource type="Gradient" id=5]
-colors = PoolColorArray( 0.341176, 0.262745, 0.407843, 1, 0.819608, 0.701961, 1, 0.196078 )
-
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=2]
-emission_shape = 1
-emission_sphere_radius = 0.5
-gravity = Vector3( 0, 10, 0 )
-tangential_accel = 2.0
-tangential_accel_random = 1.0
-color_ramp = SubResource( 6 )
-
-[sub_resource type="SpatialMaterial" id=3]
-flags_transparent = true
-vertex_color_use_as_albedo = true
-
-[sub_resource type="CubeMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 5 )
 size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Plant" type="Spatial"]
@@ -51,5 +35,5 @@ shape = SubResource( 1 )
 
 [node name="SelectedParticles" type="Particles" parent="."]
 emitting = false
-process_material = SubResource( 2 )
-draw_pass_1 = SubResource( 4 )
+process_material = ExtResource( 4 )
+draw_pass_1 = SubResource( 6 )
