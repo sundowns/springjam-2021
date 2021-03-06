@@ -14,7 +14,6 @@ func _on_BuildTimer_timeout():
 func spawn_plant():
 	build_timer.disconnect("timeout", self, "_on_BuildTimer_timeout")
 	var new_plant = scene.instance()
-	var old_position = global_transform.origin
-	replace_by(new_plant)
-	new_plant.global_transform.origin = old_position
+	get_parent().add_child(new_plant)
+	new_plant.global_transform.origin = global_transform.origin
 	queue_free()

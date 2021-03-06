@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://schematics/Schematic.gd" type="Script" id=1]
+[ext_resource path="res://materials/schematic_overlay.tres" type="Material" id=2]
 
 [node name="Schematic" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
+material_override = ExtResource( 2 )
 
 [node name="BuildTimer" type="Timer" parent="."]
 [connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]

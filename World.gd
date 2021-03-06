@@ -1,12 +1,14 @@
 extends Spatial
 
 onready var camera: Camera = $Camera
-onready var selection_tool: MeshInstance = $SelectionTool/MeshInstance
+onready var selection_tool: Spatial = $SelectionTool
+onready var selection_tool_mesh: MeshInstance = $SelectionTool/MeshInstance
 onready var plants_container: Spatial = $PlantsContainer
 onready var ray: RayCast = $SelectionTool/RayCast
 onready var map: GridMap = $GridMap
 
 export(PackedScene) var sunflower_schematic_scene: PackedScene
+export(PackedScene) var watervine_schematic_scene: PackedScene
 
 export(Color, RGB) var valid_selection: Color
 export(Color, RGB) var invalid_selection: Color
@@ -39,10 +41,10 @@ func _physics_process(_delta):
 		
 		# Its an empty tile (need to make a flat blank, empty tile in index 0 of the meshlib)
 		if tile == -1:
-			selection_tool.get_surface_material(0).set_shader_param("albedo", valid_selection)
+			selection_tool_mesh.get_surface_material(0).set_shader_param("albedo", valid_selection)
 			can_build = true
 		else:
-			selection_tool.get_surface_material(0).set_shader_param("albedo", invalid_selection)
+			selection_tool_mesh.get_surface_material(0).set_shader_param("albedo", invalid_selection)
 			can_build = false
 		
 		# Move selection tool mesh
@@ -50,18 +52,23 @@ func _physics_process(_delta):
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 		selection_position = map.map_to_world(map_point.x, map_point.y, map_point.z)
-		selection_tool.global_transform.origin = selection_position
+		selection_tool_mesh.global_transform.origin = selection_position
 		
 		if Input.is_action_just_pressed("build") and can_build:
-			place_schematic(0)
+			print(selection_tool.selection_index)
+			place_schematic(selection_tool.selection_index)
 
 func place_schematic(id):
+	var new_plant
 	match id:
 		0:
-			var new_plant = sunflower_schematic_scene.instance()
-			plants_container.add_child(new_plant)
-			new_plant.global_transform.origin = selection_position
+			new_plant = sunflower_schematic_scene.instance()
+		1:
+			new_plant = watervine_schematic_scene.instance()
+	
+	plants_container.add_child(new_plant)
+	new_plant.global_transform.origin = selection_position
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
-			map.set_cell_item(map_point.x, map_point.y, map_point.z, 1)
+	map.set_cell_item(map_point.x, map_point.y, map_point.z, 32)
