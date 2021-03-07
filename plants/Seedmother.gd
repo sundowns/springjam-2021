@@ -15,4 +15,4 @@ func produce():
 	item_slots[1].add_items(1)
 	# Spend water
 	item_slots[0].remove_items(25)
-	print(item_slots[1].item_count)
+	print(item_slots[1].item_count, ",",  item_slots[0].item_count)

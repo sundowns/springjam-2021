@@ -37,8 +37,10 @@ class PlantItemSlot:
 		if start_full:
 			item_count = max_item_count
 	func add_items(item_delta: int):
+# warning-ignore:narrowing_conversion
 		item_count = min(item_count + item_delta, max_item_count)
 	func remove_items(item_delta: int):
+# warning-ignore:narrowing_conversion
 		item_count = max(item_count - item_delta, 0)
 	func empty():
 		item_count = 0

@@ -11,7 +11,9 @@ onready var particles: Particles = $BuildingParticles
 func _ready():
 	particles.emitting = true 
 	mesh_instance.material_override = mesh_instance.material_override.duplicate()
+# warning-ignore:return_value_discarded
 	tween.interpolate_property(mesh_instance.material_override, "albedo_color:a", 0.0, 0.3, build_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+# warning-ignore:return_value_discarded
 	tween.start()
 	build_timer.start(build_time)
 	yield(get_tree().create_timer(build_time - 2.0), "timeout")
