@@ -10,6 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Spatial",
+"class": "PipeNode",
+"language": "GDScript",
+"path": "res://world/PipeNode.gd"
+}, {
+"base": "PathFollow",
+"class": "PipeableResource",
+"language": "GDScript",
+"path": "res://world/PipeableResource.gd"
+}, {
+"base": "Spatial",
 "class": "Plant",
 "language": "GDScript",
 "path": "res://plants/Plant.gd"
@@ -25,6 +35,8 @@ _global_script_classes=[ {
 "path": "res://SelectionTool.gd"
 } ]
 _global_script_class_icons={
+"PipeNode": "",
+"PipeableResource": "",
 "Plant": "",
 "PlantSelectionArea": "",
 "SelectionTool": ""

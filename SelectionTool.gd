@@ -41,7 +41,13 @@ func select_plant(from: Vector3, to: Vector3) -> Plant:
 	selection_ray.cast_to = to
 	selection_ray.force_raycast_update()
 	if selection_ray.is_colliding():
-		return selection_ray.get_collider().get_parent()
+		var selected_object = selection_ray.get_collider().get_parent()
+		if selected_object is PipeNode:
+			if selected_object.network_master == null:
+				push_error("Found PipeNode with undefined master node")
+			return selected_object.network_master
+		else:
+			return selection_ray.get_collider().get_parent()
 	else:
 		return null
 	

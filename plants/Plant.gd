@@ -53,7 +53,8 @@ class PlantItemSlot:
 		return allowed
 
 func _ready():
-	production_tick_timer.start(production_tick_duration)
+	if production_tick_duration > 0:
+		production_tick_timer.start(production_tick_duration)
 
 func set_grid_placement(_grid_position: Vector3):
 	grid_position = _grid_position
