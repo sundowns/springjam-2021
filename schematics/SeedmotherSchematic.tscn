@@ -8,7 +8,7 @@
 offsets = PoolRealArray( 0.137652, 1 )
 colors = PoolColorArray( 0.819608, 0.701961, 1, 0.254902, 0.819608, 0.701961, 1, 1 )
 
-[sub_resource type="GradientTexture" id=4]
+[sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
@@ -18,7 +18,7 @@ direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, -8, 0 )
 tangential_accel = 2.0
 tangential_accel_random = 1.0
-color_ramp = SubResource( 4 )
+color_ramp = SubResource( 2 )
 
 [node name="Schematic" instance=ExtResource( 2 )]
 scene = ExtResource( 3 )

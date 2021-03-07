@@ -12,6 +12,7 @@ var capacity := 0
 var current_load := 0
 
 func _ready():
+	# TODO: create a starting node
 	generate_curve_from_nodes()
 
 func set_start(start_point: Vector3):

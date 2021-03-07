@@ -4,7 +4,7 @@ class_name SelectionTool
 onready var mesh_instance: MeshInstance = $MeshInstance
 onready var selection_ray: RayCast = $SelectionRayCast
 
-export(int) var schematics_count: int = 3
+export(int) var schematics_count: int = 4
 
 export(Mesh) var build_cursor_mesh: Mesh
 export(Mesh) var selection_cursor_mesh: Mesh

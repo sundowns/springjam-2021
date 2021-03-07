@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://schematics/BaseSchematic.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/plant_meshes/dirtmound.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://plants/PipeNetwork.tscn" type="PackedScene" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+params_diffuse_mode = 4
+albedo_color = Color( 1, 0.556863, 0.396078, 0.392157 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.910931, 1 )
+colors = PoolColorArray( 1, 0.556863, 0.396078, 0.0862745, 1, 0.556863, 0.396078, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -8, 0 )
+tangential_accel = 2.0
+tangential_accel_random = 1.0
+color_ramp = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 1, 0.556863, 0.396078, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[node name="Schematic" instance=ExtResource( 1 )]
+scene = ExtResource( 3 )
+build_time = 3.0
+
+[node name="MeshInstance" parent="." index="0"]
+material_override = SubResource( 1 )
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+
+[node name="BuildingParticles" parent="." index="3"]
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
