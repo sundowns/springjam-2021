@@ -23,12 +23,13 @@ var map_point: Vector3
 var in_build_mode := false
 const ray_length = 1000
 
-var current_selection: Plant
+var current_selectable: Selectable
 
 signal mode_changed(is_build_mode)
 signal selection_changed(selected_node)
 
 func _ready():
+	Global.connect("schematic_selection_change", self, "_on_schematic_selection_change")
 	in_build_mode = false
 	selection_tool.change_to_selection_cursor()
 	selection_tool.set_cursor_colour(select_mode)
@@ -38,23 +39,26 @@ func place_building(building: Plant, grid_indices: Vector3):
 
 func _input(event):
 	if in_build_mode:
-		if event.is_action_pressed("build_mode") or event.is_action_pressed("ui_cancel"): # will back out of build mode once esc doesnt close game...
+		if event.is_action_pressed("ui_cancel"):
 			in_build_mode = false
 			selection_tool.change_to_selection_cursor()
 			selection_tool.set_cursor_colour(select_mode)
 			emit_signal("mode_changed", false)
 			return
 	else:
-		if event.is_action_pressed("build_mode"):
-			in_build_mode = true
-			selection_tool.change_to_build_cursor()
-			emit_signal("mode_changed", true)
-			return
 		if event.is_action_pressed("destroy"):
-			if current_selection:
-				current_selection.destroy()
-				var plant_map_point = map.world_to_map(current_selection.global_transform.origin)
+			if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic):
+				current_selectable.parent.destroy()
+				var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
 				map.set_cell_item(plant_map_point.x, plant_map_point.y, plant_map_point.z, -1)
+
+func enter_build_mode():
+	in_build_mode = true
+	selection_tool.change_to_build_cursor()
+	emit_signal("mode_changed", true)
+
+func _on_schematic_selection_change():
+	enter_build_mode()
 
 func _physics_process(_delta):
 	if !in_menu:
@@ -92,13 +96,25 @@ func _physics_process(_delta):
 				if can_build:
 					place_schematic(selection_tool.selection_index)
 			else:
-				var plant = selection_tool.select_plant(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
-				if plant:
-					if current_selection:
-						current_selection.is_selected = false
-					plant.is_selected = true
-					current_selection = plant
-					emit_signal("selection_changed", plant)
+				var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
+				#			var parent = selectable.parent
+				#			if parent is PipeNode:
+				#				if selectable.network_master == null:
+				#					push_error("Found PipeNode with undefined master node")
+				#				return selectable.network_master
+				#			return selectable.parent
+				if selectable:
+					var owning_entity = selectable.parent
+					if owning_entity is PipeNode:
+						if owning_entity.network_master:
+							owning_entity = owning_entity.network_master
+						else:
+							push_error("Found PipeNode with undefined master node")
+					if current_selectable:
+						current_selectable.is_selected = false
+					selectable.is_selected = true
+					current_selectable = selectable
+					emit_signal("selection_changed", selectable)
 					
 
 func place_schematic(id):
@@ -112,6 +128,8 @@ func place_schematic(id):
 			new_plant = seedmother_schematic_scene.instance()
 		3:
 			new_plant = pipenetwork_schematic_scene.instance()
+		_:
+			return
 	
 	plants_container.add_child(new_plant)
 	new_plant.global_transform.origin = selection_position

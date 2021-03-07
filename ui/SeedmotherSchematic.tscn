@@ -7,3 +7,6 @@
 
 [node name="SchematicIcon" parent="." index="0"]
 texture = ExtResource( 1 )
+
+[node name="ButtonText" parent="." index="1"]
+text = " 3"

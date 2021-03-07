@@ -1,4 +1,5 @@
 extends Spatial
+class_name Schematic
 
 export(PackedScene) var scene: PackedScene
 export(float) var build_time := 5.0
@@ -27,4 +28,7 @@ func spawn_plant():
 	var new_plant = scene.instance()
 	get_parent().add_child(new_plant)
 	new_plant.global_transform.origin = global_transform.origin
+	queue_free()
+
+func destroy():
 	queue_free()

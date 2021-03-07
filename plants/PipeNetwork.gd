@@ -41,12 +41,10 @@ func generate_curve_from_nodes():
 	path.curve.clear_points()
 	# Populate curve with position of nodes
 	for child in nodes_container.get_children():
-		print(child)
 		if child is PipeNode:
 			path.curve.add_point(child.global_transform.origin)
 	var path_length = path.curve.get_point_count()
 	capacity = path_length * capacity_per_cell
-	print(path_length)
 	if path_length > 0:
 		start_point_mesh.global_transform.origin = path.curve.get_point_position(0)
 		start_point_mesh.visible = true

@@ -1,31 +1,32 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://schematics/Schematic.gd" type="Script" id=1]
 [ext_resource path="res://materials/schematic_overlay.tres" type="Material" id=2]
+[ext_resource path="res://world/Selectable.tscn" type="PackedScene" id=3]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.910931, 1 )
 colors = PoolColorArray( 1, 0.556863, 0.396078, 0.0862745, 1, 0.556863, 0.396078, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
 emission_sphere_radius = 0.5
 direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, -8, 0 )
 tangential_accel = 2.0
 tangential_accel_random = 1.0
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.411765, 0.811765, 0.937255, 1 )
 
-[sub_resource type="CubeMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="CubeMesh" id=5]
+material = SubResource( 4 )
 size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" type="Spatial"]
@@ -42,6 +43,12 @@ material_override = ExtResource( 2 )
 [node name="BuildingParticles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21356, 0 )
 amount = 12
-process_material = SubResource( 4 )
-draw_pass_1 = SubResource( 6 )
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="Selectable" parent="." instance=ExtResource( 3 )]
 [connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

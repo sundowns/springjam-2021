@@ -36,18 +36,16 @@ func change_to_build_cursor():
 func set_cursor_colour(colour: Color):
 	mesh_instance.material_override.set_shader_param("albedo", colour)
 
-func select_plant(from: Vector3, to: Vector3) -> Plant:
+func get_selectable(from: Vector3, to: Vector3) -> Selectable:
 	selection_ray.global_transform.origin = from
 	selection_ray.cast_to = to
 	selection_ray.force_raycast_update()
 	if selection_ray.is_colliding():
 		var selected_object = selection_ray.get_collider().get_parent()
-		if selected_object is PipeNode:
-			if selected_object.network_master == null:
-				push_error("Found PipeNode with undefined master node")
-			return selected_object.network_master
+		if selected_object is Selectable:
+			return selected_object
 		else:
-			return selection_ray.get_collider().get_parent()
+			return null
 	else:
 		return null
 	

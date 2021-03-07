@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://materials/particles/plant_selection.tres" type="Material" id=1]
+[ext_resource path="res://materials/recolourable_particle.tres" type="Material" id=2]
+[ext_resource path="res://world/Selectable.gd" type="Script" id=3]
+[ext_resource path="res://world/SelectionArea.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+material = ExtResource( 2 )
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[node name="Selectable" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="SelectionArea" parent="." instance=ExtResource( 4 )]
+
+[node name="SelectedParticles" type="Particles" parent="."]
+emitting = false
+process_material = ExtResource( 1 )
+draw_pass_1 = SubResource( 1 )
+
+[editable path="SelectionArea"]

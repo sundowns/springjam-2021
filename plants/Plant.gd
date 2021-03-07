@@ -1,14 +1,12 @@
 extends Spatial
 class_name Plant
 
-onready var selected_particles: Particles = $SelectedParticles
 onready var production_tick_timer: Timer = $ProductionTickTimer
 
 export(float) var minimum_producing_water_level: float = 0.0
 export(float) var production_tick_duration: float = 3.0
 
 var grid_position: Vector3 = Vector3.ZERO
-var is_selected: bool = false setget set_selection
 var item_slots = []
 
 signal produced_resource
@@ -58,10 +56,6 @@ func _ready():
 
 func set_grid_placement(_grid_position: Vector3):
 	grid_position = _grid_position
-
-func set_selection(new_status: bool):
-	is_selected = new_status
-	selected_particles.emitting = is_selected
 
 func destroy():
 	queue_free()
