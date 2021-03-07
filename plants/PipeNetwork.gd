@@ -13,7 +13,8 @@ var current_load := 0
 
 func _ready():
 	# TODO: create a starting node
-	generate_curve_from_nodes()
+	add_node(global_transform.origin)
+
 
 func set_start(start_point: Vector3):
 	path.curve.clear_points()
@@ -27,9 +28,9 @@ func set_start(start_point: Vector3):
 func add_node(position: Vector3, add_to_back: bool = true, generate_new_curve: bool = true):
 	var new_node: PipeNode = pipe_node_scene.instance()
 	new_node.set_parent_network(self)
-	add_child(new_node)
+	nodes_container.add_child(new_node)
 	if not add_to_back:
-		move_child(new_node, 0)
+		nodes_container.move_child(new_node, 0)
 	new_node.global_transform.origin = position
 	capacity += capacity_per_cell
 	if generate_new_curve:
@@ -40,11 +41,12 @@ func generate_curve_from_nodes():
 	path.curve.clear_points()
 	# Populate curve with position of nodes
 	for child in nodes_container.get_children():
+		print(child)
 		if child is PipeNode:
 			path.curve.add_point(child.global_transform.origin)
 	var path_length = path.curve.get_point_count()
 	capacity = path_length * capacity_per_cell
-	
+	print(path_length)
 	if path_length > 0:
 		start_point_mesh.global_transform.origin = path.curve.get_point_position(0)
 		start_point_mesh.visible = true

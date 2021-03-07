@@ -88,8 +88,9 @@ func _physics_process(_delta):
 		selection_tool.global_transform.origin = selection_position
 		
 		if Input.is_action_just_pressed("select"):
-			if in_build_mode and can_build:
-				place_schematic(selection_tool.selection_index)
+			if in_build_mode:
+				if can_build:
+					place_schematic(selection_tool.selection_index)
 			else:
 				var plant = selection_tool.select_plant(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 				if plant:
