@@ -2,14 +2,13 @@ extends Plant
 
 func _ready():
 	item_slots = [
-		PlantItemSlot.new(true, false, 200, [ItemType.WATER], true),
+		PlantItemSlot.new(true, false, 200, [ItemType.WATER], false),
 		PlantItemSlot.new(true, false, 20, [ItemType.SEED]),
 		PlantItemSlot.new(false, true, 10, [ItemType.SUNSHINE])
 	]
 
 func produce():
 	.produce()
-	print('outer')
 	if item_slots[0].item_count < minimum_producing_water_level:
 		print('not enuff water :c')
 		return

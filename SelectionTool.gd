@@ -4,7 +4,7 @@ class_name SelectionTool
 onready var mesh_instance: MeshInstance = $MeshInstance
 onready var selection_ray: RayCast = $SelectionRayCast
 
-export(Array, PackedScene) var schematics = [] 
+export(int) var schematics_count: int = 3
 
 export(Mesh) var build_cursor_mesh: Mesh
 export(Mesh) var selection_cursor_mesh: Mesh
@@ -25,7 +25,7 @@ func _input(event):
 	else:
 		return
 # warning-ignore:narrowing_conversion
-	selection_index = min(schematics.size() - 1, selection_index)
+	selection_index = min(schematics_count, selection_index)
 
 func change_to_selection_cursor():
 	mesh_instance.mesh = selection_cursor_mesh

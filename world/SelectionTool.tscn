@@ -1,8 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://SelectionTool.gd" type="Script" id=1]
-[ext_resource path="res://schematics/WatervineSchematic.tscn" type="PackedScene" id=2]
-[ext_resource path="res://schematics/SunflowerSchematic.tscn" type="PackedScene" id=3]
 [ext_resource path="res://materials/selection_tool_shader.tres" type="Material" id=4]
 [ext_resource path="res://world/BuildCursorMesh.tres" type="CubeMesh" id=5]
 [ext_resource path="res://world/SelectionCursorMesh.tres" type="CylinderMesh" id=6]
@@ -10,7 +8,6 @@
 [node name="SelectionTool" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 script = ExtResource( 1 )
-schematics = [ ExtResource( 3 ), ExtResource( 2 ) ]
 build_cursor_mesh = ExtResource( 5 )
 selection_cursor_mesh = ExtResource( 6 )
 

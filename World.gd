@@ -8,6 +8,7 @@ onready var map: GridMap = $GridMap
 
 export(PackedScene) var sunflower_schematic_scene: PackedScene
 export(PackedScene) var watervine_schematic_scene: PackedScene
+export(PackedScene) var seedmother_schematic_scene: PackedScene
 
 export(Color, RGB) var valid_selection: Color
 export(Color, RGB) var invalid_selection: Color
@@ -105,6 +106,8 @@ func place_schematic(id):
 			new_plant = sunflower_schematic_scene.instance()
 		1:
 			new_plant = watervine_schematic_scene.instance()
+		2:
+			new_plant = seedmother_schematic_scene.instance()
 	
 	plants_container.add_child(new_plant)
 	new_plant.global_transform.origin = selection_position
