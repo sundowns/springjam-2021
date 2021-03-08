@@ -29,6 +29,7 @@ signal mode_changed(hud_mode)
 signal selection_changed(selected_node)
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Global.connect("schematic_selection_change", self, "_on_schematic_selection_change")
 	current_hud_mode = HudModes.SELECTION
 	selection_tool.change_to_selection_cursor()
@@ -45,6 +46,8 @@ func _input(event):
 				selection_tool.set_cursor_colour(select_mode)
 				current_hud_mode = HudModes.SELECTION
 				emit_signal("mode_changed", current_hud_mode)
+				display_current_pipe_connections()
+				deselect_current()
 		HudModes.SELECTION:
 			if event.is_action_pressed("destroy"):
 				if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic):
@@ -52,14 +55,34 @@ func _input(event):
 					var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
 					map.set_cell_item(plant_map_point.x, plant_map_point.y, plant_map_point.z, -1)
 
+func deselect_current():
+	if current_selectable and current_hud_mode == HudModes.SELECTION:
+		current_selectable.is_selected = false
+		current_selectable = null
 
-func enter_build_mode():
+func enter_build_plants_mode():
+	deselect_current()
 	current_hud_mode = HudModes.BUILD_PLANT
 	emit_signal("mode_changed", current_hud_mode)
 	selection_tool.change_to_build_cursor()
 
+func enter_build_pipes_mode():
+	if current_selectable and current_selectable.parent is PipeNetwork:
+		current_selectable.parent.activate_area_casts()
+	current_hud_mode = HudModes.BUILD_PIPES
+	emit_signal("mode_changed", current_hud_mode)
+	display_current_pipe_connections()
+
+func display_current_pipe_connections():
+	if current_selectable:
+		var parent = current_selectable.parent
+		if parent is PipeNetwork or parent is PipeNode:
+			parent.calculate_and_show_placeable_directions()
+	else:
+		print("huh1")
+
 func _on_schematic_selection_change():
-	enter_build_mode()
+	enter_build_plants_mode()
 
 func _physics_process(_delta):
 	if !in_menu:
@@ -93,23 +116,23 @@ func _physics_process(_delta):
 		selection_tool.global_transform.origin = selection_position
 		
 		if Input.is_action_just_pressed("select"):
-			if current_hud_mode in [HudModes.BUILD_PIPES, HudModes.BUILD_PLANT]:
-				if can_build:
-					place_schematic(selection_tool.selection_index)
-			elif current_hud_mode == HudModes.SELECTION:
-				var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
-				if selectable:
-					var owning_entity = selectable.parent
-					if owning_entity is PipeNode:
-						if owning_entity.network_master:
-							owning_entity = owning_entity.network_master
-						else:
-							push_error("Found PipeNode with undefined master node")
-					if current_selectable:
-						current_selectable.is_selected = false
-					selectable.is_selected = true
-					current_selectable = selectable
-					emit_signal("selection_changed", selectable)
+			match current_hud_mode:
+				HudModes.BUILD_PLANT:
+					if can_build:
+						place_schematic(selection_tool.selection_index)
+				HudModes.BUILD_PIPES:
+					print('place piper')
+				HudModes.SELECTION:
+					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
+					if selectable:
+						var owning_entity = selectable.parent
+						if current_selectable:
+							current_selectable.is_selected = false
+						selectable.is_selected = true
+						current_selectable = selectable
+						emit_signal("selection_changed", selectable)
+						if owning_entity is PipeNode or owning_entity is PipeNetwork:
+							enter_build_pipes_mode()
 					
 
 func place_schematic(id):
@@ -132,3 +155,4 @@ func place_schematic(id):
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 	map.set_cell_item(map_point.x, map_point.y, map_point.z, 32)
+

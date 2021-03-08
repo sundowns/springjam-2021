@@ -2,6 +2,7 @@ extends Spatial
 class_name Plant
 
 onready var production_tick_timer: Timer = $ProductionTickTimer
+onready var area_casts: Spatial = $AreaCasts
 
 export(float) var minimum_producing_water_level: float = 0.0
 export(float) var production_tick_duration: float = 3.0
@@ -63,3 +64,13 @@ func destroy():
 func produce():
 	emit_signal("produced_resource")
 	production_tick_timer.start(production_tick_duration)
+
+func activate_area_casts():
+	for area in area_casts.get_children():
+		area.enable()
+
+func _on_selected():
+	pass
+
+func _on_deselected():
+	pass

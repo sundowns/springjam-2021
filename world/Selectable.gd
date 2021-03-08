@@ -8,6 +8,13 @@ onready var particles: Particles = $SelectedParticles
 
 var is_selected := false setget set_selected
 
+signal selected
+signal deselected
+
 func set_selected(new_status: bool):
 	particles.emitting = new_status
 	is_selected = new_status
+	if new_status == true:
+		emit_signal("selected")
+	else:
+		emit_signal("deselected")

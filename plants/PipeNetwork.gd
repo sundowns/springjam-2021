@@ -1,9 +1,11 @@
 extends Plant
+class_name PipeNetwork
 
 onready var path: Path = $Path
 onready var start_point_mesh: MeshInstance = $StartPointMesh
 onready var end_point_mesh: MeshInstance = $EndPointMesh
 onready var nodes_container: Spatial = $NodesContainer
+onready var pipe_build_indicators = $PipeBuildIndicators
 
 const pipe_node_scene: PackedScene = preload("res://world/PipeNode.tscn")
 const capacity_per_cell := 3
@@ -12,9 +14,7 @@ var capacity := 0
 var current_load := 0
 
 func _ready():
-	# TODO: create a starting node
 	add_node(global_transform.origin)
-
 
 func set_start(start_point: Vector3):
 	path.curve.clear_points()
@@ -69,3 +69,27 @@ func _physics_process(delta):
 		if child is PipeableResource:
 			print("moving along pipe...")
 			child.set_offset(child.offset + resource_move_speed * delta)
+
+func _on_selected():
+	pipe_build_indicators.visible = true
+	
+func _on_deselected():
+	pipe_build_indicators.visible = false
+
+func calculate_and_show_placeable_directions():
+	# get a list of whether each area cast is colliding with a plant
+	var casts_colliding_map = area_casts.get_status()
+	# Update corresponding indicators
+	update_indicator("Up", casts_colliding_map)
+	update_indicator("Down", casts_colliding_map)
+	update_indicator("Left", casts_colliding_map)
+	update_indicator("Right", casts_colliding_map)
+
+func update_indicator(node_key: String, collision_map: Dictionary):
+	print('gaming')
+	if collision_map[node_key]:
+		print('set this shit invalid')
+		pipe_build_indicators.set_single_invalid(node_key)
+	else:
+		print('set this shit valid')
+		pipe_build_indicators.set_single_valid(node_key)
