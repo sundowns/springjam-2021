@@ -24,6 +24,7 @@ var current_hud_mode: int
 const ray_length = 1000
 
 var current_selectable: Selectable
+var current_valid_pipe_locations: Array = []
 
 signal mode_changed(hud_mode)
 signal selection_changed(selected_node)
@@ -42,23 +43,35 @@ func _input(event):
 	match current_hud_mode:
 		HudModes.BUILD_PLANT, HudModes.BUILD_PIPES:
 			if event.is_action_pressed("ui_cancel"):
-				selection_tool.change_to_selection_cursor()
-				selection_tool.set_cursor_colour(select_mode)
-				current_hud_mode = HudModes.SELECTION
-				emit_signal("mode_changed", current_hud_mode)
-				display_current_pipe_connections()
-				deselect_current()
+				enter_selection_mode()
 		HudModes.SELECTION:
-			if event.is_action_pressed("destroy"):
-				if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic):
-					current_selectable.parent.destroy()
-					var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
-					map.set_cell_item(plant_map_point.x, plant_map_point.y, plant_map_point.z, -1)
+			pass
+	if event.is_action_pressed("destroy"):
+		if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic or current_selectable.parent is PipeNode):
+			current_selectable.parent.destroy()
+			var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
+			clear_map_point(plant_map_point)
+			if current_hud_mode == HudModes.BUILD_PIPES:
+				enter_selection_mode()
+
+func clear_map_point(map_point: Vector3):
+	map.set_cell_item(map_point.x, map_point.y, map_point.z, -1)
+
+func occupy_map_point(map_point: Vector3):
+	map.set_cell_item(map_point.x, map_point.y, map_point.z, 32)
 
 func deselect_current():
 	if current_selectable and current_hud_mode == HudModes.SELECTION:
 		current_selectable.is_selected = false
 		current_selectable = null
+
+func enter_selection_mode():
+	selection_tool.change_to_selection_cursor()
+	selection_tool.set_cursor_colour(select_mode)
+	current_hud_mode = HudModes.SELECTION
+	emit_signal("mode_changed", current_hud_mode)
+	find_and_show_current_pipe_connections()
+	deselect_current()
 
 func enter_build_plants_mode():
 	deselect_current()
@@ -67,19 +80,32 @@ func enter_build_plants_mode():
 	selection_tool.change_to_build_cursor()
 
 func enter_build_pipes_mode():
-	if current_selectable and current_selectable.parent is PipeNetwork:
-		current_selectable.parent.activate_area_casts()
 	current_hud_mode = HudModes.BUILD_PIPES
 	emit_signal("mode_changed", current_hud_mode)
-	display_current_pipe_connections()
+	# find out the valid placeable map points for pipes (based on our current selection), store it.
+	current_valid_pipe_locations = find_and_show_current_pipe_connections()
 
-func display_current_pipe_connections():
+func find_and_show_current_pipe_connections() -> Array:
+	var valid_points_for_pipes = []
+	var cast_directions_dictionary: Dictionary
 	if current_selectable:
 		var parent = current_selectable.parent
-		if parent is PipeNetwork or parent is PipeNode:
-			parent.calculate_and_show_placeable_directions()
-	else:
-		print("huh1")
+		if parent is PipeNode:
+			cast_directions_dictionary = parent.calculate_and_show_placeable_directions()
+	
+		var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
+		for key in cast_directions_dictionary.keys():
+			if cast_directions_dictionary[key] == false:
+				match key:
+					"Up":
+						valid_points_for_pipes.append(plant_map_point + Vector3(0, 0, -1))
+					"Down":
+						valid_points_for_pipes.append(plant_map_point + Vector3(0, 0, 1))
+					"Left":
+						valid_points_for_pipes.append(plant_map_point + Vector3(-1, 0, 0))
+					"Right":
+						valid_points_for_pipes.append(plant_map_point + Vector3(1, 0, 0))
+	return valid_points_for_pipes
 
 func _on_schematic_selection_change():
 	enter_build_plants_mode()
@@ -121,19 +147,38 @@ func _physics_process(_delta):
 					if can_build:
 						place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
-					print('place piper')
+					if map_point in current_valid_pipe_locations:
+						var selected_plant = current_selectable.parent
+						if selected_plant is PipeNode:
+							# To is already defined, but not from. Place new node IN FRONT
+							if selected_plant.to and not selected_plant.from:
+								var new_node = selected_plant.network_master.add_node(selection_position, false)
+								selected_plant.from = new_node
+								new_node.to = selected_plant
+								select_new_thing(new_node.selectable)
+							else: # Otherwise, put it behind existing node
+								var new_node = selected_plant.network_master.add_node(selection_position)
+								selected_plant.to = new_node
+								new_node.from = selected_plant
+								select_new_thing(new_node.selectable)
+							occupy_map_point(map_point)
+							current_valid_pipe_locations = find_and_show_current_pipe_connections()
 				HudModes.SELECTION:
 					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
-					if selectable:
-						var owning_entity = selectable.parent
-						if current_selectable:
-							current_selectable.is_selected = false
-						selectable.is_selected = true
-						current_selectable = selectable
-						emit_signal("selection_changed", selectable)
-						if owning_entity is PipeNode or owning_entity is PipeNetwork:
-							enter_build_pipes_mode()
+					select_new_thing(selectable)
 					
+
+func select_new_thing(selectable: Selectable):
+	if selectable:
+		var owning_entity = selectable.parent
+		if current_selectable:
+			current_selectable.is_selected = false
+		selectable.is_selected = true
+		current_selectable = selectable
+		emit_signal("selection_changed", selectable)
+		if current_hud_mode == HudModes.SELECTION:
+			if owning_entity is PipeNode or owning_entity is PipeNetwork:
+				enter_build_pipes_mode()
 
 func place_schematic(id):
 	var new_plant
@@ -154,5 +199,5 @@ func place_schematic(id):
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
-	map.set_cell_item(map_point.x, map_point.y, map_point.z, 32)
+	occupy_map_point(map_point)
 

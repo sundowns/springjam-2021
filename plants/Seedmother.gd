@@ -9,7 +9,7 @@ func _ready():
 func produce():
 	.produce()
 	if item_slots[0].item_count < minimum_producing_water_level:
-		print('not enuff water :c')
+#		print('not enuff water :c')
 		return
 	# Create seed
 	item_slots[1].add_items(1)

@@ -10,28 +10,28 @@ size = Vector3( 0.3, 0.3, 0.3 )
 script = ExtResource( 2 )
 
 [node name="Up" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 material_override = ExtResource( 1 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Down" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 material_override = ExtResource( 1 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Left" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 material_override = ExtResource( 1 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Right" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
 material_override = ExtResource( 1 )
 cast_shadow = 0
 mesh = SubResource( 1 )

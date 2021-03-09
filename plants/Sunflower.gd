@@ -10,7 +10,7 @@ func _ready():
 func produce():
 	.produce()
 	if item_slots[0].item_count < minimum_producing_water_level:
-		print('not enuff water :c')
+#		print('not enuff water :c')
 		return
 	# If we have 5 seeds in the tank
 	if item_slots[1].item_count >= 5:
@@ -21,5 +21,5 @@ func produce():
 		# TODO: use a different timer for water depreciation?
 		item_slots[0].remove_items(25)
 	else:
-		print("not enuff seeds")
+#		print("not enuff seeds")
 		print(item_slots[0].item_count)

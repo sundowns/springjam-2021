@@ -21,6 +21,7 @@ material/2 = null
 [node name="ProductionTickTimer" type="Timer" parent="."]
 
 [node name="AreaCasts" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66435, 0 )
 [connection signal="deselected" from="Selectable" to="." method="_on_deselected"]
 [connection signal="selected" from="Selectable" to="." method="_on_selected"]
 [connection signal="timeout" from="ProductionTickTimer" to="." method="produce"]
