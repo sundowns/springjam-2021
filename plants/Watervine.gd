@@ -3,7 +3,7 @@ extends Plant
 func _ready():
 	item_slots = [
 
-		PlantItemSlot.new(true, false, 500, [ItemType.WATER], false)
+		PlantItemSlot.new(true, false, 500, [ItemTypes.WATER], false)
 	]
 
 func produce():

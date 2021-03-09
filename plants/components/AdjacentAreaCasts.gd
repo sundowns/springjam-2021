@@ -27,7 +27,7 @@ func get_status() -> Dictionary:
 
 func check_for_collision(query_position: Position3D, current_game_space: PhysicsDirectSpaceState) -> bool:
 	cast_shape_query.transform = query_position.global_transform
-	var cast_result = get_world().direct_space_state.intersect_shape(cast_shape_query, 32)
+	var cast_result = current_game_space.intersect_shape(cast_shape_query, 32)
 	if cast_result:
 		return true
 	else:

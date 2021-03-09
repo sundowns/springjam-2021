@@ -13,13 +13,6 @@ var item_slots = []
 
 signal produced_resource
 
-enum ItemType {
-	EMPTY = 0,
-	SUNSHINE = 1,
-	WATER = 2,
-	SEED = 3
-}
-
 class PlantItemSlot:
 	var is_input: bool
 	var is_output: bool
@@ -31,7 +24,7 @@ class PlantItemSlot:
 		is_input = _is_input
 		is_output = _is_output
 		max_item_count = _max_item_count
-		current_item_type = ItemType.EMPTY
+		current_item_type = ItemTypes.EMPTY
 		item_count = 0
 		allowed_item_types = _allowed_item_types
 		if start_full:

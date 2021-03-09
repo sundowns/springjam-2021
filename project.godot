@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://shared/HudModes.gd"
 }, {
+"base": "Reference",
+"class": "ItemTypes",
+"language": "GDScript",
+"path": "res://shared/ItemTypes.gd"
+}, {
 "base": "Plant",
 "class": "PipeNetwork",
 "language": "GDScript",
@@ -27,7 +32,7 @@ _global_script_classes=[ {
 "base": "PathFollow",
 "class": "PipeableResource",
 "language": "GDScript",
-"path": "res://world/PipeableResource.gd"
+"path": "res://resources/PipeableResource.gd"
 }, {
 "base": "Spatial",
 "class": "Plant",
@@ -56,6 +61,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "HudModes": "",
+"ItemTypes": "",
 "PipeNetwork": "",
 "PipeNode": "",
 "PipeableResource": "",

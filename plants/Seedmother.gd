@@ -2,8 +2,8 @@ extends Plant
 
 func _ready():
 	item_slots = [
-		PlantItemSlot.new(true, false, 200, [ItemType.WATER], true),
-		PlantItemSlot.new(false, true, 20, [ItemType.SEED])
+		PlantItemSlot.new(true, false, 200, [ItemTypes.WATER], true),
+		PlantItemSlot.new(false, true, 20, [ItemTypes.SEED])
 	]
 
 func produce():

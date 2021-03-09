@@ -13,8 +13,10 @@ var capacity := 0
 var current_load := 0
 
 func _ready():
+	path.curve = Curve3D.new()
 	# We just rely on selecting nodes...
 	$Selectable.queue_free()
+# warning-ignore:return_value_discarded
 	add_node(global_transform.origin)
 
 func set_start(start_point: Vector3):
@@ -58,9 +60,10 @@ func generate_curve_from_nodes():
 	else:
 		end_point_mesh.visible = false
 
-func insert_resource(pipeable_resource: PipeableResource, offset: float):
+func add_resource(pipeable_resource: PipeableResource, offset: float):
 	current_load += 1
 	path.add_child(pipeable_resource)
+	pipeable_resource.global_transform.origin = path.curve.interpolate_baked(offset)
 	pipeable_resource.set_offset(offset)
 
 func remove_resource():
@@ -69,5 +72,4 @@ func remove_resource():
 func _physics_process(delta):
 	for child in path.get_children():
 		if child is PipeableResource:
-			print("moving along pipe...")
 			child.set_offset(child.offset + resource_move_speed * delta)

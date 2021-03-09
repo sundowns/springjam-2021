@@ -41,11 +41,20 @@ func place_building(building: Plant, grid_indices: Vector3):
 
 func _input(event):
 	match current_hud_mode:
-		HudModes.BUILD_PLANT, HudModes.BUILD_PIPES:
+		HudModes.BUILD_PLANT:
 			if event.is_action_pressed("ui_cancel"):
 				enter_selection_mode()
+		HudModes.BUILD_PIPES:
+			if event.is_action_pressed("ui_cancel"):
+				enter_selection_mode()
+			# TODO: Delete
+			if event.is_action_pressed("ui_page_up"):
+				var new_resource = preload("res://resources/WaterResource.tscn").instance()
+				var network = current_selectable.parent.network_master
+				network.add_resource(new_resource, 0)
 		HudModes.SELECTION:
 			pass
+		
 	if event.is_action_pressed("destroy"):
 		if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic or current_selectable.parent is PipeNode):
 			current_selectable.parent.destroy()
@@ -54,11 +63,11 @@ func _input(event):
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
 
-func clear_map_point(map_point: Vector3):
-	map.set_cell_item(map_point.x, map_point.y, map_point.z, -1)
+func clear_map_point(point: Vector3):
+	map.set_cell_item(point.x, point.y, point.z, -1)
 
-func occupy_map_point(map_point: Vector3):
-	map.set_cell_item(map_point.x, map_point.y, map_point.z, 32)
+func occupy_map_point(point: Vector3):
+	map.set_cell_item(point.x, point.y, point.z, 32)
 
 func deselect_current():
 	if current_selectable and current_hud_mode == HudModes.SELECTION:
