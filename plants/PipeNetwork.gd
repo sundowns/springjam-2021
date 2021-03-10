@@ -63,7 +63,7 @@ func generate_curve_from_nodes():
 func add_resource(pipeable_resource: PipeableResource, offset: float):
 	current_load += 1
 	path.add_child(pipeable_resource)
-	pipeable_resource.global_transform.origin = path.curve.interpolate_baked(offset)
+	pipeable_resource.transform = Transform.IDENTITY
 	pipeable_resource.set_offset(offset)
 
 func remove_resource():

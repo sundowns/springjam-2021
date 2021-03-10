@@ -53,10 +53,8 @@ func update_indicator(node_key: String, collision_map: Dictionary):
 		pipe_build_indicators.set_single_valid(node_key)
 
 func set_to(node: PipeNode):
-	var node_position = node.global_transform.origin
 	look_at(node.global_transform.origin, Vector3.UP)
 	to = node
 
 func set_from(node: PipeNode): 
-	print('set from')
 	from = node

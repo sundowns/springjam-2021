@@ -8,6 +8,9 @@ onready var tween: Tween = $BuildTween
 onready var build_timer: Timer = $BuildTimer
 onready var mesh_instance: MeshInstance = $MeshInstance
 onready var particles: Particles = $BuildingParticles
+onready var selectable: Selectable = $Selectable
+
+signal build_complete(new_plant, was_selected)
 
 func _ready():
 	particles.emitting = true 
@@ -28,6 +31,7 @@ func spawn_plant():
 	var new_plant = scene.instance()
 	get_parent().add_child(new_plant)
 	new_plant.global_transform.origin = global_transform.origin
+	emit_signal("build_complete", new_plant, selectable.is_selected)
 	queue_free()
 
 func destroy():

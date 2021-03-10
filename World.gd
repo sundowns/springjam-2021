@@ -57,16 +57,31 @@ func _input(event):
 		
 	if event.is_action_pressed("destroy"):
 		if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic or current_selectable.parent is PipeNode):
-			current_selectable.parent.destroy()
-			var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
-			clear_map_point(plant_map_point)
+			# Delete the whole network cause cbf implementing subdividing networks
+			if current_selectable.parent is PipeNode:
+				var network = current_selectable.parent.network_master
+				for child in network.nodes_container.get_children():
+					remove_plant(child)
+				network.destroy()
+			remove_plant(current_selectable.parent)
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
 
+func remove_plant(node: Node):
+	var plant_map_point = map.world_to_map(node.global_transform.origin)
+	clear_map_point(plant_map_point)
+	node.destroy()
+
 func clear_map_point(point: Vector3):
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
 	map.set_cell_item(point.x, point.y, point.z, -1)
 
 func occupy_map_point(point: Vector3):
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
 	map.set_cell_item(point.x, point.y, point.z, 32)
 
 func deselect_current():
@@ -79,6 +94,7 @@ func enter_selection_mode():
 	selection_tool.set_cursor_colour(select_mode)
 	current_hud_mode = HudModes.SELECTION
 	emit_signal("mode_changed", current_hud_mode)
+# warning-ignore:return_value_discarded
 	find_and_show_current_pipe_connections()
 	deselect_current()
 
@@ -186,27 +202,36 @@ func select_new_thing(selectable: Selectable):
 		current_selectable = selectable
 		emit_signal("selection_changed", selectable)
 		if current_hud_mode == HudModes.SELECTION:
-			if owning_entity is PipeNode or owning_entity is PipeNetwork:
+			if owning_entity is PipeNode:
 				enter_build_pipes_mode()
 
 func place_schematic(id):
-	var new_plant
+	var new_schematic: Schematic
 	match id:
 		0:
-			new_plant = sunflower_schematic_scene.instance()
+			new_schematic = sunflower_schematic_scene.instance()
 		1:
-			new_plant = watervine_schematic_scene.instance()
+			new_schematic = watervine_schematic_scene.instance()
 		2:
-			new_plant = seedmother_schematic_scene.instance()
+			new_schematic = seedmother_schematic_scene.instance()
 		3:
-			new_plant = pipenetwork_schematic_scene.instance()
+			new_schematic = pipenetwork_schematic_scene.instance()
 		_:
 			return
 	
-	plants_container.add_child(new_plant)
-	new_plant.global_transform.origin = selection_position
+	plants_container.add_child(new_schematic)
+	new_schematic.global_transform.origin = selection_position
+# warning-ignore:return_value_discarded
+	new_schematic.connect("build_complete", self, "_on_schematic_build_complete", [], CONNECT_DEFERRED)
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 	occupy_map_point(map_point)
 
+func _on_schematic_build_complete(new_plant: Plant, was_selected: bool):
+	var to_select = new_plant.selectable
+	if new_plant is PipeNetwork:
+		# If it's a network finishing building, get the first node instead
+		to_select = new_plant.nodes_container.get_child(0).selectable
+	if was_selected:
+		select_new_thing(to_select)
