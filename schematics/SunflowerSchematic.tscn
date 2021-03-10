@@ -19,3 +19,7 @@ mesh = ExtResource( 3 )
 material/0 = null
 material/1 = null
 material/2 = null
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

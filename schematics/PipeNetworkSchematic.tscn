@@ -37,7 +37,6 @@ size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" instance=ExtResource( 1 )]
 scene = ExtResource( 3 )
-build_time = 3.0
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
@@ -46,6 +45,10 @@ mesh = ExtResource( 2 )
 material/0 = null
 material/1 = null
 
-[node name="BuildingParticles" parent="." index="3"]
+[node name="BuildingParticles" parent="." index="2"]
 process_material = SubResource( 4 )
 draw_pass_1 = SubResource( 6 )
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

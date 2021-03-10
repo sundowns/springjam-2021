@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/entity_meshes/builder_bunny.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/BunnyBuilder.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Build"
+length = 0.85
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("builder_bunny/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "Build" ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.3
+tracks/0/type = "animation"
+tracks/0/path = NodePath("builder_bunny/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "BuildStart" ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_on_build_start_animation_end"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+tracks/0/type = "animation"
+tracks/0/path = NodePath("builder_bunny/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "Idle" ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.85
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("builder_bunny/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "Run" ),
+"times": PoolRealArray( 0 )
+}
+
+[node name="BunnyBuilder" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="builder_bunny" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.1, 0, -3.25841e-08, 0, 0.1, 0, 3.25841e-08, 0, -0.1, -0.175352, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/Build = SubResource( 1 )
+anims/BuildStart = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Run = SubResource( 4 )
+
+[node name="BuildTimer" type="Timer" parent="."]
+
+[node name="ReRequestTimer" type="Timer" parent="."]
+
+[node name="WakeUpTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
+[connection signal="timeout" from="ReRequestTimer" to="." method="_on_ReRequestTimer_timeout"]
+[connection signal="timeout" from="WakeUpTimer" to="." method="_on_WakeUpTimer_timeout"]
+
+[editable path="builder_bunny"]

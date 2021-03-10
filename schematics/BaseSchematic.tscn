@@ -36,18 +36,16 @@ script = ExtResource( 1 )
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
 material_override = ExtResource( 2 )
 
-[node name="BuildTimer" type="Timer" parent="."]
-
 [node name="BuildTween" type="Tween" parent="."]
 
 [node name="BuildingParticles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21356, 0 )
+emitting = false
 amount = 12
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 5 )
 
 [node name="Selectable" parent="." instance=ExtResource( 3 )]
-[connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
 
 [editable path="Selectable"]
 

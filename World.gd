@@ -5,6 +5,7 @@ onready var selection_tool: SelectionTool = $SelectionTool
 onready var plants_container: Spatial = $PlantsContainer
 onready var world_ray: RayCast = $SelectionTool/WorldRayCast
 onready var map: GridMap = $GridMap
+onready var builder_bunny: BuilderBunny = $BunnyBuilder
 
 export(PackedScene) var sunflower_schematic_scene: PackedScene
 export(PackedScene) var watervine_schematic_scene: PackedScene
@@ -235,3 +236,17 @@ func _on_schematic_build_complete(new_plant: Plant, was_selected: bool):
 		to_select = new_plant.nodes_container.get_child(0).selectable
 	if was_selected:
 		select_new_thing(to_select)
+
+func _on_BunnyBuilder_request_new_target(current_position: Vector3):
+	var closest: Schematic
+	var closest_distance: float = INF
+	for plant in plants_container.get_children():
+		if plant is Schematic:
+			var distance = current_position.distance_to(plant.global_transform.origin)
+			if distance < closest_distance:
+				closest = plant
+				closest_distance = distance
+	if closest != null:
+		builder_bunny._on_target_acquired(closest)
+	else:
+		builder_bunny.queue_bunny_request()
