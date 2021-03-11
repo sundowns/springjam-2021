@@ -5,11 +5,14 @@
 [node name="HBoxContainer" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 12.0
-rect_min_size = Vector2( 200, 50 )
+rect_min_size = Vector2( 50, 50 )
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Schematic" parent="." instance=ExtResource( 1 )]
+margin_left = 615.0
+margin_right = 665.0
 margin_bottom = 720.0
+grow_horizontal = 2

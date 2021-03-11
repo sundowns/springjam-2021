@@ -18,26 +18,33 @@ func destroy():
 
 func _on_selected():
 	pipe_build_indicators.visible = true
+	update_placeable_indicators_visibility()
 	
 func _on_deselected():
 	pipe_build_indicators.visible = false
+	update_placeable_indicators_visibility()
+
+func update_placeable_indicators_visibility():
+	if not selectable.is_selected:
+		pipe_build_indicators.visible = false
+		return
+	if from and to:
+		pipe_build_indicators.visible = false
+	else:
+		pipe_build_indicators.visible = true
 
 func calculate_and_show_placeable_directions() -> Dictionary:
 	# get a list of whether each area cast is colliding with a plant
 	var casts_colliding_map = area_casts.get_status()
 	
-#	print(from, " , ", to)
 	# Override if both front and back are already defined
 	if from and to:
-		pipe_build_indicators.visible = false
 		return {
 			"Up": true,
 			"Down": true,
 			"Left": true,
 			"Right": true
 		}
-	else:
-		pipe_build_indicators.visible = true
 	
 	# Update corresponding indicators
 	update_indicator("Up", casts_colliding_map)

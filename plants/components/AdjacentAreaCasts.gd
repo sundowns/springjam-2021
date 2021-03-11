@@ -1,6 +1,6 @@
 extends Spatial
 
-const radius := 1.0
+const radius := 2.0
 
 export(int, LAYERS_3D_PHYSICS) var collision_mask = 2
 
@@ -22,12 +22,12 @@ func get_status() -> Dictionary:
 	for child in get_children():
 		# Check if the area is colliding with anything
 		result[child.name] = check_for_collision(child, current_game_space)
-#		print(child.name ," , ", result[child.name])
+		print(child.name ," , ", result[child.name])
 	return result
 
 func check_for_collision(query_position: Position3D, current_game_space: PhysicsDirectSpaceState) -> bool:
 	cast_shape_query.transform = query_position.global_transform
-	var cast_result = current_game_space.intersect_shape(cast_shape_query, 32)
+	var cast_result = current_game_space.intersect_shape(cast_shape_query, 8)
 	if cast_result:
 		return true
 	else:

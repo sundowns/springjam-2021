@@ -95,8 +95,6 @@ func enter_selection_mode(deselect_after: bool = true):
 	selection_tool.set_cursor_colour(select_mode)
 	current_hud_mode = HudModes.SELECTION
 	emit_signal("mode_changed", current_hud_mode)
-# warning-ignore:return_value_discarded
-	find_and_show_current_pipe_connections()
 	if deselect_after:
 		deselect_current()
 
@@ -106,12 +104,9 @@ func enter_build_plants_mode():
 	emit_signal("mode_changed", current_hud_mode)
 	selection_tool.change_to_build_cursor()
 
-func enter_build_pipes_mode(calc_connections: bool = true):
+func enter_build_pipes_mode():
 	current_hud_mode = HudModes.BUILD_PIPES
 	emit_signal("mode_changed", current_hud_mode)
-	if calc_connections:
-		# find out the valid placeable map points for pipes (based on our current selection), store it.
-		current_valid_pipe_locations = find_and_show_current_pipe_connections()
 
 func find_and_show_current_pipe_connections() -> Array:
 	var valid_points_for_pipes = []
@@ -120,10 +115,12 @@ func find_and_show_current_pipe_connections() -> Array:
 		var parent = current_selectable.parent
 		if parent is PipeNode:
 			cast_directions_dictionary = parent.calculate_and_show_placeable_directions()
+		print(cast_directions_dictionary)
 	
 		var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
 		for key in cast_directions_dictionary.keys():
 			if cast_directions_dictionary[key] == false:
+				var new_map_point: Vector3
 				match key:
 					"Up":
 						valid_points_for_pipes.append(plant_map_point + Vector3(0, 0, -1))
@@ -175,10 +172,10 @@ func _physics_process(_delta):
 					if can_build:
 						place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
+					var pipe_placed := false
 					calc_current_pipe_node_connections()
-					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
+#					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
 					if map_point in current_valid_pipe_locations and tile == -1:
-						print('try place')
 						var selected_plant = current_selectable.parent
 						if selected_plant is PipeNode:
 							# To is already defined, but not from. Place new node IN FRONT
@@ -187,16 +184,27 @@ func _physics_process(_delta):
 								selected_plant.from = new_node
 								new_node.to = selected_plant
 								select_new_thing(new_node.selectable)
+								pipe_placed = true
 							else: # Otherwise, put it behind existing node
 								var new_node = selected_plant.network_master.add_node(selection_position)
 								selected_plant.to = new_node
 								new_node.from = selected_plant
 								select_new_thing(new_node.selectable)
+								pipe_placed = true
 							occupy_map_point(map_point)
 					else:
 						print('invalid point')
 						var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
-						select_new_thing(selectable)
+						if selectable and selectable != current_selectable:
+							if current_selectable.parent is PipeNode:
+								current_selectable.parent.update_placeable_indicators_visibility()
+							
+							select_new_thing(selectable)
+							if selectable.parent is PipeNode:
+								selectable.parent.update_placeable_indicators_visibility()
+					if pipe_placed:
+						print('placed 1')
+						calc_current_pipe_node_connections()
 				HudModes.SELECTION:
 					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 					select_new_thing(selectable)
@@ -214,14 +222,13 @@ func select_new_thing(selectable: Selectable):
 		selectable.is_selected = true
 		current_selectable = selectable
 		emit_signal("selection_changed", selectable)
-		call_deferred("calc_current_pipe_node_connections")
 		if current_hud_mode == HudModes.BUILD_PIPES:
 			if not owning_entity is PipeNode:
 				enter_selection_mode()
 				return
 		if current_hud_mode == HudModes.SELECTION:
 			if owning_entity is PipeNode:
-				enter_build_pipes_mode(false)
+				enter_build_pipes_mode()
 				return
 
 func place_schematic(id):
