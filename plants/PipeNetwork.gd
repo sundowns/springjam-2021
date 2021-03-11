@@ -8,21 +8,16 @@ onready var nodes_container: Spatial = $NodesContainer
 
 const pipe_node_scene: PackedScene = preload("res://world/PipeNode.tscn")
 const capacity_per_cell := 3
-const resource_move_speed := 2.0
+const resource_move_speed := 1.5
 var capacity := 0
 var current_load := 0
 
-var placement_location: Vector3
-
 func _ready():
-	placement_location = global_transform.origin
 	path.curve = Curve3D.new()
 	# We just rely on selecting nodes...
 	$Selectable.queue_free()
-#	global_transform = Transform.IDENTITY
-	path.global_transform.origin = placement_location
 # warning-ignore:return_value_discarded
-	add_node(placement_location)
+	add_node(global_transform.origin)
 
 func set_start(start_point: Vector3):
 	path.curve.clear_points()
@@ -39,11 +34,17 @@ func add_node(position: Vector3, add_to_back: bool = true, generate_new_curve: b
 	nodes_container.add_child(new_node)
 	if not add_to_back:
 		nodes_container.move_child(new_node, 0)
+		adjust_all_resource_offsets(2)
 	new_node.global_transform.origin = position
 	capacity += capacity_per_cell
 	if generate_new_curve:
 		generate_curve_from_nodes()
 	return new_node
+
+func adjust_all_resource_offsets(offset: float):
+	for resource in path.get_children():
+		if resource is PipeableResource:
+			resource.adjust_offset(offset)
 
 func generate_curve_from_nodes():
 	# Clear existing points on the curve
@@ -51,7 +52,7 @@ func generate_curve_from_nodes():
 	# Populate curve with position of nodes
 	for child in nodes_container.get_children():
 		if child is PipeNode:
-			path.curve.add_point(child.global_transform.origin)
+			path.curve.add_point(child.global_transform.origin - global_transform.origin)
 	var path_length = path.curve.get_point_count()
 	capacity = path_length * capacity_per_cell
 	if path_length > 0:
@@ -76,4 +77,4 @@ func remove_resource():
 func _physics_process(delta):
 	for child in path.get_children():
 		if child is PipeableResource:
-			child.set_offset(child.offset + resource_move_speed * delta)
+			child.move(resource_move_speed, delta)

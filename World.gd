@@ -90,14 +90,15 @@ func deselect_current():
 		current_selectable.is_selected = false
 		current_selectable = null
 
-func enter_selection_mode():
+func enter_selection_mode(deselect_after: bool = true):
 	selection_tool.change_to_selection_cursor()
 	selection_tool.set_cursor_colour(select_mode)
 	current_hud_mode = HudModes.SELECTION
 	emit_signal("mode_changed", current_hud_mode)
 # warning-ignore:return_value_discarded
 	find_and_show_current_pipe_connections()
-	deselect_current()
+	if deselect_after:
+		deselect_current()
 
 func enter_build_plants_mode():
 	deselect_current()
@@ -105,11 +106,12 @@ func enter_build_plants_mode():
 	emit_signal("mode_changed", current_hud_mode)
 	selection_tool.change_to_build_cursor()
 
-func enter_build_pipes_mode():
+func enter_build_pipes_mode(calc_connections: bool = true):
 	current_hud_mode = HudModes.BUILD_PIPES
 	emit_signal("mode_changed", current_hud_mode)
-	# find out the valid placeable map points for pipes (based on our current selection), store it.
-	current_valid_pipe_locations = find_and_show_current_pipe_connections()
+	if calc_connections:
+		# find out the valid placeable map points for pipes (based on our current selection), store it.
+		current_valid_pipe_locations = find_and_show_current_pipe_connections()
 
 func find_and_show_current_pipe_connections() -> Array:
 	var valid_points_for_pipes = []
@@ -173,7 +175,10 @@ func _physics_process(_delta):
 					if can_build:
 						place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
-					if map_point in current_valid_pipe_locations:
+					calc_current_pipe_node_connections()
+					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
+					if map_point in current_valid_pipe_locations and tile == -1:
+						print('try place')
 						var selected_plant = current_selectable.parent
 						if selected_plant is PipeNode:
 							# To is already defined, but not from. Place new node IN FRONT
@@ -188,11 +193,18 @@ func _physics_process(_delta):
 								new_node.from = selected_plant
 								select_new_thing(new_node.selectable)
 							occupy_map_point(map_point)
-							current_valid_pipe_locations = find_and_show_current_pipe_connections()
+					else:
+						print('invalid point')
+						var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
+						select_new_thing(selectable)
 				HudModes.SELECTION:
 					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 					select_new_thing(selectable)
 					
+
+func calc_current_pipe_node_connections():
+	if current_selectable and current_selectable.parent is PipeNode:
+		current_valid_pipe_locations = find_and_show_current_pipe_connections()
 
 func select_new_thing(selectable: Selectable):
 	if selectable:
@@ -202,12 +214,19 @@ func select_new_thing(selectable: Selectable):
 		selectable.is_selected = true
 		current_selectable = selectable
 		emit_signal("selection_changed", selectable)
+		call_deferred("calc_current_pipe_node_connections")
+		if current_hud_mode == HudModes.BUILD_PIPES:
+			if not owning_entity is PipeNode:
+				enter_selection_mode()
+				return
 		if current_hud_mode == HudModes.SELECTION:
 			if owning_entity is PipeNode:
-				enter_build_pipes_mode()
+				enter_build_pipes_mode(false)
+				return
 
 func place_schematic(id):
 	var new_schematic: Schematic
+	var select_new_schematic := false
 	match id:
 		0:
 			new_schematic = sunflower_schematic_scene.instance()
@@ -217,8 +236,11 @@ func place_schematic(id):
 			new_schematic = seedmother_schematic_scene.instance()
 		3:
 			new_schematic = pipenetwork_schematic_scene.instance()
+			select_new_schematic = true
 		_:
 			return
+	
+	builder_bunny.wake_if_idle()
 	
 	plants_container.add_child(new_schematic)
 	new_schematic.global_transform.origin = selection_position
@@ -228,6 +250,9 @@ func place_schematic(id):
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
 	occupy_map_point(map_point)
+	if select_new_schematic:
+		select_new_thing(new_schematic.selectable)
+		enter_selection_mode(false)
 
 func _on_schematic_build_complete(new_plant: Plant, was_selected: bool):
 	var to_select = new_plant.selectable

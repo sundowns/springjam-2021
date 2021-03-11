@@ -22,4 +22,4 @@ func produce():
 		item_slots[0].remove_items(25)
 	else:
 #		print("not enuff seeds")
-		print(item_slots[0].item_count)
+		print("sunflower water_level: ", item_slots[0].item_count)

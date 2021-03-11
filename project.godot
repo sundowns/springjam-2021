@@ -189,6 +189,8 @@ plant_8={
 
 3d_physics/layer_1="World"
 3d_physics/layer_2="Plants"
+3d_physics/layer_3="Resources"
+3d_physics/layer_4="PipeNode"
 
 [rendering]
 

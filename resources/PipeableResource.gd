@@ -10,3 +10,9 @@ enum _ItemTypes {
 }
 
 export(_ItemTypes) var item_type
+
+func move(network_speed: float, delta: float):
+	set_offset(offset + network_speed * delta)
+
+func adjust_offset(delta_offset: float):
+	set_offset(offset + delta_offset)

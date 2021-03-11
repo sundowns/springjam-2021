@@ -7,6 +7,7 @@ const rerequest_path_delay := 3.0
 export(float) var build_time: float = 3.0
 
 onready var build_timer: Timer = $BuildTimer
+onready var initial_wakeup_timer: Timer = $WakeUpTimer
 onready var rerequest_timer: Timer = $ReRequestTimer
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -21,7 +22,6 @@ enum BunnyStates {
 var state: int = BunnyStates.IDLE
 
 signal request_new_target(current_position)
-
 
 func _process(delta):
 	match state:
@@ -81,6 +81,12 @@ func _on_build_start_animation_end():
 		build_timer.start(build_time)
 	else:
 		enter_idle_state()
+
+func wake_if_idle():
+	if state == BunnyStates.IDLE:
+		rerequest_timer.stop()
+		initial_wakeup_timer.stop()
+		call_deferred('look_for_new_target')
 
 func _on_BuildTimer_timeout():
 	if current_target:

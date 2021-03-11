@@ -26,9 +26,9 @@ func calculate_and_show_placeable_directions() -> Dictionary:
 	# get a list of whether each area cast is colliding with a plant
 	var casts_colliding_map = area_casts.get_status()
 	
+#	print(from, " , ", to)
 	# Override if both front and back are already defined
 	if from and to:
-		print("Both from and true are defined...")
 		pipe_build_indicators.visible = false
 		return {
 			"Up": true,
@@ -56,5 +56,5 @@ func set_to(node: PipeNode):
 	look_at(node.global_transform.origin, Vector3.UP)
 	to = node
 
-func set_from(node: PipeNode): 
+func set_from(node: PipeNode):
 	from = node

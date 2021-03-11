@@ -90,7 +90,7 @@ anims/Run = SubResource( 4 )
 [node name="ReRequestTimer" type="Timer" parent="."]
 
 [node name="WakeUpTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.5
 one_shot = true
 autostart = true
 [connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
