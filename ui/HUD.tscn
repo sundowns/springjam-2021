@@ -38,6 +38,9 @@ __meta__ = {
 [node name="PlantOnly" type="Control" parent="SelectionUI"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InputOutputSelection" parent="SelectionUI/PlantOnly" instance=ExtResource( 3 )]
 anchor_left = 1.0
