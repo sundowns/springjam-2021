@@ -78,6 +78,8 @@ _data = {
 
 [node name="PipeNetwork" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+minimum_producing_water_level = 0.0
+production_tick_duration = 3.0
 
 [node name="MeshInstance" parent="." index="0"]
 visible = false

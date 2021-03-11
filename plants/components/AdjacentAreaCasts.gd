@@ -22,7 +22,7 @@ func get_status() -> Dictionary:
 	for child in get_children():
 		# Check if the area is colliding with anything
 		result[child.name] = check_for_collision(child, current_game_space)
-		print(child.name ," , ", result[child.name])
+#		print(child.name ," , ", result[child.name])
 	return result
 
 func check_for_collision(query_position: Position3D, current_game_space: PhysicsDirectSpaceState) -> bool:

@@ -115,12 +115,11 @@ func find_and_show_current_pipe_connections() -> Array:
 		var parent = current_selectable.parent
 		if parent is PipeNode:
 			cast_directions_dictionary = parent.calculate_and_show_placeable_directions()
-		print(cast_directions_dictionary)
+#		print(cast_directions_dictionary)
 	
 		var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
 		for key in cast_directions_dictionary.keys():
 			if cast_directions_dictionary[key] == false:
-				var new_map_point: Vector3
 				match key:
 					"Up":
 						valid_points_for_pipes.append(plant_map_point + Vector3(0, 0, -1))
@@ -193,9 +192,9 @@ func _physics_process(_delta):
 								pipe_placed = true
 							occupy_map_point(map_point)
 					else:
-						print('invalid point')
 						var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 						if selectable and selectable != current_selectable:
+							print('invalid point')
 							if current_selectable.parent is PipeNode:
 								current_selectable.parent.update_placeable_indicators_visibility()
 							
@@ -203,7 +202,6 @@ func _physics_process(_delta):
 							if selectable.parent is PipeNode:
 								selectable.parent.update_placeable_indicators_visibility()
 					if pipe_placed:
-						print('placed 1')
 						calc_current_pipe_node_connections()
 				HudModes.SELECTION:
 					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
