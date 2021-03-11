@@ -7,9 +7,17 @@ onready var selectable: Selectable = $Selectable
 
 export(float) var minimum_producing_water_level: float = 0.0
 export(float) var production_tick_duration: float = 3.0
+export(bool) var io_manageable: bool = true
 
 var grid_position: Vector3 = Vector3.ZERO
 var item_slots = []
+
+var current_io_state = {
+	"Up": "None",
+	"Down": "None",
+	"Left": "None",
+	"Right": "None"
+}
 
 signal produced_resource
 
@@ -55,6 +63,12 @@ func set_grid_placement(_grid_position: Vector3):
 func destroy():
 	queue_free()
 
+func manage_io():
+	if not io_manageable:
+		return
+	print(current_io_state)
+	print('lets open the modal and pass our state in!!!!')
+
 func produce():
 	emit_signal("produced_resource")
 	production_tick_timer.start(production_tick_duration)
@@ -64,3 +78,6 @@ func _on_selected():
 
 func _on_deselected():
 	pass
+
+func update_io_state(new_state: Dictionary):
+	current_io_state = new_state

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/InputOutputSelectionDropdown.gd" type="Script" id=1]
+
+[node name="Up" type="MenuButton"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.0
+margin_right = 25.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 30 )
+text = "NONE"
+items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
