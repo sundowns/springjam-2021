@@ -26,6 +26,7 @@ const ray_length = 1000
 
 var current_selectable: Selectable
 var current_valid_pipe_locations: Array = []
+var should_recalc_path_connections := false
 
 signal mode_changed(hud_mode)
 signal selection_changed(selected_node)
@@ -117,8 +118,6 @@ func find_and_show_current_pipe_connections() -> Array:
 		var parent = current_selectable.parent
 		if parent is PipeNode:
 			cast_directions_dictionary = parent.calculate_and_show_placeable_directions()
-#		print(cast_directions_dictionary)
-	
 		var plant_map_point = map.world_to_map(current_selectable.parent.global_transform.origin)
 		for key in cast_directions_dictionary.keys():
 			if cast_directions_dictionary[key] == false:
@@ -138,6 +137,9 @@ func _on_schematic_selection_change():
 
 func _physics_process(_delta):
 	if !in_menu:
+		if should_recalc_path_connections:
+			calc_current_pipe_node_connections()
+		
 		mouse_pos = get_viewport().get_mouse_position()
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = camera.project_ray_normal(mouse_pos) * ray_length
@@ -174,7 +176,6 @@ func _physics_process(_delta):
 						place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
 					var pipe_placed := false
-					calc_current_pipe_node_connections()
 #					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
 					if map_point in current_valid_pipe_locations and tile == -1:
 						var selected_plant = current_selectable.parent
@@ -196,7 +197,6 @@ func _physics_process(_delta):
 					else:
 						var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 						if selectable and selectable != current_selectable:
-							print('invalid point')
 							if current_selectable.parent is PipeNode:
 								current_selectable.parent.update_placeable_indicators_visibility()
 							
@@ -204,13 +204,14 @@ func _physics_process(_delta):
 							if selectable.parent is PipeNode:
 								selectable.parent.update_placeable_indicators_visibility()
 					if pipe_placed:
-						calc_current_pipe_node_connections()
+						should_recalc_path_connections = true
 				HudModes.SELECTION:
 					var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
 					select_new_thing(selectable)
 					
 
 func calc_current_pipe_node_connections():
+	should_recalc_path_connections = false
 	if current_selectable and current_selectable.parent is PipeNode:
 		current_valid_pipe_locations = find_and_show_current_pipe_connections()
 
@@ -221,6 +222,7 @@ func select_new_thing(selectable: Selectable):
 			current_selectable.is_selected = false
 		selectable.is_selected = true
 		current_selectable = selectable
+		should_recalc_path_connections = true
 		emit_signal("selection_changed", selectable)
 		if current_hud_mode == HudModes.BUILD_PIPES:
 			if not owning_entity is PipeNode:
@@ -268,6 +270,7 @@ func _on_schematic_build_complete(new_plant: Plant, was_selected: bool):
 		to_select = new_plant.nodes_container.get_child(0).selectable
 	if was_selected:
 		select_new_thing(to_select)
+		
 
 func _on_BunnyBuilder_request_new_target(current_position: Vector3):
 	var closest: Schematic

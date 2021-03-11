@@ -18,10 +18,10 @@ func _ready():
 
 func get_status() -> Dictionary:
 	var result = {}
-	var current_game_space := get_world().direct_space_state
+#	var current_game_space := get_world().direct_space_state
 	for child in get_children():
 		# Check if the area is colliding with anything
-		result[child.name] = check_for_collision(child, current_game_space)
+		result[child.name] = check_for_collision(child, get_world().direct_space_state)
 #		print(child.name ," , ", result[child.name])
 	return result
 

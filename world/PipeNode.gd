@@ -52,7 +52,7 @@ func calculate_and_show_placeable_directions() -> Dictionary:
 	
 	# Override if both front and back are already defined
 	if from and to:
-		return {
+		casts_colliding_map = {
 			"Up": true,
 			"Down": true,
 			"Left": true,
@@ -89,8 +89,8 @@ func update_mesh():
 			# Straight ahead
 			mesh_instance.mesh = pipe_meshes["straight"].resource
 			mesh_instance.scale = pipe_meshes["straight"].scale
-			look_at(to.global_transform.origin, Vector3.UP)
-			mesh_instance.rotation_degrees = initial_mesh_instance_rotation + pipe_meshes["straight"].rotation
+			mesh_instance.look_at(to.global_transform.origin, Vector3.UP)
+			mesh_instance.rotation_degrees += pipe_meshes["straight"].rotation
 		else:
 			mesh_instance.mesh = pipe_meshes["corner"].resource
 			mesh_instance.scale = pipe_meshes["corner"].scale
@@ -134,19 +134,19 @@ func update_mesh():
 			if occupied["Up"] and occupied["Left"]:
 				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,90,0)
 			if occupied["Down"] and occupied["Right"]:
-				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,0,0)
+				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,-90,0)
 			if occupied["Down"] and occupied["Left"]:
-				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,90,0)
+				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,180,0)
 		
 	else:
 		if from:
 			mesh_instance.mesh = pipe_meshes["end_from"].resource
 			mesh_instance.scale = pipe_meshes["end_from"].scale
-			look_at(from.global_transform.origin, Vector3.UP)
-			mesh_instance.rotation_degrees = initial_mesh_instance_rotation + pipe_meshes["end_from"].rotation
+			mesh_instance.look_at(from.global_transform.origin, Vector3.UP)
+			mesh_instance.rotation_degrees += pipe_meshes["end_from"].rotation
 		elif to:
 			mesh_instance.mesh = pipe_meshes["end_to"].resource
 			mesh_instance.scale = pipe_meshes["end_to"].scale
-			look_at(to.global_transform.origin, Vector3.UP)
-			mesh_instance.rotation_degrees = initial_mesh_instance_rotation + pipe_meshes["end_to"].rotation
+			mesh_instance.look_at(to.global_transform.origin, Vector3.UP)
+			mesh_instance.rotation_degrees += pipe_meshes["end_to"].rotation
 

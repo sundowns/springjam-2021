@@ -10,7 +10,6 @@ const default_states: Dictionary = {
 }
 onready var current_selection_state := default_states
 
-
 func update_selected_plant(selected_plant: Plant):
 	current_selected_plant = selected_plant
 	if selected_plant:
