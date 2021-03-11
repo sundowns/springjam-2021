@@ -130,18 +130,13 @@ func update_mesh():
 					occupied["Down"] = true
 			
 			if occupied["Up"] and occupied["Right"]:
-#				print('up & right')
 				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,0,0)
 			if occupied["Up"] and occupied["Left"]:
-#				print('up & left')
 				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,90,0)
 			if occupied["Down"] and occupied["Right"]:
-#				print('down & right')
 				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,0,0)
 			if occupied["Down"] and occupied["Left"]:
-#				print('down & left')
 				mesh_instance.rotation_degrees = initial_mesh_instance_rotation + Vector3(0,90,0)
-			print(mesh_instance.rotation_degrees)
 		
 	else:
 		if from:
