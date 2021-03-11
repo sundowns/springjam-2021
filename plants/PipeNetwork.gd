@@ -12,12 +12,17 @@ const resource_move_speed := 2.0
 var capacity := 0
 var current_load := 0
 
+var placement_location: Vector3
+
 func _ready():
+	placement_location = global_transform.origin
 	path.curve = Curve3D.new()
 	# We just rely on selecting nodes...
 	$Selectable.queue_free()
+#	global_transform = Transform.IDENTITY
+	path.global_transform.origin = placement_location
 # warning-ignore:return_value_discarded
-	add_node(global_transform.origin)
+	add_node(placement_location)
 
 func set_start(start_point: Vector3):
 	path.curve.clear_points()
@@ -63,7 +68,6 @@ func generate_curve_from_nodes():
 func add_resource(pipeable_resource: PipeableResource, offset: float):
 	current_load += 1
 	path.add_child(pipeable_resource)
-	pipeable_resource.transform = Transform.IDENTITY
 	pipeable_resource.set_offset(offset)
 
 func remove_resource():

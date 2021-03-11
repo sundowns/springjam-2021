@@ -3,6 +3,10 @@ extends Camera
 export(float) var friction: float = 1.0
 export(float) var speed: float = 5.0
 
+export(float) var max_horizontal_offset := 13.0
+export(float) var max_vertical_offset := 16.0
+const vertical_offset = 6.0
+
 var velocity: Vector3 = Vector3.ZERO
 
 func _physics_process(_delta):
@@ -19,4 +23,6 @@ func _physics_process(_delta):
 
 func _process(delta):
 	global_transform.origin += velocity * delta
+	global_transform.origin.x = clamp(global_transform.origin.x, -max_horizontal_offset, max_horizontal_offset)
+	global_transform.origin.z = clamp(global_transform.origin.z, -max_vertical_offset + vertical_offset, max_vertical_offset + vertical_offset)
 	velocity = velocity.move_toward(Vector3.ZERO, delta * friction)

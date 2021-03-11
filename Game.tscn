@@ -53,14 +53,14 @@ friction = 5.0
 speed = 15.0
 
 [node name="Ground" parent="World" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87283, 0.674889, -1.38624 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675, 0 )
 
 [node name="SelectionTool" parent="World" instance=ExtResource( 4 )]
 
 [node name="PlantsContainer" type="Spatial" parent="World"]
 
 [node name="BunnyBuilder" parent="World" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.825281, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700248, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

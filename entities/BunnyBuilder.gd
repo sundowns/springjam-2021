@@ -3,8 +3,8 @@ class_name BuilderBunny
 
 const move_speed := 5.0
 const building_range := 2.0
-const rerequest_path_delay := 5.0
-export(float) var build_time: float = 4.0
+const rerequest_path_delay := 3.0
+export(float) var build_time: float = 3.0
 
 onready var build_timer: Timer = $BuildTimer
 onready var rerequest_timer: Timer = $ReRequestTimer
