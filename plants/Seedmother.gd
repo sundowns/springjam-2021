@@ -12,7 +12,7 @@ func produce():
 #		print('not enuff water :c')
 		return
 	# Create seed
-	item_slots[1].add_items(1)
+	item_slots[1].add_items(1, ItemTypes.SEED)
 	# Spend water
 	item_slots[0].remove_items(25)
 	print(item_slots[1].item_count, ",",  item_slots[0].item_count)

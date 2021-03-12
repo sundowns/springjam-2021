@@ -36,6 +36,7 @@ __meta__ = {
 }
 
 [node name="PlantOnly" type="Control" parent="SelectionUI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -53,6 +54,7 @@ margin_right = 1240.0
 margin_bottom = 680.0
 
 [node name="SchematicOnly" type="Control" parent="SelectionUI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

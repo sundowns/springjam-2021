@@ -15,7 +15,7 @@ func produce():
 	# If we have 5 seeds in the tank
 	if item_slots[1].item_count >= 5:
 		# Create sunshine
-		item_slots[2].add_items(1)
+		item_slots[2].add_items(1, ItemTypes.SUNSHINE)
 		# Spend seeds
 		item_slots[1].remove_items(5)
 		# TODO: use a different timer for water depreciation?
