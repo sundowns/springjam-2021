@@ -10,3 +10,8 @@ func _on_item_selected(item_id):
 	var item_name = get_popup().get_item_text(item_id)
 	set_text(item_name)
 	emit_signal("selection_changed", name, item_name)
+
+func _on_pressed():
+	var popup = get_popup()
+	popup.rect_position += Vector2(0,-50)
+#	popup.set_position(popup.get_position() + Vector2(0, -50))

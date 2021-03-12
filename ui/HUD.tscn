@@ -47,14 +47,15 @@ __meta__ = {
 }
 
 [node name="InputOutputSelection" parent="SelectionUI/PlantOnly" instance=ExtResource( 3 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 1000.0
-margin_top = 440.0
-margin_right = 1240.0
-margin_bottom = 680.0
+anchor_left = 32.0066
+anchor_top = 17.9352
+anchor_right = 32.0066
+anchor_bottom = 17.9352
+margin_left = -160.265
+margin_top = -157.408
+margin_right = -60.2651
+margin_bottom = -57.4083
+rect_min_size = Vector2( 100, 100 )
 
 [node name="SchematicOnly" type="Control" parent="SelectionUI"]
 visible = false

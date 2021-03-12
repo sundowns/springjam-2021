@@ -6,6 +6,9 @@ onready var plant_only: Control = $SelectionUI/PlantOnly
 onready var schematic_only: Control = $SelectionUI/SchematicOnly
 onready var io_selection: Control = $SelectionUI/PlantOnly/InputOutputSelection
 
+export(NodePath) var camera_path
+onready var camera: Camera = get_node(camera_path)
+
 var current_selectable: Selectable
 var is_selection_mode := false
 var selection_type = ""
@@ -27,3 +30,15 @@ func update_selection_ui():
 		plant_only.visible = parent is Plant
 		if parent is Plant:
 			io_selection.update_selected_plant(parent)
+			set_io_window_position(parent)
+
+func set_io_window_position(plant: Plant):
+	var screen_position := camera.unproject_position(plant.global_transform.origin)
+	io_selection.set_position(screen_position - io_selection.rect_size/2)
+
+func _process(delta):
+	if is_selection_mode and current_selectable != null:
+		var parent = current_selectable.parent
+		if parent and parent is Plant:
+			set_io_window_position(parent)
+	

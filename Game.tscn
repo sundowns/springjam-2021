@@ -65,4 +65,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700248, 0 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 8 )]
+camera_path = NodePath("../../World/Camera")
 [connection signal="request_new_target" from="World/BunnyBuilder" to="World" method="_on_BunnyBuilder_request_new_target"]
