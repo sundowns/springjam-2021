@@ -8,6 +8,7 @@ export var character_path: NodePath = "."
 
 
 func _enter_tree():
+# warning-ignore:return_value_discarded
 	connect("visibility_changed", self, "_on_WindGrass_visibility_changed")
 
 
@@ -41,7 +42,7 @@ func _on_WindGrass_visibility_changed():
 		_ready()
 
 
-func _process(delta):
+func _process(_delta):
 	material_override.set_shader_param(
 		"character_position", get_node(character_path).global_transform.origin
 	)

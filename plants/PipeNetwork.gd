@@ -5,12 +5,14 @@ onready var path: Path = $Path
 onready var start_point_mesh: MeshInstance = $StartPointMesh
 onready var end_point_mesh: MeshInstance = $EndPointMesh
 onready var nodes_container: Spatial = $NodesContainer
+onready var path_visualiser: PathFollow = $Path/PathVisualiser
 
 const pipe_node_scene: PackedScene = preload("res://world/PipeNode.tscn")
 const capacity_per_cell := 5
 const resource_move_speed := 1.5
 var capacity := 0
 var current_load := 0
+var child_is_selected := false
 
 func _ready():
 	path.curve = Curve3D.new()
@@ -65,6 +67,7 @@ func generate_curve_from_nodes():
 		end_point_mesh.visible = true
 	else:
 		end_point_mesh.visible = false
+	evaluate_showing_path_visualiser()
 
 func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
 	if nodes_container.get_child_count() < 2:
@@ -73,6 +76,7 @@ func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
 		current_load += 1
 		path.add_child(pipeable_resource)
 		pipeable_resource.set_offset(offset)
+# warning-ignore:return_value_discarded
 		pipeable_resource.connect("picked_up", self, "_on_resource_removed", [], CONNECT_DEFERRED)
 		return true
 	else:
@@ -89,3 +93,13 @@ func get_offset_for_position(world_pos: Vector3) -> float:
 
 func _on_resource_removed():
 	current_load -= 1
+
+func set_pipe_selected(new_value: bool):
+	child_is_selected = new_value
+	evaluate_showing_path_visualiser()
+
+func evaluate_showing_path_visualiser():
+	if child_is_selected and nodes_container.get_child_count() > 1:
+		path_visualiser.activate(capacity)
+	else:
+		path_visualiser.deactivate()

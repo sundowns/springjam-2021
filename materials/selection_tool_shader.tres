@@ -38,7 +38,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -439, 147 )
 nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( 160, 160 )
 nodes/fragment/4/node = SubResource( 2 )
@@ -47,4 +46,4 @@ nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 4, 0, 0, 1 )
 
 [resource]
 shader = SubResource( 3 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/albedo = Color( 0.713726, 0.105882, 0.105882, 1 )

@@ -32,10 +32,12 @@ func destroy():
 func _on_selected():
 	pipe_build_indicators.visible = true
 	update_placeable_indicators_visibility()
+	network_master.set_pipe_selected(true)
 	
 func _on_deselected():
 	pipe_build_indicators.visible = false
 	update_placeable_indicators_visibility()
+	network_master.set_pipe_selected(false)
 
 func update_placeable_indicators_visibility():
 	if not selectable.is_selected:
