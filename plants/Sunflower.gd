@@ -18,6 +18,6 @@ func produce():
 		# Spend seeds
 		item_slots[1].remove_items(5)
 		# Spend water
-		item_slots[0].remove_items(25)
+		item_slots[0].remove_items(minimum_producing_water_level)
 	else:
 		print("sunflower water_level: ", item_slots[0].item_count)

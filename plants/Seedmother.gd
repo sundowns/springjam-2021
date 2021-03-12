@@ -8,9 +8,10 @@ func _ready():
 
 func produce():
 	.produce()
+	print(item_slots[0].item_count < minimum_producing_water_level)
 	if item_slots[0].item_count < minimum_producing_water_level:
 		return
 	# Create seed
 	item_slots[1].add_items(1, ItemTypes.SEED)
 	# Spend water
-	item_slots[0].remove_items(10)
+	item_slots[0].remove_items(minimum_producing_water_level)

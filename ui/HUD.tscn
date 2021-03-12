@@ -30,6 +30,11 @@ margin_right = 106.0
 margin_bottom = 0.0
 
 [node name="Wallet" parent="BuildUI" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 0.0
+margin_right = 300.0
+margin_bottom = 50.0
 
 [node name="SelectionUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -39,6 +44,7 @@ __meta__ = {
 }
 
 [node name="PlantOnly" type="Control" parent="SelectionUI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

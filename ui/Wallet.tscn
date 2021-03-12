@@ -21,6 +21,8 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_constants/separation = 18
 alignment = 1
 __meta__ = {
@@ -60,8 +62,20 @@ texture = ExtResource( 4 )
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.54902 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -25.0
+margin_right = 150.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="HBoxContainer/Water"]
 
