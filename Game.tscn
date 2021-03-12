@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://world/ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/grass/ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/World.gd" type="Script" id=2]
 [ext_resource path="res://Camera.gd" type="Script" id=3]
 [ext_resource path="res://world/SelectionTool.tscn" type="PackedScene" id=4]
@@ -55,6 +55,9 @@ speed = 15.0
 [node name="Ground" parent="World" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675, 0 )
 
+[node name="Grass" parent="World/Ground" index="2"]
+character_path = NodePath("../../BunnyBuilder")
+
 [node name="SelectionTool" parent="World" instance=ExtResource( 4 )]
 
 [node name="PlantsContainer" type="Spatial" parent="World"]
@@ -67,3 +70,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700248, 0 )
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 8 )]
 camera_path = NodePath("../../World/Camera")
 [connection signal="request_new_target" from="World/BunnyBuilder" to="World" method="_on_BunnyBuilder_request_new_target"]
+
+[editable path="World/Ground"]

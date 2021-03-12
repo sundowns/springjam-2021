@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "SelectionTool",
 "language": "GDScript",
-"path": "res://SelectionTool.gd"
+"path": "res://world/SelectionTool.gd"
 } ]
 _global_script_class_icons={
 "BuilderBunny": "",
