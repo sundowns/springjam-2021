@@ -20,6 +20,7 @@ material/0 = null
 
 [node name="Hitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+monitoring = false
 collision_layer = 4
 collision_mask = 0
 

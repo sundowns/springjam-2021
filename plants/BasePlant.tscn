@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://plants/Plant.gd" type="Script" id=1]
 [ext_resource path="res://assets/flower_yellowC.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://world/Selectable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://plants/components/AdjacentAreaCasts.tscn" type="PackedScene" id=4]
+[ext_resource path="res://plants/components/InputPickers.tscn" type="PackedScene" id=5]
 
 [node name="Plant" type="Spatial"]
 script = ExtResource( 1 )
@@ -24,10 +25,14 @@ material/2 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66435, 0 )
 
 [node name="OutputTimer" type="Timer" parent="."]
+
+[node name="InputPickers" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730629, 0 )
 [connection signal="deselected" from="Selectable" to="." method="_on_deselected"]
 [connection signal="selected" from="Selectable" to="." method="_on_selected"]
 [connection signal="timeout" from="ProductionTickTimer" to="." method="produce"]
 [connection signal="timeout" from="OutputTimer" to="." method="_output_timer_tick"]
+[connection signal="resource_grabbed" from="InputPickers" to="." method="_on_InputPickers_resource_grabbed" flags=3]
 
 [editable path="Selectable"]
 

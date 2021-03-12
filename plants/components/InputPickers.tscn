@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://plants/components/InputPickers.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.5, 0.5, 0.5 )
+
+[node name="InputPickers" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Up" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Up"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Down" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Down"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Left" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0 )
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Left"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Right" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Right"]
+shape = SubResource( 1 )
+disabled = true
+[connection signal="area_entered" from="Up" to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Down" to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Left" to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Right" to="." method="_on_area_entered"]

@@ -5,6 +5,7 @@ onready var production_tick_timer: Timer = $ProductionTickTimer
 onready var output_tick_timer: Timer = $OutputTimer
 onready var area_casts: Spatial = $AreaCasts
 onready var selectable: Selectable = $Selectable
+onready var input_pickers: Spatial = $InputPickers
 
 export(float) var minimum_producing_water_level: float = 0.0
 export(float) var production_tick_duration: float = 3.0
@@ -13,7 +14,8 @@ export(float) var output_tick_duration: float = 2.0
 export(int) var resource_output_per_tick: int = 5 
 
 var grid_position: Vector3 = Vector3.ZERO
-var item_slots = []
+var item_slots := []
+var valid_item_types := {0: false, 1: false, 2: false, 3: false, 4: false}
 
 var current_io_state = {
 	"Up": "None",
@@ -75,6 +77,13 @@ func _ready():
 		production_tick_timer.start(production_tick_duration)
 	if output_tick_duration > 0:
 		output_tick_timer.start(output_tick_duration)
+	call_deferred('calculate_valid_item_types')
+
+func calculate_valid_item_types():
+	for slot in item_slots:
+		if slot.is_input:
+			for allowable in slot.allowed_item_types:
+				valid_item_types[allowable] = true
 
 func set_grid_placement(_grid_position: Vector3):
 	grid_position = _grid_position
@@ -94,6 +103,7 @@ func _on_deselected():
 
 func update_io_state(new_state: Dictionary):
 	current_io_state = new_state
+	input_pickers.set_connections(current_io_state)
 
 func _output_timer_tick():
 	var output_direction
@@ -133,3 +143,13 @@ func create_resource(resource_type: int):
 			return preload("res://resources/SeedResource.tscn").instance()
 		ItemTypes.SUNSHINE:
 			return preload("res://resources/SunshineResource.tscn").instance()
+
+
+func _on_InputPickers_resource_grabbed(resource):
+	if valid_item_types[resource.item_type]:
+		for slot in item_slots:
+			if slot.is_input and resource.item_type in slot.allowed_item_types:
+				if slot.item_count < slot.max_item_count:
+					slot.add_items(1, resource.item_type)
+					resource.picked_up()
+					break

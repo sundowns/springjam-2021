@@ -11,3 +11,7 @@ production_tick_duration = 5.0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

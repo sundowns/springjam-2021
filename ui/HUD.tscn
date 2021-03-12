@@ -39,7 +39,6 @@ __meta__ = {
 }
 
 [node name="PlantOnly" type="Control" parent="SelectionUI"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -51,11 +50,10 @@ anchor_left = 32.0066
 anchor_top = 17.9352
 anchor_right = 32.0066
 anchor_bottom = 17.9352
-margin_left = -160.265
-margin_top = -157.408
-margin_right = -60.2651
-margin_bottom = -57.4083
-rect_min_size = Vector2( 100, 100 )
+margin_left = -145.995
+margin_top = -133.624
+margin_right = -65.9948
+margin_bottom = -53.624
 
 [node name="SchematicOnly" type="Control" parent="SelectionUI"]
 visible = false

@@ -67,16 +67,17 @@ func generate_curve_from_nodes():
 		end_point_mesh.visible = false
 
 func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
-	print(current_load, capacity)
+	if nodes_container.get_child_count() < 2:
+		return false
 	if current_load < capacity:
 		current_load += 1
 		path.add_child(pipeable_resource)
 		pipeable_resource.set_offset(offset)
+		pipeable_resource.connect("picked_up", self, "_on_resource_removed", [], CONNECT_DEFERRED)
 		return true
-	return false
-
-func remove_resource():
-	current_load -= 1
+	else:
+		print(current_load, capacity)
+		return false
 
 func _physics_process(delta):
 	for child in path.get_children():
@@ -85,3 +86,6 @@ func _physics_process(delta):
 
 func get_offset_for_position(world_pos: Vector3) -> float:
 	return path.curve.get_closest_offset(to_local(world_pos))
+
+func _on_resource_removed():
+	current_load -= 1

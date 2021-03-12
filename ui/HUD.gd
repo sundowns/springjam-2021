@@ -34,9 +34,9 @@ func update_selection_ui():
 
 func set_io_window_position(plant: Plant):
 	var screen_position := camera.unproject_position(plant.global_transform.origin)
-	io_selection.set_position(screen_position - io_selection.rect_size/2)
+	io_selection.set_position(screen_position - io_selection.rect_size/2 + Vector2(0, 18))
 
-func _process(delta):
+func _process(_delta):
 	if is_selection_mode and current_selectable != null:
 		var parent = current_selectable.parent
 		if parent and parent is Plant:

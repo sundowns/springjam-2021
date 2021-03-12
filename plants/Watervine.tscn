@@ -49,7 +49,9 @@ surfaces/2 = {
 
 [node name="Watervine" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+minimum_producing_water_level = 0.0
 production_tick_duration = 5.0
+io_manageable = true
 output_tick_duration = 1.0
 resource_output_per_tick = 1
 

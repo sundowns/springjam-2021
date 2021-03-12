@@ -62,6 +62,7 @@ func _input(event):
 					remove_plant(child)
 				network.destroy()
 			remove_plant(current_selectable.parent)
+			emit_signal("selection_changed", null)
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
 
