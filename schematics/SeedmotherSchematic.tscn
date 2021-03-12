@@ -24,9 +24,14 @@ color_ramp = SubResource( 2 )
 scene = ExtResource( 3 )
 
 [node name="MeshInstance" parent="." index="0"]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.5, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 material/1 = null
 
-[node name="BuildingParticles" parent="." index="3"]
+[node name="BuildingParticles" parent="." index="2"]
 process_material = SubResource( 3 )
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

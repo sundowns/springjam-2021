@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://resources/PipeableResource.tscn" type="PackedScene" id=1]
-[ext_resource path="res://materials/purple_emission.tres" type="Material" id=2]
+[ext_resource path="res://materials/lilac_emission.tres" type="Material" id=2]
 
 [node name="SeedResource" instance=ExtResource( 1 )]
 item_type = 3
