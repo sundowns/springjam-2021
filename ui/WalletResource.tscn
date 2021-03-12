@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/flower_purpleB_NW.png" type="Texture" id=1]
+[ext_resource path="res://ui/WalletResource.gd" type="Script" id=2]
+
+[node name="Water" type="MarginContainer"]
+margin_right = 80.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 80, 50 )
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+margin_top = 10.0
+margin_right = 80.0
+margin_bottom = 42.0
+
+[node name="Icon" type="TextureRect" parent="Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 1 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count" type="Label" parent="Control"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -16.0
+margin_bottom = 16.0
+text = "9999999"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
