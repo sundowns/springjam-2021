@@ -96,4 +96,40 @@ func update_io_state(new_state: Dictionary):
 	current_io_state = new_state
 
 func _output_timer_tick():
+	var output_direction
+	for direction in current_io_state:
+		if current_io_state[direction] == "Out":
+			output_direction = direction
+	
+	if output_direction:
+		for slot in item_slots:
+			if slot.is_output:
+				var resources: ResourceBundle = slot.remove_items(resource_output_per_tick)
+				var left_over := 0
+				if resources.count > 0:
+#					print("Outputting ", resources.count, " of " , resources.resource_type, " to ", output_direction)
+					var node_in_output_direction = area_casts.fetch_direction(output_direction)
+					if node_in_output_direction and node_in_output_direction is Area:
+						var pipe_node = node_in_output_direction.get_parent()
+						if pipe_node is PipeNode:
+							var world_position_of_node = pipe_node.global_transform.origin
+							var network = pipe_node.network_master
+							var base_offset = network.get_offset_for_position(world_position_of_node)
+							for i in range(resources.count):
+								var resource = create_resource(resources.resource_type)
+								if not network.add_resource(resource, base_offset + i * 0.5):
+									left_over += 1
+					slot.add_items(left_over, resources.resource_type)
+				break
 	output_tick_timer.start(output_tick_duration)
+
+func create_resource(resource_type: int):
+	match resource_type:
+		ItemTypes.EMPTY:
+			return null
+		ItemTypes.WATER:
+			return preload("res://resources/WaterResource.tscn").instance()
+		ItemTypes.SEED:
+			return preload("res://resources/SeedResource.tscn").instance()
+		ItemTypes.SUNSHINE:
+			return preload("res://resources/SunshineResource.tscn").instance()

@@ -7,7 +7,7 @@ onready var end_point_mesh: MeshInstance = $EndPointMesh
 onready var nodes_container: Spatial = $NodesContainer
 
 const pipe_node_scene: PackedScene = preload("res://world/PipeNode.tscn")
-const capacity_per_cell := 3
+const capacity_per_cell := 5
 const resource_move_speed := 1.5
 var capacity := 0
 var current_load := 0
@@ -66,10 +66,14 @@ func generate_curve_from_nodes():
 	else:
 		end_point_mesh.visible = false
 
-func add_resource(pipeable_resource: PipeableResource, offset: float):
-	current_load += 1
-	path.add_child(pipeable_resource)
-	pipeable_resource.set_offset(offset)
+func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
+	print(current_load, capacity)
+	if current_load < capacity:
+		current_load += 1
+		path.add_child(pipeable_resource)
+		pipeable_resource.set_offset(offset)
+		return true
+	return false
 
 func remove_resource():
 	current_load -= 1
@@ -78,3 +82,6 @@ func _physics_process(delta):
 	for child in path.get_children():
 		if child is PipeableResource:
 			child.move(resource_move_speed, delta)
+
+func get_offset_for_position(world_pos: Vector3) -> float:
+	return path.curve.get_closest_offset(to_local(world_pos))
