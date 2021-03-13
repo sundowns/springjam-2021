@@ -6,12 +6,17 @@ onready var plant_only: Control = $SelectionUI/PlantOnly
 onready var schematic_only: Control = $SelectionUI/SchematicOnly
 onready var io_selection: Control = $SelectionUI/PlantOnly/InputOutputSelection
 
+onready var victory_popup: PopupPanel = $VictoryPopup
+
 export(NodePath) var camera_path
 onready var camera: Camera = get_node(camera_path)
 
 var current_selectable: Selectable
 var is_selection_mode := false
 var selection_type = ""
+
+func _ready():
+	WinResource.connect("game_complete", self, "_show_victory_popup")
 
 func _on_mode_change(hud_mode: int):
 	is_selection_mode = hud_mode == HudModes.SELECTION
@@ -41,4 +46,6 @@ func _process(_delta):
 		var parent = current_selectable.parent
 		if parent and parent is Plant:
 			set_io_window_position(parent)
-	
+
+func _show_victory_popup():
+	victory_popup.popup_centered(Vector2(500, 240))

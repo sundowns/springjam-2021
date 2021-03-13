@@ -31,6 +31,7 @@ margin_left = -23.0
 margin_top = 0.0
 margin_right = 23.0
 margin_bottom = 30.0
+items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Down" parent="." instance=ExtResource( 1 )]
 anchor_top = 1.0
@@ -39,6 +40,7 @@ margin_left = -23.0
 margin_top = -30.0
 margin_right = 23.0
 margin_bottom = 0.0
+items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Left" parent="." instance=ExtResource( 1 )]
 anchor_left = 0.0
@@ -50,6 +52,7 @@ margin_top = -15.0
 margin_right = 46.0
 margin_bottom = 15.0
 align = 0
+items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Right" parent="." instance=ExtResource( 1 )]
 anchor_left = 1.0
@@ -61,6 +64,7 @@ margin_top = -15.0
 margin_right = 0.0
 margin_bottom = 15.0
 align = 2
+items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 [connection signal="selection_changed" from="Up" to="." method="_on_selection_changed"]
 [connection signal="selection_changed" from="Down" to="." method="_on_selection_changed"]
 [connection signal="selection_changed" from="Left" to="." method="_on_selection_changed"]
