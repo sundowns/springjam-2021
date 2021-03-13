@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/flower_purpleB_NW.png" type="Texture" id=1]
+[ext_resource path="res://assets/Water Symbol.png" type="Texture" id=1]
 [ext_resource path="res://ui/WalletResource.gd" type="Script" id=2]
 
 [node name="Water" type="MarginContainer"]
@@ -18,15 +18,20 @@ __meta__ = {
 margin_top = 10.0
 margin_right = 80.0
 margin_bottom = 42.0
+rect_min_size = Vector2( 80, 32 )
 
 [node name="Icon" type="TextureRect" parent="Control"]
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -22.0
-rect_min_size = Vector2( 32, 32 )
+anchor_bottom = 0.5
+margin_left = -19.8791
+margin_top = -20.7781
+margin_right = 1180.12
+margin_bottom = 1179.22
+rect_scale = Vector2( 0.03, 0.03 )
 texture = ExtResource( 1 )
-stretch_mode = 6
+stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }

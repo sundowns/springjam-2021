@@ -2,8 +2,8 @@
 
 [ext_resource path="res://ui/WalletResource.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/Wallet.gd" type="Script" id=2]
-[ext_resource path="res://assets/flower_redA_NW.png" type="Texture" id=3]
-[ext_resource path="res://assets/flower_yellowC_NW.png" type="Texture" id=4]
+[ext_resource path="res://assets/Seed Symbol.png" type="Texture" id=3]
+[ext_resource path="res://assets/Sun Symbol.png" type="Texture" id=4]
 
 [node name="Wallet" type="Control"]
 anchor_right = 1.0
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 margin_top = -1.0
 margin_right = -980.0
 margin_bottom = -671.0
-rect_min_size = Vector2( 300, 50 )
+rect_min_size = Vector2( 320, 50 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -20,41 +20,36 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 15.0
+margin_right = 15.0
+margin_bottom = 2.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 18
-alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Water" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 12.0
-margin_right = 92.0
-margin_bottom = 50.0
 
-[node name="Control" parent="HBoxContainer/Water" index="0"]
-margin_bottom = 40.0
+[node name="Icon" parent="HBoxContainer/Water/Control" index="0"]
+margin_bottom = 1170.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 1
 
 [node name="Seeds" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 110.0
-margin_right = 190.0
-margin_bottom = 50.0
-
-[node name="Control" parent="HBoxContainer/Seeds" index="0"]
-margin_bottom = 40.0
+margin_left = 98.0
+margin_right = 178.0
 
 [node name="Icon" parent="HBoxContainer/Seeds/Control" index="0"]
 texture = ExtResource( 3 )
 
 [node name="Sunshine" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 208.0
-margin_right = 288.0
-margin_bottom = 50.0
-
-[node name="Control" parent="HBoxContainer/Sunshine" index="0"]
-margin_bottom = 40.0
+margin_left = 196.0
+margin_right = 276.0
 
 [node name="Icon" parent="HBoxContainer/Sunshine/Control" index="0"]
 texture = ExtResource( 4 )
@@ -62,15 +57,9 @@ texture = ExtResource( 4 )
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.54902 )
 show_behind_parent = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -25.0
-margin_right = 150.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 300, 50 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 320, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 __meta__ = {
