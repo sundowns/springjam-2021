@@ -236,14 +236,14 @@ func place_schematic(id):
 	var select_new_schematic := false
 	match id:
 		0:
-			new_schematic = sunflower_schematic_scene.instance()
+			new_schematic = pipenetwork_schematic_scene.instance()
+			select_new_schematic = true
 		1:
 			new_schematic = watervine_schematic_scene.instance()
 		2:
 			new_schematic = seedmother_schematic_scene.instance()
 		3:
-			new_schematic = pipenetwork_schematic_scene.instance()
-			select_new_schematic = true
+			new_schematic = sunflower_schematic_scene.instance()
 		4:
 			new_schematic = incubator_schematic_scene.instance()
 		_:
