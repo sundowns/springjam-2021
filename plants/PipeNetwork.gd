@@ -80,7 +80,6 @@ func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
 		pipeable_resource.connect("picked_up", self, "_on_resource_removed", [], CONNECT_DEFERRED)
 		return true
 	else:
-		print(current_load, capacity)
 		return false
 
 func _physics_process(delta):

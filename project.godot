@@ -87,6 +87,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://shared/global.gd"
+WinResource="*res://shared/WinResource.gd"
 
 [debug]
 

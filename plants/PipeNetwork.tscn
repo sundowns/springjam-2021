@@ -77,15 +77,10 @@ _data = {
 "tilts": PoolRealArray(  )
 }
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=9]
 resource_name = "colorWhite"
 flags_transparent = true
-albedo_color = Color( 0, 0, 0, 0.988235 )
-emission_enabled = true
-emission = Color( 0.615686, 0.454902, 0.862745, 1 )
-emission_energy = 1.85
-emission_operator = 0
-emission_on_uv2 = false
+albedo_color = Color( 0.454902, 0.623529, 0.862745, 0.611765 )
 
 [sub_resource type="SphereMesh" id=10]
 radius = 0.5
@@ -117,11 +112,11 @@ curve = SubResource( 8 )
 
 [node name="PathVisualiser" type="PathFollow" parent="Path" index="0"]
 script = ExtResource( 5 )
-speed = 5.0
+speed = 7.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Path/PathVisualiser" index="0"]
 transform = Transform( -4.07302e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -4.07302e-08, 0, 0.458973, 0 )
-material_override = SubResource( 11 )
+material_override = SubResource( 9 )
 cast_shadow = 0
 mesh = SubResource( 10 )
 material/0 = null
