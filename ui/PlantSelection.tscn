@@ -8,7 +8,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1130.0
 margin_bottom = -670.0
-rect_min_size = Vector2( 212, 50 )
+rect_min_size = Vector2( 266, 50 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -26,11 +26,11 @@ __meta__ = {
 [node name="UiContainer" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 212, 0 )
+rect_min_size = Vector2( 266, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" parent="UiContainer" instance=ExtResource( 1 )]
 margin_right = 0.0
-rect_min_size = Vector2( 212, 50 )
+rect_min_size = Vector2( 266, 50 )

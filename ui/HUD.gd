@@ -16,6 +16,7 @@ var is_selection_mode := false
 var selection_type = ""
 
 func _ready():
+# warning-ignore:return_value_discarded
 	WinResource.connect("game_complete", self, "_show_victory_popup")
 
 func _on_mode_change(hud_mode: int):

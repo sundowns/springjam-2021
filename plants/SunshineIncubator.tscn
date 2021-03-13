@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://plants/BasePlant.tscn" type="PackedScene" id=1]
+[ext_resource path="res://plants/SunshineIncubator.gd" type="Script" id=2]
+[ext_resource path="res://assets/plant_meshes/incubator.tres" type="ArrayMesh" id=3]
+
+[node name="SunshineIncubator" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+minimum_producing_water_level = 10.0
+
+[node name="MeshInstance" parent="." index="0"]
+mesh = ExtResource( 3 )
+
+[node name="Selectable" parent="." index="1"]
+selectable_entity_path = NodePath("../../SunshineIncubator")
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

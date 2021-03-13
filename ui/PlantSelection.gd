@@ -47,6 +47,11 @@ func check_for_plant_selection_input(event):
 		if current_ui:
 			clear_all_selections()
 			current_ui.get_child(3).update_selection(true)
+	elif event.is_action_pressed("plant_5"):
+		plant_selected = true
+		if current_ui:
+			clear_all_selections()
+			current_ui.get_child(4).update_selection(true)
 	return plant_selected
 
 

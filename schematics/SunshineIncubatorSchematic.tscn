@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://schematics/BaseSchematic.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/plant_meshes/incubator.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://plants/SunshineIncubator.tscn" type="PackedScene" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+params_diffuse_mode = 4
+albedo_color = Color( 1, 0.556863, 0.396078, 0.392157 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.0144033, 0.798354, 0.901235 )
+colors = PoolColorArray( 1, 0.556863, 0.396078, 1, 1, 0.556863, 0.396078, 0.101115, 1, 0.556863, 0.396078, 0.0862745 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -8, 0 )
+tangential_accel = 2.0
+tangential_accel_random = 1.0
+color_ramp = SubResource( 3 )
+
+[node name="Schematic" instance=ExtResource( 1 )]
+scene = ExtResource( 3 )
+
+[node name="MeshInstance" parent="." index="0"]
+material_override = SubResource( 1 )
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+
+[node name="BuildingParticles" parent="." index="2"]
+emitting = true
+process_material = SubResource( 4 )
+
+[editable path="Selectable"]
+
+[editable path="Selectable/SelectionArea"]

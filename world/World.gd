@@ -11,6 +11,7 @@ export(PackedScene) var sunflower_schematic_scene: PackedScene
 export(PackedScene) var watervine_schematic_scene: PackedScene
 export(PackedScene) var seedmother_schematic_scene: PackedScene
 export(PackedScene) var pipenetwork_schematic_scene: PackedScene
+export(PackedScene) var incubator_schematic_scene: PackedScene
 
 export(Color, RGB) var valid_selection: Color
 export(Color, RGB) var invalid_selection: Color
@@ -243,6 +244,8 @@ func place_schematic(id):
 		3:
 			new_schematic = pipenetwork_schematic_scene.instance()
 			select_new_schematic = true
+		4:
+			new_schematic = incubator_schematic_scene.instance()
 		_:
 			return
 	
