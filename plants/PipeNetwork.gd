@@ -16,10 +16,15 @@ var child_is_selected := false
 
 func _ready():
 	path.curve = Curve3D.new()
-	# We just rely on selecting nodes...
-	$Selectable.queue_free()
+	# We just rely on selecting nodes instead of the network...
+	selectable.queue_free()
+	production_sfx.queue_free()
+	production_tick_timer.stop()
 # warning-ignore:return_value_discarded
 	add_node(global_transform.origin)
+
+func produce():
+	pass
 
 func set_start(start_point: Vector3):
 	path.curve.clear_points()

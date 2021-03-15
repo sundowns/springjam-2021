@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spring_Vine_Exist.ogg-7ede60f991d10e0d98908e507e299c91.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Spring_Vine_Exist.ogg"
+dest_files=[ "res://.import/Spring_Vine_Exist.ogg-7ede60f991d10e0d98908e507e299c91.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

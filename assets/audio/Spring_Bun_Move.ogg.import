@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spring_Bun_Move.ogg-de9b73d2428b592848099038709b68a3.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Spring_Bun_Move.ogg"
+dest_files=[ "res://.import/Spring_Bun_Move.ogg-de9b73d2428b592848099038709b68a3.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

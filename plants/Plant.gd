@@ -6,6 +6,9 @@ onready var output_tick_timer: Timer = $OutputTimer
 onready var area_casts: Spatial = $AreaCasts
 onready var selectable: Selectable = $Selectable
 onready var input_pickers: Spatial = $InputPickers
+onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+onready var production_sfx: AudioStreamPlayer3D = $ProductionSfx
 
 export(float) var minimum_producing_water_level: float = 0.0
 export(float) var production_tick_duration: float = 3.0
@@ -16,6 +19,7 @@ export(int) var resource_output_per_tick: int = 5
 var grid_position: Vector3 = Vector3.ZERO
 var item_slots := []
 var valid_item_types := {0: false, 1: false, 2: false, 3: false, 4: false}
+var produced_this_update := false
 
 var current_io_state = {
 	"Up": "None",
@@ -92,7 +96,10 @@ func destroy():
 	queue_free()
 
 func produce():
-	emit_signal("produced_resource")
+	if produced_this_update:
+		emit_signal("produced_resource")
+		animation_player.play("Produce")
+		production_sfx.play()
 	production_tick_timer.start(production_tick_duration)
 
 func _on_selected():

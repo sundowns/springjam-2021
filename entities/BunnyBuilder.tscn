@@ -93,6 +93,9 @@ anims/Run = SubResource( 4 )
 wait_time = 0.5
 one_shot = true
 autostart = true
+
+[node name="BunnyRunningLoop" type="AudioStreamPlayer3D" parent="."]
+
 [connection signal="timeout" from="BuildTimer" to="." method="_on_BuildTimer_timeout"]
 [connection signal="timeout" from="ReRequestTimer" to="." method="_on_ReRequestTimer_timeout"]
 [connection signal="timeout" from="WakeUpTimer" to="." method="_on_WakeUpTimer_timeout"]
