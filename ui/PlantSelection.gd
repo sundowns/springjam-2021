@@ -4,15 +4,16 @@ export(PackedScene) var build_plants_ui_scene: PackedScene = preload("res://ui/B
 export(PackedScene) var build_pipes_ui_scene: PackedScene = preload("res://ui/BuildPipesHBoxContainer.tscn")
 
 onready var current_ui: HBoxContainer = null
-onready var ui_container: Control = $UiContainer 
+onready var ui_container: Control = $VBoxContainer/UiContainer 
+onready var current_schematic_container: Control = $VBoxContainer/CurrentSchematicInfoContainer
 
-var current_mode: int = HudModes.BUILD_PLANT setget set_current_mode
+var current_mode: int = HudModes.SELECTION setget set_current_mode
 
 func _ready():
 	set_current_mode(HudModes.BUILD_PLANT)
 
 func _input(event):
-	var plant_selected = false
+	var plant_selected = false	
 	match current_mode:
 		HudModes.BUILD_PIPES:
 			pass
@@ -24,6 +25,9 @@ func _input(event):
 	
 	if plant_selected:
 		Global.emit_signal("schematic_selection_change")
+		# TODO: Change which info container is showing
+		print('show')
+		current_schematic_container.show()
 
 func check_for_plant_selection_input(event):
 	var plant_selected = false
@@ -47,6 +51,7 @@ func check_for_plant_selection_input(event):
 		if current_ui:
 			clear_all_selections()
 			current_ui.get_child(3).update_selection(true)
+			print(current_ui)
 	elif event.is_action_pressed("plant_5"):
 		plant_selected = true
 		if current_ui:
@@ -56,6 +61,8 @@ func check_for_plant_selection_input(event):
 
 
 func set_current_mode(new_mode: int):
+	if current_mode == new_mode:
+		return
 	current_mode = new_mode
 	for child in ui_container.get_children():
 		child.queue_free()
@@ -71,5 +78,7 @@ func set_new_ui(packed_scene: PackedScene):
 	current_ui = new_ui
 
 func clear_all_selections():
+	print('hide')
+	current_schematic_container.hide()
 	for child in current_ui.get_children():
 		child.update_selection(false)
