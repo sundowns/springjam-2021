@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/selected_plant/SunshineDemandProductionTile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/selected_plant/SeedsDemandProductionTile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/selected_plant/WaterDemandProductionTile.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/ItemSlot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/Seed Symbol.png" type="Texture" id=6]
+[ext_resource path="res://assets/Water Symbol.png" type="Texture" id=7]
+[ext_resource path="res://ui/selected_plant/SunflowerPlantInfo.gd" type="Script" id=8]
+[ext_resource path="res://ui/selected_plant/SelectedPlantResourceDemandLabel.tscn" type="PackedScene" id=9]
+
+[node name="Sunflower" instance=ExtResource( 1 )]
+script = ExtResource( 8 )
+
+[node name="Name" parent="VBoxContainer" index="0"]
+text = "Sunflower"
+
+[node name="Description" parent="VBoxContainer" index="1"]
+text = "Produces unrefined sunshine. Requires water and seeds to produce.
+"
+
+[node name="Seed" parent="VBoxContainer/HBoxContainer/Demand/GridContainer" index="0" instance=ExtResource( 3 )]
+margin_left = 43.0
+margin_right = 73.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Demand/GridContainer/Seed" index="0" instance=ExtResource( 9 )]
+text = "5"
+
+[node name="Water" parent="VBoxContainer/HBoxContainer/Demand/GridContainer" index="1" instance=ExtResource( 4 )]
+margin_left = 77.0
+margin_right = 107.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Demand/GridContainer/Water" index="0" instance=ExtResource( 9 )]
+text = "25"
+
+[node name="Sunshine" parent="VBoxContainer/HBoxContainer/Produce/GridContainer" index="0" instance=ExtResource( 2 )]
+margin_left = 60.0
+margin_right = 90.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Produce/GridContainer/Sunshine" index="0" instance=ExtResource( 9 )]
+text = "1"
+
+[node name="Slot" parent="VBoxContainer/Control/ItemSlots" index="0" instance=ExtResource( 5 )]
+margin_right = 70.0
+max_capacity = 10.0
+
+[node name="Slot2" parent="VBoxContainer/Control/ItemSlots" index="1" instance=ExtResource( 5 )]
+margin_left = 74.0
+margin_right = 144.0
+
+[node name="Sunshine" parent="VBoxContainer/Control/ItemSlots/Slot2/HBoxContainer" index="0"]
+texture = ExtResource( 7 )
+
+[node name="IOLabel" parent="VBoxContainer/Control/ItemSlots/Slot2" index="1"]
+text = "IN"
+
+[node name="Slot3" parent="VBoxContainer/Control/ItemSlots" index="2" instance=ExtResource( 5 )]
+margin_left = 148.0
+margin_right = 218.0
+max_capacity = 20.0
+
+[node name="Sunshine" parent="VBoxContainer/Control/ItemSlots/Slot3/HBoxContainer" index="0"]
+texture = ExtResource( 6 )
+
+[node name="IOLabel" parent="VBoxContainer/Control/ItemSlots/Slot3" index="1"]
+text = "IN"
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot"]
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot2"]
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot3"]

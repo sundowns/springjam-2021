@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ui/InputOutputSelectionDropdown.tscn" type="PackedScene" id=1]
-[ext_resource path="res://ui/InputOutputSelection.gd" type="Script" id=2]
+[ext_resource path="res://ui/selected_plant/InputOutputSelection.gd" type="Script" id=1]
+[ext_resource path="res://ui/selected_plant/InputOutputSelectionDropdown.tscn" type="PackedScene" id=2]
 
 [node name="InputOutputSelection" type="Control"]
 anchor_left = 0.5
@@ -13,7 +13,7 @@ margin_top = -40.0
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 80, 80 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -26,14 +26,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Up" parent="." instance=ExtResource( 1 )]
+[node name="Up" parent="." instance=ExtResource( 2 )]
 margin_left = -23.0
 margin_top = 0.0
 margin_right = 23.0
 margin_bottom = 30.0
 items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="Down" parent="." instance=ExtResource( 1 )]
+[node name="Down" parent="." instance=ExtResource( 2 )]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = -23.0
@@ -42,7 +42,7 @@ margin_right = 23.0
 margin_bottom = 0.0
 items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="Left" parent="." instance=ExtResource( 1 )]
+[node name="Left" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
@@ -54,7 +54,7 @@ margin_bottom = 15.0
 align = 0
 items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="Right" parent="." instance=ExtResource( 1 )]
+[node name="Right" parent="." instance=ExtResource( 2 )]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0

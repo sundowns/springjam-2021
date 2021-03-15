@@ -7,12 +7,19 @@ onready var schematic_only: Control = $SelectionUI/SchematicOnly
 onready var io_selection: Control = $SelectionUI/PlantOnly/InputOutputSelection
 
 onready var victory_popup: PopupPanel = $VictoryPopup
+onready var plantinfo_container: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer
+onready var watervine_info: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer/Watervine
+onready var seedmother_info: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer/Seedmother
+onready var sunflower_info: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer/Sunflower
+onready var incubator_info: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer/Incubator
+onready var pipe_info: Control = $SelectionUI/PlantOnly/SelectedPlantInfoContainer/PipeNode
 
 export(NodePath) var camera_path
 onready var camera: Camera = get_node(camera_path)
 
 var current_selectable: Selectable
 var is_selection_mode := false
+var is_pipe_mode := false
 var selection_type = ""
 
 func _ready():
@@ -21,22 +28,59 @@ func _ready():
 
 func _on_mode_change(hud_mode: int):
 	is_selection_mode = hud_mode == HudModes.SELECTION
+	is_pipe_mode = hud_mode == HudModes.BUILD_PIPES
 	update_selection_ui()
 	plant_selection.current_mode = hud_mode
 
 func _on_selection_changed(in_selected_node: Selectable):
+	if current_selectable and current_selectable.parent is Plant:
+		current_selectable.parent.disconnect("slot_data_changed", self, "_on_selected_slot_change")
+	
 	current_selectable = in_selected_node
+	for child in plantinfo_container.get_children():
+		child.visible = false
+		
+	if current_selectable and current_selectable.parent is Plant:
+		current_selectable.parent.connect("slot_data_changed", self, "_on_selected_slot_change")
+		_on_selected_slot_change(current_selectable.parent.item_slots)
+		match current_selectable.parent.plant_name:
+			"watervine":
+				watervine_info.visible = true
+			"seedmother":
+				seedmother_info.visible = true
+			"sunflower":
+				sunflower_info.visible = true
+			"incubator":
+				incubator_info.visible = true
+	if current_selectable and current_selectable.parent is PipeNode:
+		pipe_info.visible = true
+	
 	update_selection_ui()
 
+func _on_selected_slot_change(data):
+	if current_selectable and current_selectable.parent is Plant:
+		match current_selectable.parent.plant_name:
+			"watervine":
+				watervine_info.update_slot_info(data)
+			"seedmother":
+				seedmother_info.update_slot_info(data)
+			"sunflower":
+				sunflower_info.update_slot_info(data)
+			"incubator":
+				incubator_info.update_slot_info(data)
+
 func update_selection_ui():
-	selection_ui.visible = is_selection_mode and current_selectable != null
+	selection_ui.visible = (is_selection_mode or is_pipe_mode) and current_selectable != null
 	if current_selectable:
 		var parent = current_selectable.parent
 		schematic_only.visible = parent is Schematic
-		plant_only.visible = parent is Plant
+		plant_only.visible = parent is Plant or parent is PipeNode
 		if parent is Plant:
 			io_selection.update_selected_plant(parent)
 			set_io_window_position(parent)
+			io_selection.visible = true
+		else:
+			io_selection.visible = false
 
 func set_io_window_position(plant: Plant):
 	var screen_position := camera.unproject_position(plant.global_transform.origin)

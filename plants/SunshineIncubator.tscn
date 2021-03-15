@@ -6,7 +6,8 @@
 
 [node name="SunshineIncubator" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-minimum_producing_water_level = 10.0
+plant_name = "incubator"
+minimum_producing_water_level = 25.0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )

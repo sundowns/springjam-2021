@@ -66,6 +66,7 @@ size = Vector2( 0.35, 0.35 )
 
 [node name="Watervine" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+plant_name = "watervine"
 production_tick_duration = 5.0
 output_tick_duration = 1.0
 resource_output_per_tick = 1

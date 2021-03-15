@@ -23,8 +23,9 @@ size = Vector2( 0.35, 0.35 )
 
 [node name="Sunflower" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+plant_name = "sunflower"
 minimum_producing_water_level = 25.0
-production_tick_duration = 20.0
+production_tick_duration = 5.0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/selected_plant/WaterDemandProductionTile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/ItemSlot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Water Symbol.png" type="Texture" id=4]
+[ext_resource path="res://ui/selected_plant/WatervinePlantInfo.gd" type="Script" id=5]
+[ext_resource path="res://ui/selected_plant/SelectedPlantResourceDemandLabel.tscn" type="PackedScene" id=6]
+
+[node name="WatervinePlantInfo" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+
+[node name="Name" parent="VBoxContainer" index="0"]
+text = "Watervine"
+
+[node name="Description" parent="VBoxContainer" index="1"]
+text = "Produces water.
+"
+
+[node name="Water" parent="VBoxContainer/HBoxContainer/Produce/GridContainer" index="0" instance=ExtResource( 2 )]
+margin_left = 60.0
+margin_right = 90.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Produce/GridContainer/Water" index="0" instance=ExtResource( 6 )]
+text = "5"
+
+[node name="Slot" parent="VBoxContainer/Control/ItemSlots" index="0" instance=ExtResource( 3 )]
+margin_right = 70.0
+max_capacity = 200.0
+
+[node name="Sunshine" parent="VBoxContainer/Control/ItemSlots/Slot/HBoxContainer" index="0"]
+texture = ExtResource( 4 )
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot"]

@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://shared/HudModes.gd"
 }, {
+"base": "VBoxContainer",
+"class": "ItemSlot",
+"language": "GDScript",
+"path": "res://ui/ItemSlot.gd"
+}, {
 "base": "Reference",
 "class": "ItemTypes",
 "language": "GDScript",
@@ -44,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://plants/Plant.gd"
 }, {
+"base": "Control",
+"class": "PlantInfo",
+"language": "GDScript",
+"path": "res://ui/selected_plant/CurrentPlantInfo.gd"
+}, {
 "base": "Area",
 "class": "PlantSelectionArea",
 "language": "GDScript",
@@ -67,11 +77,13 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BuilderBunny": "",
 "HudModes": "",
+"ItemSlot": "",
 "ItemTypes": "",
 "PipeNetwork": "",
 "PipeNode": "",
 "PipeableResource": "",
 "Plant": "",
+"PlantInfo": "",
 "PlantSelectionArea": "",
 "Schematic": "",
 "Selectable": "",

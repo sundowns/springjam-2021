@@ -1,6 +1,8 @@
 extends Spatial
 class_name Plant
 
+export(String) var plant_name: String = ""
+
 onready var production_tick_timer: Timer = $ProductionTickTimer
 onready var output_tick_timer: Timer = $OutputTimer
 onready var area_casts: Spatial = $AreaCasts
@@ -29,6 +31,7 @@ var current_io_state = {
 }
 
 signal produced_resource
+signal slot_data_changed(slot_data)
 
 class PlantItemSlot:
 	var is_input: bool
@@ -139,6 +142,7 @@ func _output_timer_tick():
 					slot.add_items(left_over, resources.resource_type)
 				break
 	output_tick_timer.start(output_tick_duration)
+	emit_signal("slot_data_changed", item_slots)
 
 func create_resource(resource_type: int):
 	match resource_type:
@@ -151,7 +155,6 @@ func create_resource(resource_type: int):
 		ItemTypes.SUNSHINE:
 			return preload("res://resources/SunshineResource.tscn").instance()
 
-
 func _on_InputPickers_resource_grabbed(resource):
 	if valid_item_types[resource.item_type]:
 		for slot in item_slots:
@@ -159,4 +162,5 @@ func _on_InputPickers_resource_grabbed(resource):
 				if slot.item_count < slot.max_item_count:
 					slot.add_items(1, resource.item_type)
 					resource.picked_up()
+					emit_signal("slot_data_changed", item_slots)
 					break

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
+
+[node name="PipeNode" instance=ExtResource( 1 )]
+margin_bottom = -100.0
+rect_min_size = Vector2( 300, 150 )
+
+[node name="Name" parent="VBoxContainer" index="0"]
+text = "Pipes"
+
+[node name="Description" parent="VBoxContainer" index="1"]
+margin_bottom = 148.0
+text = "Transfers resources. Configure plant input / output to push and pull from pipes. 
+
+Can be extended from either end.
+
+'ESC' to stop building pipes.
+"
+
+[node name="HBoxContainer" parent="VBoxContainer" index="2"]
+visible = false
+
+[node name="Control" parent="VBoxContainer" index="3"]
+visible = false
+margin_top = 96.0
+margin_bottom = 161.0

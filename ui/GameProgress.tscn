@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/GameProgress.gd" type="Script" id=1]
-[ext_resource path="res://assets/flower_yellowC_NW.png" type="Texture" id=2]
+[ext_resource path="res://assets/Refined Sun Symbol.png" type="Texture" id=2]
 
 [node name="Progress" type="Control"]
 anchor_top = 0.5
@@ -36,10 +36,12 @@ anchor_top = 0.5
 anchor_right = 0.02
 anchor_bottom = 0.5
 margin_top = -21.0
-margin_right = 42.0
-margin_bottom = 21.0
+margin_right = 40.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 40, 40 )
 texture = ExtResource( 2 )
-stretch_mode = 6
+expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/selected_plant/SunshineDemandProductionTile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/selected_plant/WaterDemandProductionTile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Water Symbol.png" type="Texture" id=4]
+[ext_resource path="res://ui/ItemSlot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/selected_plant/IncubatorPlantInfo.gd" type="Script" id=6]
+[ext_resource path="res://ui/selected_plant/SelectedPlantResourceDemandLabel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/selected_plant/RefinedSunshineDemandProductionTile.tscn" type="PackedScene" id=8]
+
+[node name="SunshineIncubator" instance=ExtResource( 1 )]
+script = ExtResource( 6 )
+
+[node name="Name" parent="VBoxContainer" index="0"]
+text = "Sunshine Incubator"
+
+[node name="Description" parent="VBoxContainer" index="1"]
+margin_bottom = 97.0
+text = "Refines sunshine to progress the season. Refine 50 sunshine in incubators to win the game. Requires water and unrefined sunshine.
+"
+
+[node name="HBoxContainer" parent="VBoxContainer" index="2"]
+margin_top = 101.0
+margin_bottom = 181.0
+
+[node name="Water" parent="VBoxContainer/HBoxContainer/Demand/GridContainer" index="0" instance=ExtResource( 3 )]
+margin_left = 43.0
+margin_right = 73.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Demand/GridContainer/Water" index="0" instance=ExtResource( 7 )]
+text = "25"
+
+[node name="Sunshine" parent="VBoxContainer/HBoxContainer/Demand/GridContainer" index="1" instance=ExtResource( 2 )]
+margin_left = 77.0
+margin_right = 107.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Demand/GridContainer/Sunshine" index="0" instance=ExtResource( 7 )]
+text = "1"
+
+[node name="RefinedSunshine" parent="VBoxContainer/HBoxContainer/Produce/GridContainer" index="0" instance=ExtResource( 8 )]
+margin_left = 60.0
+margin_right = 90.0
+margin_bottom = 80.0
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/Produce/GridContainer/RefinedSunshine" index="0" instance=ExtResource( 7 )]
+text = "1"
+
+[node name="Control" parent="VBoxContainer" index="3"]
+margin_top = 185.0
+margin_bottom = 250.0
+
+[node name="Slot" parent="VBoxContainer/Control/ItemSlots" index="0" instance=ExtResource( 5 )]
+margin_right = 70.0
+
+[node name="Sunshine" parent="VBoxContainer/Control/ItemSlots/Slot/HBoxContainer" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Count" parent="VBoxContainer/Control/ItemSlots/Slot/HBoxContainer" index="1"]
+margin_right = 61.0
+text = "x 50"
+
+[node name="IOLabel" parent="VBoxContainer/Control/ItemSlots/Slot" index="1"]
+text = "IN"
+
+[node name="Slot2" parent="VBoxContainer/Control/ItemSlots" index="1" instance=ExtResource( 5 )]
+margin_left = 74.0
+margin_right = 144.0
+max_capacity = 10.0
+
+[node name="Count" parent="VBoxContainer/Control/ItemSlots/Slot2/HBoxContainer" index="1"]
+margin_right = 61.0
+text = "x 10"
+
+[node name="IOLabel" parent="VBoxContainer/Control/ItemSlots/Slot2" index="1"]
+text = "IN"
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot"]
+
+[editable path="VBoxContainer/Control/ItemSlots/Slot2"]
