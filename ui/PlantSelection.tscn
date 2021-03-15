@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/BuildSchematicsHBoxContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/CurrentSchematicInfoContainer.gd" type="Script" id=2]
+[ext_resource path="res://assets/Water Symbol.png" type="Texture" id=3]
 [ext_resource path="res://ui/PlantSelection.gd" type="Script" id=4]
+[ext_resource path="res://assets/Seed Symbol.png" type="Texture" id=5]
+[ext_resource path="res://assets/Sun Symbol.png" type="Texture" id=6]
 
 [node name="PlantSelection" type="Control"]
 anchor_left = 0.5
@@ -10,73 +13,174 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -133.0
-margin_top = -154.0
+margin_top = -84.0
 margin_right = 133.0
-rect_min_size = Vector2( 266, 154 )
+rect_min_size = Vector2( 266, 84 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 266.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 266, 154 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 266, 84 )
+custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CurrentSchematicInfoContainer" type="Control" parent="VBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0.894118 )
 margin_right = 266.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 266, 100 )
+margin_bottom = 34.0
+rect_min_size = Vector2( 266, 34 )
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
+hidden_colour = Color( 0, 0, 0, 0.54902 )
+shown_colour = Color( 1, 1, 1, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/CurrentSchematicInfoContainer"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 266, 30 )
 color = Color( 0, 0, 0, 0.54902 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/CurrentSchematicInfoContainer"]
-anchor_left = 0.5
+[node name="Description" type="Label" parent="VBoxContainer/CurrentSchematicInfoContainer"]
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -24.0
+margin_left = -130.0
 margin_top = -7.0
-margin_right = 24.0
+margin_right = -10.0
 margin_bottom = 7.0
-text = "Myess"
+text = "Produces water"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UiContainer" type="Control" parent="VBoxContainer"]
-margin_top = 104.0
-margin_right = 266.0
-margin_bottom = 154.0
-rect_min_size = Vector2( 266, 50 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/UiContainer"]
-modulate = Color( 0, 0, 0, 0.54902 )
-show_behind_parent = true
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CurrentSchematicInfoContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 266, 30 )
+custom_constants/separation = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WaterCost" type="Control" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/WaterCost"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -12.5
+margin_right = 25.0
+margin_bottom = 12.5
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/WaterCost"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -7.0
+margin_bottom = 7.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SeedCost" type="Control" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer"]
+margin_left = 43.0
+margin_right = 83.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/SeedCost"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -12.5
+margin_right = 25.0
+margin_bottom = 12.5
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/SeedCost"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -7.0
+margin_bottom = 7.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SunshineCost" type="Control" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer"]
+margin_left = 86.0
+margin_right = 126.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/SunshineCost"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -12.5
+margin_right = 25.0
+margin_bottom = 12.5
+rect_min_size = Vector2( 25, 25 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/CurrentSchematicInfoContainer/HBoxContainer/SunshineCost"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -7.0
+margin_bottom = 7.0
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UiContainer" type="ColorRect" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 266.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 266, 50 )
+color = Color( 0, 0, 0, 0.54902 )
+
 [node name="HBoxContainer" parent="VBoxContainer/UiContainer" instance=ExtResource( 1 )]
-margin_right = 0.0
 rect_min_size = Vector2( 266, 50 )
