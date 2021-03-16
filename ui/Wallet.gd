@@ -6,9 +6,10 @@ onready var water = $HBoxContainer/Water
 onready var seeds = $HBoxContainer/Seeds
 onready var sunshine = $HBoxContainer/Sunshine
 
-# TODO: trigger this from wallet plant when it exists
+func _ready():
+	PlantCosts.connect("wallet_values_updated", self, "_on_wallet_update")
 
-func _on_wallet_update(water_count: int, seed_count: int, sunshine_count: int):
-	water.set_value(water_count)
-	seeds.set_value(seed_count)
-	sunshine.set_value(sunshine_count)
+func _on_wallet_update():
+	water.set_value(PlantCosts.wallet["water"])
+	seeds.set_value(PlantCosts.wallet["seeds"])
+	sunshine.set_value(PlantCosts.wallet["sunshine"])

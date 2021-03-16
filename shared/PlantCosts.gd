@@ -36,12 +36,16 @@ var costs = {
 
 signal wallet_values_updated
 
+func _ready():
+	call_deferred("initialise_wallet")
+
 func initialise_wallet():
 	wallet = {
 		"water": 20,
 		"seeds": 5,
 		"sunshine": 0
 	}
+	emit_signal("wallet_values_updated")
 
 func check_currencies(key: String) -> Dictionary:
 	var affordable = {
@@ -67,7 +71,6 @@ func check_currencies(key: String) -> Dictionary:
 		if affordable[key] == false:
 			affordable["overall"] = false
 			break
-	
 	return affordable
 
 func can_afford(key: String) -> bool:
@@ -87,3 +90,8 @@ func update_wallet_values(water_delta: int, seeds_delta: int, sunshine_delta: in
 	wallet["seeds"] += seeds_delta
 	wallet["sunshine"] += sunshine_delta
 	emit_signal("wallet_values_updated")
+
+func refund(plant_key: String):
+	if costs.has(plant_key):
+		var plant_costs = costs[plant_key]
+		update_wallet_values(plant_costs["water"], plant_costs["seeds"], plant_costs["sunshine"])

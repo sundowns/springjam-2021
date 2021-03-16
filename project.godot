@@ -102,10 +102,6 @@ Global="*res://shared/global.gd"
 WinResource="*res://shared/WinResource.gd"
 PlantCosts="*res://shared/PlantCosts.gd"
 
-[debug]
-
-settings/stdout/verbose_stdout=true
-
 [display]
 
 window/size/width=1280

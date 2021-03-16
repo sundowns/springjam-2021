@@ -53,7 +53,7 @@ func update_plant_info():
 			water_cost_label.text = String(PlantCosts.costs["incubator"].water)
 			seed_cost_label.text = String(PlantCosts.costs["incubator"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["incubator"].sunshine)
-
+	update_plant_affordability()
 
 func update_plant_affordability():
 	var affordability: Dictionary
@@ -74,16 +74,16 @@ func update_plant_affordability():
 		match key:
 			"water":
 				if affordability[key]:
-					water_cost_label.font_color = affordable_text_colour
+					water_cost_label.modulate = affordable_text_colour
 				else:
-					water_cost_label.font_color = unaffordable_text_colour
+					water_cost_label.modulate = unaffordable_text_colour
 			"seeds":
 				if affordability[key]:
-					seed_cost_label.font_color = affordable_text_colour
+					seed_cost_label.modulate = affordable_text_colour
 				else:
-					seed_cost_label.font_color = unaffordable_text_colour
+					seed_cost_label.modulate = unaffordable_text_colour
 			"sunshine":
 				if affordability[key]:
-					sunshine_cost_label.font_color = affordable_text_colour
+					sunshine_cost_label.modulate = affordable_text_colour
 				else:
-					sunshine_cost_label.font_color = unaffordable_text_colour
+					sunshine_cost_label.modulate = unaffordable_text_colour
