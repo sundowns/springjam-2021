@@ -12,6 +12,7 @@ albedo_color = Color( 1, 0.556863, 0.396078, 0.392157 )
 
 [node name="Schematic" instance=ExtResource( 1 )]
 scene = ExtResource( 2 )
+plant_name = "sunflower"
 
 [node name="MeshInstance" parent="." index="0"]
 material_override = SubResource( 1 )

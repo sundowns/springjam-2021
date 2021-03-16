@@ -2,6 +2,7 @@ extends Spatial
 class_name Schematic
 
 export(PackedScene) var scene: PackedScene
+export(String) var plant_name: String
 
 onready var tween: Tween = $BuildTween
 onready var mesh_instance: MeshInstance = $MeshInstance

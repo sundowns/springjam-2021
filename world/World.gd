@@ -56,6 +56,7 @@ func _input(event):
 	
 	if event.is_action_pressed("destroy"):
 		if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic or current_selectable.parent is PipeNode):
+			refund_current_selectable()
 			# Delete the whole network cause cbf implementing subdividing networks
 			if current_selectable.parent is PipeNode:
 				var network = current_selectable.parent.network_master
@@ -63,11 +64,17 @@ func _input(event):
 					remove_plant(child)
 				network.destroy()
 			remove_plant(current_selectable.parent)
-			# TODO: refund somewhere here
 			emit_signal("selection_changed", null)
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
 
+func refund_current_selectable():
+	if current_selectable.parent is Plant:
+		PlantCosts.refund(current_selectable.parent.plant_name)
+	elif current_selectable.parent is PipeNode:
+		PlantCosts.refund("pipe")
+	elif current_selectable.parent is Schematic:
+		PlantCosts.refund(current_selectable.parent.plant_name)
 
 func remove_plant(node: Node):
 	var plant_map_point = map.world_to_map(node.global_transform.origin)
