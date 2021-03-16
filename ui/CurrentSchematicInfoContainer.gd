@@ -7,13 +7,16 @@ onready var seed_cost_label: Label = $HBoxContainer/SeedCost/Label
 onready var sunshine_cost_label: Label = $HBoxContainer/SunshineCost/Label
 onready var description: Label = $Description
 
-export(Color) var hidden_colour: Color
+export(Color) var unaffordable_text_colour: Color
+export(Color) var affordable_text_colour: Color
 export(Color) var shown_colour: Color
 
 var plant_index: int = 0
 
 func _ready():
 	bg.modulate = shown_colour
+# warning-ignore:return_value_discarded
+	PlantCosts.connect("wallet_values_updated", self, "update_plant_affordability")
 
 func show_plant(_plant_index: int):
 	modulate = shown_colour
@@ -51,3 +54,37 @@ func update_plant_info():
 			water_cost_label.text = String(PlantCosts.costs["incubator"].water)
 			seed_cost_label.text = String(PlantCosts.costs["incubator"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["incubator"].sunshine)
+	update_plant_affordability()
+
+func update_plant_affordability():
+	var affordability: Dictionary
+	match plant_index:
+		0: # Pipe
+			affordability = PlantCosts.check_currencies("pipe")
+		1: # Watervine
+			affordability = PlantCosts.check_currencies("watervine")
+		2: # Seedmother
+			affordability = PlantCosts.check_currencies("seedmother")
+		3: # Sunflower
+			affordability = PlantCosts.check_currencies("sunflower")
+		4: # Incubator
+			affordability = PlantCosts.check_currencies("incubator")
+	for key in affordability:
+		if key == "overall":
+			continue
+		match key:
+			"water":
+				if affordability[key]:
+					water_cost_label.modulate = affordable_text_colour
+				else:
+					water_cost_label.modulate = unaffordable_text_colour
+			"seeds":
+				if affordability[key]:
+					seed_cost_label.modulate = affordable_text_colour
+				else:
+					seed_cost_label.modulate = unaffordable_text_colour
+			"sunshine":
+				if affordability[key]:
+					sunshine_cost_label.modulate = affordable_text_colour
+				else:
+					sunshine_cost_label.modulate = unaffordable_text_colour

@@ -20,8 +20,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 15.0
-margin_right = 15.0
+margin_right = -20.0
 margin_bottom = 2.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 0
@@ -33,9 +32,7 @@ __meta__ = {
 
 [node name="Water" parent="HBoxContainer" instance=ExtResource( 1 )]
 
-[node name="Icon" parent="HBoxContainer/Water/Control" index="0"]
-margin_bottom = 1170.0
-rect_min_size = Vector2( 40, 40 )
+[node name="Icon" parent="HBoxContainer/Water/Control" index="1"]
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stretch_mode = 1
@@ -44,14 +41,14 @@ stretch_mode = 1
 margin_left = 98.0
 margin_right = 178.0
 
-[node name="Icon" parent="HBoxContainer/Seeds/Control" index="0"]
+[node name="Icon" parent="HBoxContainer/Seeds/Control" index="1"]
 texture = ExtResource( 3 )
 
 [node name="Sunshine" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 196.0
 margin_right = 276.0
 
-[node name="Icon" parent="HBoxContainer/Sunshine/Control" index="0"]
+[node name="Icon" parent="HBoxContainer/Sunshine/Control" index="1"]
 texture = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -59,7 +56,8 @@ modulate = Color( 0, 0, 0, 0.54902 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 320, 50 )
+margin_right = -20.0
+margin_bottom = 3.8147e-06
 size_flags_horizontal = 0
 size_flags_vertical = 0
 __meta__ = {

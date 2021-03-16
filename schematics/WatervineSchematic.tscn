@@ -6,6 +6,7 @@
 
 [node name="Schematic" instance=ExtResource( 2 )]
 scene = ExtResource( 1 )
+plant_name = "watervine"
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0 )

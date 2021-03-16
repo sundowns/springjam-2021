@@ -56,6 +56,7 @@ func _input(event):
 	
 	if event.is_action_pressed("destroy"):
 		if current_selectable and (current_selectable.parent is Plant or current_selectable.parent is Schematic or current_selectable.parent is PipeNode):
+			refund_current_selectable()
 			# Delete the whole network cause cbf implementing subdividing networks
 			if current_selectable.parent is PipeNode:
 				var network = current_selectable.parent.network_master
@@ -67,6 +68,13 @@ func _input(event):
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
 
+func refund_current_selectable():
+	if current_selectable.parent is Plant:
+		PlantCosts.refund(current_selectable.parent.plant_name)
+	elif current_selectable.parent is PipeNode:
+		PlantCosts.refund("pipe")
+	elif current_selectable.parent is Schematic:
+		PlantCosts.refund(current_selectable.parent.plant_name)
 
 func remove_plant(node: Node):
 	var plant_map_point = map.world_to_map(node.global_transform.origin)
@@ -154,10 +162,12 @@ func _physics_process(_delta):
 		if current_hud_mode in [HudModes.BUILD_PIPES, HudModes.BUILD_PLANT]:
 			# Its an empty tile (need to make a flat blank, empty tile in index 0 of the meshlib)
 			if tile == -1:
-				selection_tool.set_cursor_colour(valid_selection)
+				selection_tool.set_build_validity(true)
+#				selection_tool.set_cursor_colour(valid_selection)
 				can_build = true
 			else:
-				selection_tool.set_cursor_colour(invalid_selection)
+				selection_tool.set_build_validity(false)
+#				selection_tool.set_cursor_colour(invalid_selection)
 				can_build = false
 		
 		# Move selection tool mesh
@@ -171,7 +181,20 @@ func _physics_process(_delta):
 			match current_hud_mode:
 				HudModes.BUILD_PLANT:
 					if can_build:
-						place_schematic(selection_tool.selection_index)
+						var can_afford := false
+						match selection_tool.selection_index:
+							0:
+								can_afford = PlantCosts.can_afford("pipe")
+							1:
+								can_afford = PlantCosts.can_afford("watervine")
+							2:
+								can_afford = PlantCosts.can_afford("seedmother")
+							3:
+								can_afford = PlantCosts.can_afford("sunflower")
+							4:
+								can_afford = PlantCosts.can_afford("incubator")
+						if can_afford:
+							place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
 					var pipe_placed := false
 #					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
@@ -238,14 +261,19 @@ func place_schematic(id):
 		0:
 			new_schematic = pipenetwork_schematic_scene.instance()
 			select_new_schematic = true
+			PlantCosts.purchase("pipe")
 		1:
 			new_schematic = watervine_schematic_scene.instance()
+			PlantCosts.purchase("watervine")
 		2:
 			new_schematic = seedmother_schematic_scene.instance()
+			PlantCosts.purchase("seedmother")
 		3:
 			new_schematic = sunflower_schematic_scene.instance()
+			PlantCosts.purchase("sunflower")
 		4:
 			new_schematic = incubator_schematic_scene.instance()
+			PlantCosts.purchase("incubator")
 		_:
 			return
 	

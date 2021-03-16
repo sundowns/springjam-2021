@@ -38,7 +38,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
-hidden_colour = Color( 0, 0, 0, 0.54902 )
+unaffordable_text_colour = Color( 0.996078, 0.00784314, 0.00784314, 1 )
+affordable_text_colour = Color( 1, 1, 1, 1 )
 shown_colour = Color( 1, 1, 1, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/CurrentSchematicInfoContainer"]

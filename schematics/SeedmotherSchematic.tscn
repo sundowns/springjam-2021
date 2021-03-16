@@ -22,6 +22,7 @@ color_ramp = SubResource( 2 )
 
 [node name="Schematic" instance=ExtResource( 2 )]
 scene = ExtResource( 3 )
+plant_name = "seedmother"
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.5, 0 )
