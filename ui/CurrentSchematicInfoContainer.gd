@@ -59,15 +59,15 @@ func update_plant_affordability():
 	var affordability: Dictionary
 	match plant_index:
 		0: # Pipe
-			affordability = PlantCosts.can_afford("pipe")
+			affordability = PlantCosts.check_currencies("pipe")
 		1: # Watervine
-			affordability = PlantCosts.can_afford("watervine")
+			affordability = PlantCosts.check_currencies("watervine")
 		2: # Seedmother
-			affordability = PlantCosts.can_afford("seedmother")
+			affordability = PlantCosts.check_currencies("seedmother")
 		3: # Sunflower
-			affordability = PlantCosts.can_afford("sunflower")
+			affordability = PlantCosts.check_currencies("sunflower")
 		4: # Incubator
-			affordability = PlantCosts.can_afford("incubator")
+			affordability = PlantCosts.check_currencies("incubator")
 	for key in affordability:
 		if key == "overall":
 			continue

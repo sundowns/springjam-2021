@@ -43,7 +43,7 @@ func initialise_wallet():
 		"sunshine": 0
 	}
 
-func can_afford(key: String) -> Dictionary:
+func check_currencies(key: String) -> Dictionary:
 	var affordable = {
 		"water": false,
 		"seeds": false,
@@ -69,6 +69,18 @@ func can_afford(key: String) -> Dictionary:
 			break
 	
 	return affordable
+
+func can_afford(key: String) -> bool:
+	var is_affordable := true
+	if costs.has(key):
+		var plant_costs = costs[key]
+		if wallet["water"] < plant_costs["water"]:
+			is_affordable = false
+		if wallet["seeds"] < plant_costs["seeds"]:
+			is_affordable = false
+		if wallet["sunshine"] < plant_costs["sunshine"]:
+			is_affordable = false
+	return is_affordable
 
 func update_wallet_values(water_delta: int, seeds_delta: int, sunshine_delta: int):
 	wallet["water"] += water_delta
