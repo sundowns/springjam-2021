@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://ui/PlantSelection.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://ui/selected_plant/SunflowerPlantInfo.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/selected_plant/IncubatorPlantInfo.tscn" type="PackedScene" id=9]
 [ext_resource path="res://ui/selected_plant/PipeNodeInfo.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ui/selected_plant/InventoryPlantInfo.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.54902 )
@@ -89,6 +90,9 @@ visible = false
 [node name="PipeNode" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 10 )]
 visible = false
 margin_right = -6.10352e-05
+
+[node name="Inventory" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 11 )]
+visible = false
 
 [node name="SchematicOnly" type="Control" parent="SelectionUI"]
 visible = false

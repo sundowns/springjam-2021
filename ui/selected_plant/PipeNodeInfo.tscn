@@ -4,12 +4,19 @@
 
 [node name="PipeNode" instance=ExtResource( 1 )]
 margin_bottom = -100.0
+rect_min_size = Vector2( 300, 170 )
+
+[node name="VBoxContainer" parent="." index="0"]
+margin_right = 300.0
+margin_bottom = 170.0
 rect_min_size = Vector2( 300, 150 )
 
 [node name="Name" parent="VBoxContainer" index="0"]
+margin_right = 300.0
 text = "Pipes"
 
 [node name="Description" parent="VBoxContainer" index="1"]
+margin_right = 300.0
 margin_bottom = 148.0
 text = "Transfers resources. Configure plant input / output to push and pull from pipes. 
 
@@ -25,3 +32,12 @@ visible = false
 visible = false
 margin_top = 96.0
 margin_bottom = 161.0
+
+[node name="Label" parent="VBoxContainer" index="4"]
+margin_top = 152.0
+margin_right = 300.0
+margin_bottom = 170.0
+
+[node name="ColorRect" parent="." index="1"]
+margin_bottom = -18.0
+rect_min_size = Vector2( 300, 168 )

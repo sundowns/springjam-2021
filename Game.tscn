@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://world/grass/ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/World.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://schematics/PipeNetworkSchematic.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/BunnyBuilder.tscn" type="PackedScene" id=11]
 [ext_resource path="res://schematics/SunshineIncubatorSchematic.tscn" type="PackedScene" id=12]
+[ext_resource path="res://schematics/InventorySchematic.tscn" type="PackedScene" id=13]
 
 [sub_resource type="MeshLibrary" id=1]
 
@@ -28,6 +29,7 @@ watervine_schematic_scene = ExtResource( 7 )
 seedmother_schematic_scene = ExtResource( 6 )
 pipenetwork_schematic_scene = ExtResource( 10 )
 incubator_schematic_scene = ExtResource( 12 )
+inventory_schematic_scene = ExtResource( 13 )
 valid_selection = Color( 0.411765, 0.811765, 0.937255, 1 )
 invalid_selection = Color( 1, 0.556863, 0.396078, 1 )
 select_mode = Color( 0.811765, 0.827451, 0.756863, 1 )
@@ -65,7 +67,7 @@ character_path = NodePath("../../BunnyBuilder")
 [node name="PlantsContainer" type="Spatial" parent="World"]
 
 [node name="BunnyBuilder" parent="World" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700248, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7506, 0.700248, 19.4551 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

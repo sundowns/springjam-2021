@@ -12,6 +12,7 @@ export(PackedScene) var watervine_schematic_scene: PackedScene
 export(PackedScene) var seedmother_schematic_scene: PackedScene
 export(PackedScene) var pipenetwork_schematic_scene: PackedScene
 export(PackedScene) var incubator_schematic_scene: PackedScene
+export(PackedScene) var inventory_schematic_scene: PackedScene
 
 export(Color, RGB) var valid_selection: Color
 export(Color, RGB) var invalid_selection: Color
@@ -38,6 +39,17 @@ func _ready():
 	current_hud_mode = HudModes.SELECTION
 	selection_tool.change_to_selection_cursor()
 	selection_tool.set_cursor_colour(select_mode)
+	call_deferred('place_inventory_schematic')
+
+
+func place_inventory_schematic():
+	# Place inventory plant schematic to start game
+	map_point = Vector3.ZERO
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
+# warning-ignore:narrowing_conversion
+	selection_position = map.map_to_world(map_point.x, map_point.y, map_point.z)
+	place_schematic(99)
 
 func place_building(building: Plant, grid_indices: Vector3):
 	building.set_grid_placement(grid_indices)
@@ -274,6 +286,8 @@ func place_schematic(id):
 		4:
 			new_schematic = incubator_schematic_scene.instance()
 			PlantCosts.purchase("incubator")
+		99:
+			new_schematic = inventory_schematic_scene.instance()
 		_:
 			return
 	

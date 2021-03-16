@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
+
+[node name="InventoryInfo" instance=ExtResource( 1 )]
+margin_bottom = -118.0
+rect_min_size = Vector2( 300, 150 )
+
+[node name="Name" parent="VBoxContainer" index="0"]
+text = "Builder Inventory"
+
+[node name="Description" parent="VBoxContainer" index="1"]
+margin_bottom = 148.0
+text = "Contains resources for the Builder Bunny to create plants with. 
+
+Pipe resources in to add them to the player's inventory. Plants can only be placed with resources in the inventory.
+"
+
+[node name="HBoxContainer" parent="VBoxContainer" index="2"]
+visible = false
+margin_top = 101.0
+margin_bottom = 181.0
+
+[node name="Control" parent="VBoxContainer" index="3"]
+visible = false
+margin_top = 101.0
+margin_bottom = 166.0
+
+[node name="Label" parent="VBoxContainer" index="4"]
+visible = false
+margin_top = 101.0
+margin_bottom = 119.0
+
+[node name="ColorRect" parent="." index="1"]
+rect_min_size = Vector2( 300, 150 )

@@ -29,4 +29,6 @@ func spawn_plant():
 	queue_free()
 
 func destroy():
+	if plant_name == "inventory":
+		return
 	queue_free()
