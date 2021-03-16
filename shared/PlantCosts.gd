@@ -1,5 +1,11 @@
 extends Node
 
+var wallet = {
+	"water": 0,
+	"seeds": 0,
+	"sunshine": 0
+}
+
 var costs = {
 	"pipe": {
 		"water": 0,
@@ -27,3 +33,45 @@ var costs = {
 		"sunshine": 3
 	}
 }
+
+signal wallet_values_updated
+
+func initialise_wallet():
+	wallet = {
+		"water": 20,
+		"seeds": 5,
+		"sunshine": 0
+	}
+
+func can_afford(key: String) -> Dictionary:
+	var affordable = {
+		"water": false,
+		"seeds": false,
+		"sunshine": false,
+		"overall": true
+	}
+	
+	if costs.has(key):
+		var plant_costs = costs[key]
+		if wallet["water"] >= plant_costs["water"]:
+			affordable["water"] = true
+		if wallet["seeds"] >= plant_costs["seeds"]:
+			affordable["seeds"] = true
+		if wallet["sunshine"] >= plant_costs["sunshine"]:
+			affordable["sunshine"] = true
+	
+	# Check if plant is overall affordable
+	for key in affordable:
+		if key == "overall":
+			continue
+		if affordable[key] == false:
+			affordable["overall"] = false
+			break
+	
+	return affordable
+
+func update_wallet_values(water_delta: int, seeds_delta: int, sunshine_delta: int):
+	wallet["water"] += water_delta
+	wallet["seeds"] += seeds_delta
+	wallet["sunshine"] += sunshine_delta
+	emit_signal("wallet_values_updated")
