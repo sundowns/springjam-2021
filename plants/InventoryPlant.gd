@@ -19,7 +19,6 @@ func update_io_state(new_state: Dictionary):
 	.update_io_state(no_output_states)
 
 func grabbed_resource(resource):
-#	print(resource.item_type)
 	match resource.item_type:
 		ItemTypes.WATER:
 			PlantCosts.update_wallet_values(1, 0, 0)

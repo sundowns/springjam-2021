@@ -13,6 +13,7 @@ const resource_move_speed := 1.5
 var capacity := 0
 var current_load := 0
 var child_is_selected := false
+var direction := 1
 
 func _ready():
 	path.curve = Curve3D.new()
@@ -22,6 +23,10 @@ func _ready():
 	production_tick_timer.stop()
 # warning-ignore:return_value_discarded
 	add_node(global_transform.origin)
+
+func reverse():
+	direction *= -1
+	path_visualiser.set_direction(direction)
 
 func produce():
 	pass
@@ -87,10 +92,15 @@ func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
 	else:
 		return false
 
+var update_tick = 0
+var previous_delta = 0.0
 func _physics_process(delta):
-	for child in path.get_children():
-		if child is PipeableResource:
-			child.move(resource_move_speed, delta)
+	update_tick += 1
+	if update_tick % 2 == 0:
+		for child in path.get_children():
+			if child is PipeableResource:
+				child.move(resource_move_speed * direction, delta + previous_delta)
+	previous_delta = delta
 
 func get_offset_for_position(world_pos: Vector3) -> float:
 	return path.curve.get_closest_offset(to_local(world_pos))

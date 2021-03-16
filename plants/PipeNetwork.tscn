@@ -80,7 +80,7 @@ _data = {
 [sub_resource type="SpatialMaterial" id=9]
 resource_name = "colorWhite"
 flags_transparent = true
-albedo_color = Color( 0.454902, 0.623529, 0.862745, 0.611765 )
+albedo_color = Color( 0, 0.156863, 1, 0.827451 )
 
 [sub_resource type="SphereMesh" id=10]
 radius = 0.5

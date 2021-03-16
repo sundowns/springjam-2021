@@ -39,10 +39,6 @@ func _ready():
 	Global.connect("schematic_selection_change", self, "_on_schematic_selection_change")
 	PlantCosts.connect("inventory_plant_ready", self, "_on_inventory_plant_ready")
 	call_deferred('enter_selection_mode')
-#	enter_selection_mode()
-#	current_hud_mode = HudModes.SELECTION
-#	selection_tool.change_to_selection_cursor()
-#	selection_tool.set_cursor_colour(select_mode)
 	call_deferred('place_inventory_schematic')
 
 
@@ -66,6 +62,10 @@ func _input(event):
 		HudModes.BUILD_PIPES:
 			if event.is_action_pressed("ui_cancel"):
 				enter_selection_mode()
+			if event.is_action_pressed("reverse"):
+				if current_selectable and current_selectable.parent is PipeNode:
+					current_selectable.parent.network_master.reverse()
+	
 		HudModes.SELECTION:
 			if event.is_action_pressed("ui_cancel"):
 				deselect_current()

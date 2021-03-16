@@ -29,7 +29,6 @@ func _ready():
 	WinResource.connect("game_complete", self, "_show_victory_popup")
 
 func _on_mode_change(hud_mode: int):
-	print(hud_mode)
 	is_selection_mode = hud_mode == HudModes.SELECTION
 	is_pipe_mode = hud_mode == HudModes.BUILD_PIPES
 	update_selection_ui()
@@ -82,8 +81,6 @@ func update_selection_ui():
 		var parent = current_selectable.parent
 		schematic_only.visible = parent is Schematic
 		plant_only.visible = parent is Plant or parent is PipeNode
-		print(current_selectable.parent)
-		print(plant_only.visible)
 		if parent is Plant:
 			io_selection.update_selected_plant(parent)
 			set_io_window_position(parent)
