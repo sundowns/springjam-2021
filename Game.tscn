@@ -58,7 +58,6 @@ speed = 15.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675, 0 )
 
 [node name="Grass" parent="World/Ground" index="2"]
-spawn_outside_circle = false
 character_path = NodePath("../../BunnyBuilder")
 
 [node name="SelectionTool" parent="World" instance=ExtResource( 4 )]

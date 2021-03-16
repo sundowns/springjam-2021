@@ -46,8 +46,8 @@ __meta__ = {
 }
 
 [node name="PlantOnly" type="Control" parent="SelectionUI"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -63,15 +63,13 @@ margin_right = -65.9948
 margin_bottom = -53.624
 
 [node name="SelectedPlantInfoContainer" type="Control" parent="SelectionUI/PlantOnly"]
-anchor_left = 27.985
-anchor_top = 6.615
-anchor_right = 27.985
-anchor_bottom = 6.615
-margin_left = -150.009
-margin_top = -254.6
-margin_right = 149.991
-margin_bottom = -4.60001
-rect_min_size = Vector2( 300, 250 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -311.654
+margin_top = 10.0
+margin_right = -11.6542
+margin_bottom = 279.059
+rect_min_size = Vector2( 300, 268 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
