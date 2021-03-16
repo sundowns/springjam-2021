@@ -35,6 +35,7 @@ var costs = {
 }
 
 signal wallet_values_updated
+signal inventory_plant_ready
 
 func _ready():
 	call_deferred("initialise_wallet")

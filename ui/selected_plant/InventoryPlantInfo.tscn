@@ -10,10 +10,11 @@ rect_min_size = Vector2( 300, 150 )
 text = "Builder Inventory"
 
 [node name="Description" parent="VBoxContainer" index="1"]
-margin_bottom = 148.0
+margin_bottom = 165.0
 text = "Contains resources for the Builder Bunny to create plants with. 
 
-Pipe resources in to add them to the player's inventory. Plants can only be placed with resources in the inventory.
+
+Grabs items from pipes in all adjacent tiles (not diagonal). Input directions can be configured.
 "
 
 [node name="HBoxContainer" parent="VBoxContainer" index="2"]
@@ -32,4 +33,4 @@ margin_top = 101.0
 margin_bottom = 119.0
 
 [node name="ColorRect" parent="." index="1"]
-rect_min_size = Vector2( 300, 150 )
+rect_min_size = Vector2( 300, 180 )

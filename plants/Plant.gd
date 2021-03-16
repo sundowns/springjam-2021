@@ -156,6 +156,9 @@ func create_resource(resource_type: int):
 			return preload("res://resources/SunshineResource.tscn").instance()
 
 func _on_InputPickers_resource_grabbed(resource):
+	grabbed_resource(resource)
+
+func grabbed_resource(resource):
 	if valid_item_types[resource.item_type]:
 		for slot in item_slots:
 			if slot.is_input and resource.item_type in slot.allowed_item_types:

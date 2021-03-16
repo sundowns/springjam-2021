@@ -12,6 +12,7 @@ margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 rect_min_size = Vector2( 40, 30 )
+mouse_default_cursor_shape = 2
 text = "None"
 items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 script = ExtResource( 1 )

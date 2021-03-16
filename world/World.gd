@@ -24,6 +24,7 @@ var can_build := false
 var mouse_pos: Vector2
 var map_point: Vector3
 var current_hud_mode: int
+var inventory_plant_ready := false
 const ray_length = 1000
 
 var current_selectable: Selectable
@@ -36,9 +37,12 @@ signal selection_changed(selected_node)
 func _ready():
 # warning-ignore:return_value_discarded
 	Global.connect("schematic_selection_change", self, "_on_schematic_selection_change")
-	current_hud_mode = HudModes.SELECTION
-	selection_tool.change_to_selection_cursor()
-	selection_tool.set_cursor_colour(select_mode)
+	PlantCosts.connect("inventory_plant_ready", self, "_on_inventory_plant_ready")
+	call_deferred('enter_selection_mode')
+#	enter_selection_mode()
+#	current_hud_mode = HudModes.SELECTION
+#	selection_tool.change_to_selection_cursor()
+#	selection_tool.set_cursor_colour(select_mode)
 	call_deferred('place_inventory_schematic')
 
 
@@ -172,16 +176,18 @@ func _physics_process(_delta):
 		var tile = map.get_cell_item(map_point.x, map_point.y, map_point.z) 
 		
 		if current_hud_mode in [HudModes.BUILD_PIPES, HudModes.BUILD_PLANT]:
-			# Its an empty tile (need to make a flat blank, empty tile in index 0 of the meshlib)
-			if tile == -1:
-				selection_tool.set_build_validity(true)
-#				selection_tool.set_cursor_colour(valid_selection)
-				can_build = true
+			if inventory_plant_ready:
+				# Its an empty tile (need to make a flat blank, empty tile in index 0 of the meshlib)
+				if tile == -1:
+					selection_tool.set_build_validity(true)
+					can_build = true
+				else:
+					selection_tool.set_build_validity(false)
+					can_build = false
 			else:
 				selection_tool.set_build_validity(false)
-#				selection_tool.set_cursor_colour(invalid_selection)
 				can_build = false
-		
+			
 		# Move selection tool mesh
 # warning-ignore:narrowing_conversion
 # warning-ignore:narrowing_conversion
@@ -193,20 +199,25 @@ func _physics_process(_delta):
 			match current_hud_mode:
 				HudModes.BUILD_PLANT:
 					if can_build:
-						var can_afford := false
-						match selection_tool.selection_index:
-							0:
-								can_afford = PlantCosts.can_afford("pipe")
-							1:
-								can_afford = PlantCosts.can_afford("watervine")
-							2:
-								can_afford = PlantCosts.can_afford("seedmother")
-							3:
-								can_afford = PlantCosts.can_afford("sunflower")
-							4:
-								can_afford = PlantCosts.can_afford("incubator")
-						if can_afford:
-							place_schematic(selection_tool.selection_index)
+						if inventory_plant_ready:
+							var can_afford := false
+							match selection_tool.selection_index:
+								0:
+									can_afford = PlantCosts.can_afford("pipe")
+								1:
+									can_afford = PlantCosts.can_afford("watervine")
+								2:
+									can_afford = PlantCosts.can_afford("seedmother")
+								3:
+									can_afford = PlantCosts.can_afford("sunflower")
+								4:
+									can_afford = PlantCosts.can_afford("incubator")
+							if can_afford:
+								place_schematic(selection_tool.selection_index)
+					else: # If something is on this tile, select it instead
+						var selectable = selection_tool.get_selectable(selection_position + Vector3.UP * 20, Vector3.DOWN * 1000)
+						if selectable and selectable != current_selectable:
+							select_new_thing(selectable)
 				HudModes.BUILD_PIPES:
 					var pipe_placed := false
 #					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
@@ -265,6 +276,9 @@ func select_new_thing(selectable: Selectable):
 			if owning_entity is PipeNode:
 				enter_build_pipes_mode()
 				return
+		if current_hud_mode == HudModes.BUILD_PLANT:
+			enter_selection_mode(false)
+			return
 
 func place_schematic(id):
 	var new_schematic: Schematic
@@ -327,3 +341,6 @@ func _on_BunnyBuilder_request_new_target(current_position: Vector3):
 		builder_bunny._on_target_acquired(closest)
 	else:
 		builder_bunny.queue_bunny_request()
+
+func _on_inventory_plant_ready():
+	inventory_plant_ready = true

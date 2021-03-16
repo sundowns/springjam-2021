@@ -1,6 +1,6 @@
 extends Plant
 
-const sunshine_per_output := 3
+const sunshine_per_output := 1
 
 func _ready():
 	item_slots = [
@@ -12,7 +12,7 @@ func produce():
 	if item_slots[0].item_count < minimum_producing_water_level:
 		produced_this_update = false
 	elif item_slots[1].item_count >= sunshine_per_output:
-		# If we have 3 sunshine in the tank
+		# If we have 1 sunshine in the tank
 		# Spend sunshine
 		item_slots[1].remove_items(sunshine_per_output)
 		# Spend water
