@@ -162,10 +162,12 @@ func _physics_process(_delta):
 		if current_hud_mode in [HudModes.BUILD_PIPES, HudModes.BUILD_PLANT]:
 			# Its an empty tile (need to make a flat blank, empty tile in index 0 of the meshlib)
 			if tile == -1:
-				selection_tool.set_cursor_colour(valid_selection)
+				selection_tool.set_build_validity(true)
+#				selection_tool.set_cursor_colour(valid_selection)
 				can_build = true
 			else:
-				selection_tool.set_cursor_colour(invalid_selection)
+				selection_tool.set_build_validity(false)
+#				selection_tool.set_cursor_colour(invalid_selection)
 				can_build = false
 		
 		# Move selection tool mesh

@@ -5,10 +5,11 @@
 [ext_resource path="res://world/BuildCursorMesh.tres" type="CubeMesh" id=5]
 [ext_resource path="res://world/SelectionCursorMesh.tres" type="CylinderMesh" id=6]
 
-
 [node name="SelectionTool" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 script = ExtResource( 1 )
+valid_build_colour = Color( 0.411765, 0.811765, 0.937255, 1 )
+invalid_build_colour = Color( 1, 0.556863, 0.396078, 1 )
 build_cursor_mesh = ExtResource( 5 )
 selection_cursor_mesh = ExtResource( 6 )
 
