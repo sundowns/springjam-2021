@@ -15,6 +15,7 @@ var plant_index: int = 0
 
 func _ready():
 	bg.modulate = shown_colour
+# warning-ignore:return_value_discarded
 	PlantCosts.connect("wallet_values_updated", self, "update_plant_affordability")
 
 func show_plant(_plant_index: int):

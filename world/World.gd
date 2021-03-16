@@ -63,6 +63,7 @@ func _input(event):
 					remove_plant(child)
 				network.destroy()
 			remove_plant(current_selectable.parent)
+			# TODO: refund somewhere here
 			emit_signal("selection_changed", null)
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
@@ -171,7 +172,20 @@ func _physics_process(_delta):
 			match current_hud_mode:
 				HudModes.BUILD_PLANT:
 					if can_build:
-						place_schematic(selection_tool.selection_index)
+						var can_afford := false
+						match selection_tool.selection_index:
+							0:
+								can_afford = PlantCosts.can_afford("pipe")
+							1:
+								can_afford = PlantCosts.can_afford("watervine")
+							2:
+								can_afford = PlantCosts.can_afford("seedmother")
+							3:
+								can_afford = PlantCosts.can_afford("sunflower")
+							4:
+								can_afford = PlantCosts.can_afford("incubator")
+						if can_afford:
+							place_schematic(selection_tool.selection_index)
 				HudModes.BUILD_PIPES:
 					var pipe_placed := false
 #					print("tile ", tile,  " | curr point: ", map_point, " | valids: ",  current_valid_pipe_locations)
@@ -238,14 +252,19 @@ func place_schematic(id):
 		0:
 			new_schematic = pipenetwork_schematic_scene.instance()
 			select_new_schematic = true
+			PlantCosts.purchase("pipe")
 		1:
 			new_schematic = watervine_schematic_scene.instance()
+			PlantCosts.purchase("watervine")
 		2:
 			new_schematic = seedmother_schematic_scene.instance()
+			PlantCosts.purchase("seedmother")
 		3:
 			new_schematic = sunflower_schematic_scene.instance()
+			PlantCosts.purchase("sunflower")
 		4:
 			new_schematic = incubator_schematic_scene.instance()
+			PlantCosts.purchase("incubator")
 		_:
 			return
 	

@@ -7,6 +7,7 @@ onready var seeds = $HBoxContainer/Seeds
 onready var sunshine = $HBoxContainer/Sunshine
 
 func _ready():
+# warning-ignore:return_value_discarded
 	PlantCosts.connect("wallet_values_updated", self, "_on_wallet_update")
 
 func _on_wallet_update():

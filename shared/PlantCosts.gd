@@ -41,7 +41,7 @@ func _ready():
 
 func initialise_wallet():
 	wallet = {
-		"water": 20,
+		"water": 30,
 		"seeds": 5,
 		"sunshine": 0
 	}
@@ -95,3 +95,8 @@ func refund(plant_key: String):
 	if costs.has(plant_key):
 		var plant_costs = costs[plant_key]
 		update_wallet_values(plant_costs["water"], plant_costs["seeds"], plant_costs["sunshine"])
+
+func purchase(plant_key: String):
+	if costs.has(plant_key):
+		var plant_costs = costs[plant_key]
+		update_wallet_values(-plant_costs["water"], -plant_costs["seeds"], -plant_costs["sunshine"])
