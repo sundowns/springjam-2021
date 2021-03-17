@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 margin_top = -1.0
 margin_right = -980.0
 margin_bottom = -671.0
-rect_min_size = Vector2( 320, 50 )
+rect_min_size = Vector2( 400, 50 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -20.0
 margin_bottom = 2.0
-rect_min_size = Vector2( 300, 50 )
+rect_min_size = Vector2( 400, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 18
@@ -31,6 +31,7 @@ __meta__ = {
 }
 
 [node name="Water" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 120.0
 
 [node name="Icon" parent="HBoxContainer/Water/Control" index="1"]
 size_flags_horizontal = 4
@@ -38,15 +39,15 @@ size_flags_vertical = 4
 stretch_mode = 1
 
 [node name="Seeds" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 98.0
-margin_right = 178.0
+margin_left = 138.0
+margin_right = 258.0
 
 [node name="Icon" parent="HBoxContainer/Seeds/Control" index="1"]
 texture = ExtResource( 3 )
 
 [node name="Sunshine" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 196.0
-margin_right = 276.0
+margin_left = 276.0
+margin_right = 396.0
 
 [node name="Icon" parent="HBoxContainer/Sunshine/Control" index="1"]
 texture = ExtResource( 4 )
@@ -56,8 +57,7 @@ modulate = Color( 0, 0, 0, 0.54902 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -20.0
-margin_bottom = 3.8147e-06
+rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 __meta__ = {

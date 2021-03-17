@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/ItemSlot.gd" type="Script" id=1]
 [ext_resource path="res://ui/selected_plant/SunshineDemandProductionTile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/fonts/rubik-semibold-14.tres" type="DynamicFont" id=3]
 
 [node name="Slot" type="VBoxContainer"]
 margin_right = 30.0
@@ -22,15 +23,17 @@ rect_min_size = Vector2( 70, 0 )
 
 [node name="Count" type="Label" parent="HBoxContainer"]
 margin_left = 34.0
-margin_top = 8.0
-margin_right = 69.0
-margin_bottom = 22.0
+margin_top = 6.0
+margin_right = 70.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 3 )
 text = "x 100"
 
 [node name="IOLabel" type="Label" parent="."]
 margin_top = 28.0
 margin_right = 70.0
-margin_bottom = 42.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 3 )
 text = "OUT"
 align = 1
 valign = 3

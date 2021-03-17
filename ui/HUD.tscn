@@ -77,22 +77,45 @@ __meta__ = {
 
 [node name="Watervine" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 6 )]
 visible = false
+anchor_left = 0.0
+anchor_bottom = 1.0
+margin_left = 0.0
+margin_bottom = 0.0
 
 [node name="Seedmother" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 7 )]
 visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -268.0
+margin_bottom = 0.0
 
 [node name="Sunflower" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 8 )]
 visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -268.0
+margin_bottom = 0.0
 
 [node name="Incubator" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 9 )]
 visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -268.0
+margin_bottom = 0.0
 
 [node name="PipeNode" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 10 )]
 visible = false
-margin_right = -6.10352e-05
+anchor_left = 0.0
+anchor_bottom = 1.0
+margin_left = 0.0
+margin_bottom = 0.0
 
 [node name="Inventory" parent="SelectionUI/PlantOnly/SelectedPlantInfoContainer" instance=ExtResource( 11 )]
 visible = false
+anchor_left = 0.0
+anchor_bottom = 1.0
+margin_left = 0.0
+margin_bottom = -50.1185
 
 [node name="SchematicOnly" type="Control" parent="SelectionUI"]
 visible = false

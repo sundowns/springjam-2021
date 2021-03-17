@@ -3,15 +3,17 @@
 [ext_resource path="res://ui/selected_plant/CurrentPlantInfo.tscn" type="PackedScene" id=1]
 
 [node name="InventoryInfo" instance=ExtResource( 1 )]
-margin_bottom = -118.0
-rect_min_size = Vector2( 300, 150 )
+margin_top = -1.05948
+margin_bottom = 148.941
+rect_min_size = Vector2( 300, 220 )
 
 [node name="Name" parent="VBoxContainer" index="0"]
 text = "Builder Inventory"
 
 [node name="Description" parent="VBoxContainer" index="1"]
-margin_bottom = 165.0
-text = "Contains resources for the Builder Bunny to create plants with. 
+margin_bottom = 227.0
+text = "
+Contains resources for the Builder Bunny to create plants with. 
 
 
 Grabs items from pipes in all adjacent tiles (not diagonal). Input directions can be configured.
@@ -33,4 +35,4 @@ margin_top = 101.0
 margin_bottom = 119.0
 
 [node name="ColorRect" parent="." index="1"]
-rect_min_size = Vector2( 300, 180 )
+rect_min_size = Vector2( 300, 220 )

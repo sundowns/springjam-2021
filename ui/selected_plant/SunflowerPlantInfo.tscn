@@ -17,8 +17,13 @@ script = ExtResource( 8 )
 text = "Sunflower"
 
 [node name="Description" parent="VBoxContainer" index="1"]
+margin_bottom = 95.0
 text = "Produces unrefined sunshine. Requires water and seeds to produce.
 "
+
+[node name="HBoxContainer" parent="VBoxContainer" index="2"]
+margin_top = 99.0
+margin_bottom = 179.0
 
 [node name="Seed" parent="VBoxContainer/HBoxContainer/Demand/GridContainer" index="0" instance=ExtResource( 3 )]
 margin_left = 43.0
@@ -44,6 +49,10 @@ margin_bottom = 80.0
 [node name="Label" parent="VBoxContainer/HBoxContainer/Produce/GridContainer/Sunshine" index="0" instance=ExtResource( 9 )]
 text = "1"
 
+[node name="Control" parent="VBoxContainer" index="3"]
+margin_top = 183.0
+margin_bottom = 248.0
+
 [node name="Slot" parent="VBoxContainer/Control/ItemSlots" index="0" instance=ExtResource( 5 )]
 margin_right = 70.0
 max_capacity = 10.0
@@ -68,6 +77,10 @@ texture = ExtResource( 6 )
 
 [node name="IOLabel" parent="VBoxContainer/Control/ItemSlots/Slot3" index="1"]
 text = "IN"
+
+[node name="Label" parent="VBoxContainer" index="4"]
+margin_top = 252.0
+margin_bottom = 270.0
 
 [editable path="VBoxContainer/Control/ItemSlots/Slot"]
 

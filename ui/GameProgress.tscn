@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/GameProgress.gd" type="Script" id=1]
 [ext_resource path="res://assets/Refined Sun Symbol.png" type="Texture" id=2]
+[ext_resource path="res://ui/fonts/rubik-semibold-16.tres" type="DynamicFont" id=3]
 
 [node name="Progress" type="Control"]
 anchor_top = 0.5
@@ -24,6 +25,7 @@ margin_left = -300.0
 margin_top = -15.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 300, 30 )
+custom_fonts/font = ExtResource( 3 )
 max_value = 50.0
 step = 0.1
 __meta__ = {

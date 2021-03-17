@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/selected_plant/InputOutputSelectionDropdown.gd" type="Script" id=1]
+[ext_resource path="res://ui/fonts/rubik-semibold-14.tres" type="DynamicFont" id=2]
 
 [node name="Up" type="MenuButton"]
 anchor_left = 0.5
@@ -13,6 +14,9 @@ grow_horizontal = 2
 grow_vertical = 0
 rect_min_size = Vector2( 40, 30 )
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
 text = "None"
 items = [ "None", null, 0, false, false, 0, 0, null, "", false, "In", null, 0, false, false, 1, 0, null, "", false, "Out", null, 0, false, false, 2, 0, null, "", false ]
 script = ExtResource( 1 )

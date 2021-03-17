@@ -1,14 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/selected_plant/CurrentPlantInfo.gd" type="Script" id=1]
+[ext_resource path="res://ui/fonts/rubik-semibold-20.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/fonts/rubik-semibold-16.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/fonts/rubik-semibold-14.tres" type="DynamicFont" id=4]
 
 [node name="CurrentPlantInfo" type="Control"]
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = -300.0
-margin_top = -268.0
+margin_bottom = 268.0
 rect_min_size = Vector2( 300, 268 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -29,6 +30,7 @@ __meta__ = {
 margin_right = 305.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 300, 28 )
+custom_fonts/font = ExtResource( 2 )
 text = "A Plant"
 align = 1
 valign = 1
@@ -41,6 +43,7 @@ margin_top = 32.0
 margin_right = 305.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 290, 60 )
+custom_fonts/font = ExtResource( 3 )
 text = "Consumes stuff, produces stuff
 "
 align = 1
@@ -66,6 +69,7 @@ rect_min_size = Vector2( 150, 0 )
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Demand"]
 anchor_right = 1.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 3 )
 text = "Demand
 "
 align = 1
@@ -92,6 +96,7 @@ rect_min_size = Vector2( 150, 0 )
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Produce"]
 anchor_right = 1.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 3 )
 text = "Produce"
 align = 1
 __meta__ = {
@@ -119,7 +124,8 @@ anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -20.0
 margin_right = 20.0
-margin_bottom = 14.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 3 )
 text = "Slots"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -142,6 +148,7 @@ margin_top = 249.0
 margin_right = 305.0
 margin_bottom = 267.0
 rect_min_size = Vector2( 0, 18 )
+custom_fonts/font = ExtResource( 4 )
 text = "[X] Remove (100% resources refunded)"
 align = 1
 

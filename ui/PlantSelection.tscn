@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ui/BuildSchematicsHBoxContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/CurrentSchematicInfoContainer.gd" type="Script" id=2]
@@ -6,6 +6,14 @@
 [ext_resource path="res://ui/PlantSelection.gd" type="Script" id=4]
 [ext_resource path="res://assets/Seed Symbol.png" type="Texture" id=5]
 [ext_resource path="res://assets/Sun Symbol.png" type="Texture" id=6]
+[ext_resource path="res://ui/fonts/rubik-semibold-16.tres" type="DynamicFont" id=7]
+[ext_resource path="res://assets/Rubik-SemiBold.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 13
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 8 )
 
 [node name="PlantSelection" type="Control"]
 anchor_left = 0.5
@@ -57,10 +65,11 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -130.0
-margin_top = -7.0
-margin_right = -10.0
-margin_bottom = 7.0
+margin_left = -132.919
+margin_top = -9.5
+margin_right = -8.91907
+margin_bottom = 9.5
+custom_fonts/font = SubResource( 1 )
 text = "Produces water"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,8 +109,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -40.0
-margin_top = -7.0
-margin_bottom = 7.0
+margin_top = -9.5
+margin_bottom = 9.5
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 __meta__ = {
@@ -134,8 +144,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -40.0
-margin_top = -7.0
-margin_bottom = 7.0
+margin_top = -9.5
+margin_bottom = 9.5
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 __meta__ = {
@@ -168,8 +179,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -40.0
-margin_top = -7.0
-margin_bottom = 7.0
+margin_top = -9.5
+margin_bottom = 9.5
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 __meta__ = {
