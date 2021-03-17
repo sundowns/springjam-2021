@@ -1,18 +1,54 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://schematics/BaseSchematic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plants/InventoryPlant.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/plant_meshes/inventory.tres" type="ArrayMesh" id=3]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+params_diffuse_mode = 4
+albedo_color = Color( 0.517647, 0.286275, 0.2, 0.392157 )
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0.0441176, 0.959559 )
+colors = PoolColorArray( 0.517647, 0.286275, 0.2, 1, 0.517647, 0.286275, 0.2, 0.0862745 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -8, 0 )
+tangential_accel = 2.0
+tangential_accel_random = 1.0
+color_ramp = SubResource( 8 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.517647, 0.286275, 0.2, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" instance=ExtResource( 1 )]
 scene = ExtResource( 2 )
 plant_name = "inventory"
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mesh = SubResource( 1 )
+transform = Transform( -0.0684039, 0, -0.187939, 0, 0.2, 0, 0.187939, 0, -0.0684039, 0, 0, 0 )
+material_override = SubResource( 1 )
+mesh = ExtResource( 3 )
 material/0 = null
+material/1 = null
+
+[node name="BuildingParticles" parent="." index="2"]
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
 
 [editable path="Selectable"]
 

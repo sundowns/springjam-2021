@@ -29,6 +29,7 @@ output_tick_duration = 10000.0
 resource_output_per_tick = 0
 
 [node name="MeshInstance" parent="." index="0"]
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -0.15, 0 )
 mesh = ExtResource( 3 )
 
 [node name="ProductionParticles" parent="." index="6"]

@@ -59,7 +59,7 @@ output_tick_duration = 4.0
 resource_output_per_tick = 4
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.5, 0 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.35, 0 )
 mesh = SubResource( 1 )
 
 [node name="ProductionParticles" parent="." index="6"]

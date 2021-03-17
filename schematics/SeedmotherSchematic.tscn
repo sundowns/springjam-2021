@@ -1,37 +1,54 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/plant_meshes/seedmother.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://schematics/BaseSchematic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://plants/Seedmother.tscn" type="PackedScene" id=3]
 
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.137652, 1 )
-colors = PoolColorArray( 0.819608, 0.701961, 1, 0.254902, 0.819608, 0.701961, 1, 1 )
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+params_diffuse_mode = 4
+albedo_color = Color( 0.341176, 0.262745, 0.407843, 0.392157 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.0404412, 0.926471 )
+colors = PoolColorArray( 0.819608, 0.701961, 1, 1, 0.819608, 0.701961, 1, 0.254902 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 1
 emission_sphere_radius = 0.5
 direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, -8, 0 )
 tangential_accel = 2.0
 tangential_accel_random = 1.0
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.341176, 0.262745, 0.407843, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Schematic" instance=ExtResource( 2 )]
 scene = ExtResource( 3 )
 plant_name = "seedmother"
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.5, 0 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -0.35, 0 )
+material_override = SubResource( 1 )
 mesh = ExtResource( 1 )
 material/0 = null
 material/1 = null
 
 [node name="BuildingParticles" parent="." index="2"]
-process_material = SubResource( 3 )
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
 
 [editable path="Selectable"]
 

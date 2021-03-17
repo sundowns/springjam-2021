@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://schematics/BaseSchematic.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/plant_meshes/incubator.tres" type="ArrayMesh" id=2]
@@ -8,11 +8,11 @@
 flags_transparent = true
 flags_unshaded = true
 params_diffuse_mode = 4
-albedo_color = Color( 1, 0.556863, 0.396078, 0.392157 )
+albedo_color = Color( 0.647059, 1, 0.239216, 0.392157 )
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.0144033, 0.798354, 0.901235 )
-colors = PoolColorArray( 1, 0.556863, 0.396078, 1, 1, 0.556863, 0.396078, 0.101115, 1, 0.556863, 0.396078, 0.0862745 )
+offsets = PoolRealArray( 0.00735294, 0.901235 )
+colors = PoolColorArray( 0.647059, 1, 0.239216, 1, 0.647059, 1, 0.239216, 0.0862745 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
@@ -26,19 +26,29 @@ tangential_accel = 2.0
 tangential_accel_random = 1.0
 color_ramp = SubResource( 3 )
 
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.647059, 1, 0.239216, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.2, 0.2, 0.2 )
+
 [node name="Schematic" instance=ExtResource( 1 )]
 scene = ExtResource( 3 )
 plant_name = "incubator"
 
 [node name="MeshInstance" parent="." index="0"]
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -0.15, 0 )
 material_override = SubResource( 1 )
 mesh = ExtResource( 2 )
 material/0 = null
 material/1 = null
 
 [node name="BuildingParticles" parent="." index="2"]
-emitting = true
 process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
 
 [editable path="Selectable"]
 

@@ -11,8 +11,8 @@ params_diffuse_mode = 4
 albedo_color = Color( 1, 0.556863, 0.396078, 0.392157 )
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.910931, 1 )
-colors = PoolColorArray( 1, 0.556863, 0.396078, 0.0862745, 1, 0.556863, 0.396078, 1 )
+offsets = PoolRealArray( 0.0514706, 0.910931 )
+colors = PoolColorArray( 1, 0.556863, 0.396078, 1, 1, 0.556863, 0.396078, 0.0862745 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
