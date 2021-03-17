@@ -37,6 +37,7 @@ signal selection_changed(selected_node)
 func _ready():
 # warning-ignore:return_value_discarded
 	Global.connect("schematic_selection_change", self, "_on_schematic_selection_change")
+# warning-ignore:return_value_discarded
 	PlantCosts.connect("inventory_plant_ready", self, "_on_inventory_plant_ready")
 	call_deferred('enter_selection_mode')
 	call_deferred('place_inventory_schematic')

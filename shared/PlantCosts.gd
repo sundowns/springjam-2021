@@ -35,22 +35,23 @@ var costs = {
 }
 
 signal wallet_values_updated
+# warning-ignore:unused_signal
 signal inventory_plant_ready
 
 func _ready():
 	call_deferred("initialise_wallet")
 
 func initialise_wallet():
-#	wallet = {
-#		"water": 30,
-#		"seeds": 5,
-#		"sunshine": 0
-#	}
 	wallet = {
-		"water": 5000,
-		"seeds": 5000,
-		"sunshine": 5000
+		"water": 30,
+		"seeds": 5,
+		"sunshine": 0
 	}
+#	wallet = {
+#		"water": 5000,
+#		"seeds": 5000,
+#		"sunshine": 5000
+#	}
 	emit_signal("wallet_values_updated")
 
 func check_currencies(key: String) -> Dictionary:
