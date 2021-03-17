@@ -9,7 +9,6 @@
 margin_right = 0.0
 margin_bottom = 0.0
 texture = ExtResource( 1 )
-expand = true
 
 [node name="ButtonText" parent="." index="1"]
 text = ""
