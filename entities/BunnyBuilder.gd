@@ -12,6 +12,7 @@ onready var rerequest_timer: Timer = $ReRequestTimer
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 onready var bunny_running_sound: AudioStreamPlayer3D = $BunnyRunningLoop
+onready var building_sound: AudioStreamPlayer3D = $BuildingSound
 
 var current_target: Schematic
 
@@ -25,13 +26,18 @@ var state: int = BunnyStates.IDLE
 
 signal request_new_target(current_position)
 
+func _ready():
+	$BackgroundMusic.play()
+
 func _process(delta):
 	match state:
 		BunnyStates.IDLE:
 			bunny_running_sound.stop()
+			building_sound.stop()
 			if current_target:
 				enter_run_state()
 		BunnyStates.RUN:
+			building_sound.stop()
 			if current_target != null:
 				if not bunny_running_sound.playing:
 					bunny_running_sound.play()
@@ -45,6 +51,8 @@ func _process(delta):
 				enter_idle_state()
 		BunnyStates.BUILD:
 			bunny_running_sound.stop()
+			if not building_sound.playing:
+				building_sound.play()
 			if current_target == null:
 				enter_idle_state()
 
