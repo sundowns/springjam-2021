@@ -23,14 +23,14 @@ var costs = {
 		"sunshine": 0
 	},
 	"sunflower": {
-		"water": 30,
-		"seeds": 20,
+		"water": 20,
+		"seeds": 10,
 		"sunshine": 0
 	},
 	"incubator": {
-		"water": 50,
-		"seeds": 50,
-		"sunshine": 3
+		"water": 30,
+		"seeds": 20,
+		"sunshine": 1
 	}
 }
 

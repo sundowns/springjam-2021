@@ -23,7 +23,6 @@ margin_right = 90.0
 margin_bottom = 80.0
 
 [node name="Label" parent="VBoxContainer/HBoxContainer/Produce/GridContainer/Water" index="0" instance=ExtResource( 6 )]
-text = "5"
 
 [node name="Slot" parent="VBoxContainer/Control/ItemSlots" index="0" instance=ExtResource( 3 )]
 margin_right = 70.0

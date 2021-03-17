@@ -6,6 +6,6 @@ func _ready():
 	]
 
 func produce():
-	item_slots[0].add_items(5, ItemTypes.WATER)
+	item_slots[0].add_items(10, ItemTypes.WATER)
 	produced_this_update = true
 	.produce()

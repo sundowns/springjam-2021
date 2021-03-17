@@ -11,7 +11,7 @@ func produce():
 		produced_this_update = false
 	else:
 		# Create seed
-		item_slots[1].add_items(1, ItemTypes.SEED)
+		item_slots[1].add_items(2, ItemTypes.SEED)
 		# Spend water
 		item_slots[0].remove_items(minimum_producing_water_level)
 		produced_this_update = true
