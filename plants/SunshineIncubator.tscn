@@ -24,12 +24,12 @@ size = Vector2( 0.35, 0.35 )
 script = ExtResource( 2 )
 plant_name = "incubator"
 minimum_producing_water_level = 25.0
+production_tick_duration = 5.0
+output_tick_duration = 10000.0
+resource_output_per_tick = 0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )
-
-[node name="Selectable" parent="." index="1"]
-selectable_entity_path = NodePath("../../SunshineIncubator")
 
 [node name="ProductionParticles" parent="." index="6"]
 draw_pass_1 = SubResource( 2 )

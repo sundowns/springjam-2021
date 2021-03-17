@@ -41,10 +41,15 @@ func _ready():
 	call_deferred("initialise_wallet")
 
 func initialise_wallet():
+#	wallet = {
+#		"water": 30,
+#		"seeds": 5,
+#		"sunshine": 0
+#	}
 	wallet = {
-		"water": 30,
-		"seeds": 5,
-		"sunshine": 0
+		"water": 5000,
+		"seeds": 5000,
+		"sunshine": 5000
 	}
 	emit_signal("wallet_values_updated")
 

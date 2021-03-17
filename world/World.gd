@@ -65,7 +65,6 @@ func _input(event):
 			if event.is_action_pressed("reverse"):
 				if current_selectable and current_selectable.parent is PipeNode:
 					current_selectable.parent.network_master.reverse()
-	
 		HudModes.SELECTION:
 			if event.is_action_pressed("ui_cancel"):
 				deselect_current()
