@@ -4,6 +4,7 @@
 [ext_resource path="res://ui/SelectableSchematic.tscn" type="PackedScene" id=2]
 
 [node name="Schematic" instance=ExtResource( 2 )]
+clickable = false
 
 [node name="SchematicIcon" parent="." index="0"]
 margin_right = 0.0

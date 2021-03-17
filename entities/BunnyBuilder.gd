@@ -11,6 +11,8 @@ onready var initial_wakeup_timer: Timer = $WakeUpTimer
 onready var rerequest_timer: Timer = $ReRequestTimer
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+onready var bunny_running_sound: AudioStreamPlayer3D = $BunnyRunningLoop
+
 var current_target: Schematic
 
 enum BunnyStates {
@@ -26,10 +28,13 @@ signal request_new_target(current_position)
 func _process(delta):
 	match state:
 		BunnyStates.IDLE:
+			bunny_running_sound.stop()
 			if current_target:
 				enter_run_state()
 		BunnyStates.RUN:
 			if current_target != null:
+				if not bunny_running_sound.playing:
+					bunny_running_sound.play()
 				var to_target = (current_target.global_transform.origin - global_transform.origin)
 				var direction = to_target.normalized()
 				if to_target.length() > building_range:
@@ -39,6 +44,7 @@ func _process(delta):
 			else:
 				enter_idle_state()
 		BunnyStates.BUILD:
+			bunny_running_sound.stop()
 			if current_target == null:
 				enter_idle_state()
 
@@ -101,3 +107,6 @@ func _on_ReRequestTimer_timeout():
 
 func _on_WakeUpTimer_timeout():
 	enter_idle_state()
+
+func _on_AppearanceSoundTimer_timeout():
+	$AppearanceSound.play()
