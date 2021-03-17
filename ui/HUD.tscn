@@ -109,7 +109,6 @@ margin_top = -60.0
 margin_bottom = 0.0
 
 [node name="VictoryPopup" type="PopupPanel" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -134,9 +133,22 @@ valign = 1
 [node name="Victory" type="Label" parent="VictoryPopup"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -27.0
-margin_top = 30.0
-margin_right = 27.0
-margin_bottom = 50.0
+margin_left = -250.0
+margin_right = 250.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 50, 20 )
 text = "VICTORY"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -155.0
+margin_top = -50.0
+margin_right = 155.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 250, 100 )
+popup_exclusive = true
+window_title = ""
+dialog_text = "This will delete the entire pipe - are you sure?"

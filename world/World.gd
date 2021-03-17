@@ -75,14 +75,37 @@ func _input(event):
 			refund_current_selectable()
 			# Delete the whole network cause cbf implementing subdividing networks
 			if current_selectable.parent is PipeNode:
-				var network = current_selectable.parent.network_master
-				for child in network.nodes_container.get_children():
-					remove_plant(child)
-				network.destroy()
-			remove_plant(current_selectable.parent)
-			emit_signal("selection_changed", null)
+				handle_deleting_pipe(current_selectable.parent)
+			else:
+				remove_plant(current_selectable.parent)
+				emit_signal("selection_changed", null)
 			if current_hud_mode == HudModes.BUILD_PIPES:
 				enter_selection_mode()
+
+func handle_deleting_pipe(node: PipeNode):
+	var network = node.network_master
+	var destroy_network := false
+	var node_map_point = map.world_to_map(node.global_transform.origin)
+	if node.to and node.from:
+		# Some prompt or confirmation for deleting
+		print('mid-network delete')
+	elif node.to and not node.from:
+		node.to.set_from(null)
+		network.remove_node(node)
+		clear_map_point(node_map_point)
+		node.destroy()
+	elif node.from and not node.to:
+		node.from.set_to(null)
+		network.remove_node(node)
+		clear_map_point(node_map_point)
+		node.destroy()
+	else:
+		# its a single node, just nuke it
+		destroy_network = true
+	if destroy_network:
+		for child in network.nodes_container.get_children():
+			remove_plant(child)
+		network.destroy()
 
 func refund_current_selectable():
 	if current_selectable.parent is Plant:
