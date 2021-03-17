@@ -30,7 +30,7 @@ var costs = {
 	"incubator": {
 		"water": 30,
 		"seeds": 20,
-		"sunshine": 1
+		"sunshine": 2
 	}
 }
 

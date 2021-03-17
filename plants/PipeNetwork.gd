@@ -36,9 +36,9 @@ func set_start(start_point: Vector3):
 	path.curve.add_point(start_point)
 	capacity = path.curve.get_point_count() * capacity_per_cell
 	
-	start_point_mesh.visible = true
-	start_point_mesh.global_transform.origin = start_point
-	end_point_mesh.visible = false
+#	start_point_mesh.visible = true
+#	start_point_mesh.global_transform.origin = start_point
+#	end_point_mesh.visible = false
 
 func add_node(position: Vector3, add_to_back: bool = true, generate_new_curve: bool = true) -> PipeNode:
 	var new_node: PipeNode = pipe_node_scene.instance()
@@ -67,16 +67,16 @@ func generate_curve_from_nodes():
 			path.curve.add_point(child.global_transform.origin - global_transform.origin)
 	var path_length = path.curve.get_point_count()
 	capacity = path_length * capacity_per_cell
-	if path_length > 0:
-		start_point_mesh.global_transform.origin = path.curve.get_point_position(0)
-		start_point_mesh.visible = true
-	else: 
-		start_point_mesh.visible = false
-	if path_length > 1:
-		end_point_mesh.global_transform.origin = path.curve.get_point_position(path_length - 1)
-		end_point_mesh.visible = true
-	else:
-		end_point_mesh.visible = false
+#	if path_length > 0:
+#		start_point_mesh.global_transform.origin = path.curve.get_point_position(0)
+#		start_point_mesh.visible = true
+#	else: 
+#		start_point_mesh.visible = false
+#	if path_length > 1:
+#		end_point_mesh.global_transform.origin = path.curve.get_point_position(path_length - 1)
+#		end_point_mesh.visible = true
+#	else:
+#		end_point_mesh.visible = false
 	evaluate_showing_path_visualiser()
 
 func add_resource(pipeable_resource: PipeableResource, offset: float) -> bool:
