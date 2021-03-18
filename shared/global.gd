@@ -1,7 +1,7 @@
 extends Node
 
 # warning-ignore:unused_signal
-signal schematic_selection_change
+signal schematic_selection_change(from_build_pipes)
 
 signal first_pipe_placed
 var has_first_pipe_been_placed := false

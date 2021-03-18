@@ -1,6 +1,5 @@
 extends Control
 
-#export(PackedScene) var build_pipes_ui_scene: PackedScene = preload("res://ui/BuildPipesHBoxContainer.tscn")
 export(PackedScene) var build_plants_ui_scene: PackedScene = preload("res://ui/BuildSchematicsHBoxContainer.tscn")
 
 onready var current_ui: Control = null
@@ -25,7 +24,7 @@ func _input(event):
 			plant_selected = check_for_plant_selection_input(event)
 	
 	if plant_selected:
-		Global.emit_signal("schematic_selection_change")
+		Global.emit_signal("schematic_selection_change", current_mode == HudModes.BUILD_PIPES)
 
 func check_for_plant_selection_input(event):
 	var plant_selected = false
@@ -65,18 +64,6 @@ func set_current_mode(new_mode: int):
 	if current_mode == new_mode:
 		return
 	current_mode = new_mode
-#	for child in ui_container.get_children():
-#		if not child is ColorRect:
-#			child.queue_free()
-#	match current_mode:
-#		HudModes.BUILD_PLANT:
-#			set_new_ui(build_plants_ui_scene)
-#		HudModes.SELECTION:
-#			set_new_ui(build_plants_ui_scene)
-#			current_schematic_container.hide_plant()
-#		HudModes.BUILD_PIPES:
-#			set_new_ui(build_pipes_ui_scene)
-#			current_schematic_container.hide_plant()
 
 func set_new_ui(packed_scene: PackedScene):
 	var new_ui = packed_scene.instance()

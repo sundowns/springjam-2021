@@ -88,7 +88,8 @@ func handle_deleting_pipe(node: PipeNode):
 	var node_map_point = map.world_to_map(node.global_transform.origin)
 	if node.to and node.from:
 		# Some prompt or confirmation for deleting
-		print('mid-network delete')
+#		print('mid-network delete')
+		pass
 	elif node.to and not node.from:
 		node.to.set_from(null)
 		network.remove_node(node)
@@ -133,7 +134,7 @@ func occupy_map_point(point: Vector3):
 	map.set_cell_item(point.x, point.y, point.z, 32)
 
 func deselect_current():
-	if current_selectable and current_hud_mode == HudModes.SELECTION:
+	if current_selectable and (current_hud_mode == HudModes.SELECTION or current_hud_mode == HudModes.BUILD_PIPES):
 		current_selectable.is_selected = false
 		current_selectable = null
 		emit_signal("selection_changed", null)
@@ -177,7 +178,7 @@ func find_and_show_current_pipe_connections() -> Array:
 						valid_points_for_pipes.append(plant_map_point + Vector3(1, 0, 0))
 	return valid_points_for_pipes
 
-func _on_schematic_selection_change():
+func _on_schematic_selection_change(_from_build_pipes: bool = false):
 	enter_build_plants_mode()
 
 func _physics_process(_delta):
