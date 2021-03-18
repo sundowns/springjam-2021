@@ -161,6 +161,9 @@ custom_fonts/font = ExtResource( 13 )
 text = "Thanks for playing!"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Victory" type="Label" parent="VictoryPopup"]
 anchor_left = 0.5
@@ -174,11 +177,12 @@ text = "VICTORY"
 align = 1
 
 [node name="TutorialWindow" parent="." instance=ExtResource( 12 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -376.649
-margin_top = -197.838
-margin_right = -16.6489
-margin_bottom = -17.8381
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -230.0
+margin_top = -110.0
+margin_right = 230.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 460, 220 )

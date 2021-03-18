@@ -3,7 +3,7 @@ extends Control
 onready var dismiss_timer: Timer = $DismissTimer
 onready var text_box: RichTextLabel = $RichTextLabel
 onready var dismiss_button: Button = $DismissButton
-const auto_dismiss := 45.0
+const auto_dismiss := 60.0
 
 onready var prompt_io_timer: Timer = $PromptIOTimer
 
