@@ -165,10 +165,9 @@ valign = 1
 [node name="Victory" type="Label" parent="VictoryPopup"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -78.5
-margin_top = 21.4057
-margin_right = 78.5
-margin_bottom = 64.4057
+margin_left = -250.0
+margin_right = 250.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 50, 20 )
 custom_fonts/font = ExtResource( 14 )
 text = "VICTORY"

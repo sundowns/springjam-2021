@@ -1,7 +1,7 @@
 extends Control
 
+#export(PackedScene) var build_pipes_ui_scene: PackedScene = preload("res://ui/BuildPipesHBoxContainer.tscn")
 export(PackedScene) var build_plants_ui_scene: PackedScene = preload("res://ui/BuildSchematicsHBoxContainer.tscn")
-export(PackedScene) var build_pipes_ui_scene: PackedScene = preload("res://ui/BuildPipesHBoxContainer.tscn")
 
 onready var current_ui: Control = null
 onready var ui_container: ColorRect = $VBoxContainer/UiContainer
@@ -11,12 +11,13 @@ var current_mode: int = HudModes.SELECTION setget set_current_mode
 
 func _ready():
 	set_current_mode(HudModes.BUILD_PLANT)
+	set_new_ui(build_plants_ui_scene)
 
 func _input(event):
 	var plant_selected = false
 	match current_mode:
 		HudModes.BUILD_PIPES:
-			pass
+			plant_selected = check_for_plant_selection_input(event)
 		HudModes.BUILD_PLANT:
 			plant_selected = check_for_plant_selection_input(event)
 		HudModes.SELECTION:
@@ -64,18 +65,18 @@ func set_current_mode(new_mode: int):
 	if current_mode == new_mode:
 		return
 	current_mode = new_mode
-	for child in ui_container.get_children():
-		if not child is ColorRect:
-			child.queue_free()
-	match current_mode:
-		HudModes.BUILD_PLANT:
-			set_new_ui(build_plants_ui_scene)
-		HudModes.SELECTION:
-			set_new_ui(build_plants_ui_scene)
-			current_schematic_container.hide_plant()
-		HudModes.BUILD_PIPES:
-			set_new_ui(build_pipes_ui_scene)
-			current_schematic_container.hide_plant()
+#	for child in ui_container.get_children():
+#		if not child is ColorRect:
+#			child.queue_free()
+#	match current_mode:
+#		HudModes.BUILD_PLANT:
+#			set_new_ui(build_plants_ui_scene)
+#		HudModes.SELECTION:
+#			set_new_ui(build_plants_ui_scene)
+#			current_schematic_container.hide_plant()
+#		HudModes.BUILD_PIPES:
+#			set_new_ui(build_pipes_ui_scene)
+#			current_schematic_container.hide_plant()
 
 func set_new_ui(packed_scene: PackedScene):
 	var new_ui = packed_scene.instance()
