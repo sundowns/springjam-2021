@@ -47,11 +47,6 @@ func initialise_wallet():
 		"seeds": 5,
 		"sunshine": 0
 	}
-#	wallet = {
-#		"water": 5000,
-#		"seeds": 5000,
-#		"sunshine": 5000
-#	}
 	emit_signal("wallet_values_updated")
 
 func check_currencies(key: String) -> Dictionary:

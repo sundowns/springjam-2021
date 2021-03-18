@@ -27,6 +27,9 @@ var selection_type = ""
 func _ready():
 # warning-ignore:return_value_discarded
 	WinResource.connect("game_complete", self, "_show_victory_popup")
+	$BuildUI.visible = false
+# warning-ignore:return_value_discarded
+	PlantCosts.connect("inventory_plant_ready", self, "_on_inventory_plant_ready")
 
 func _on_mode_change(hud_mode: int):
 	is_selection_mode = hud_mode == HudModes.SELECTION
@@ -100,3 +103,6 @@ func _process(_delta):
 
 func _show_victory_popup():
 	victory_popup.popup_centered(Vector2(500, 240))
+
+func _on_inventory_plant_ready():
+	$BuildUI.visible = true

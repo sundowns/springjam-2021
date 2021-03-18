@@ -7,6 +7,7 @@ func _ready():
 		PlantItemSlot.new(true, false, 50, [ItemTypes.WATER]), 
 		PlantItemSlot.new(true, false, 10, [ItemTypes.SUNSHINE]) 
 	]
+	Global.incubator_built()
 
 func produce():
 	if item_slots[0].item_count < minimum_producing_water_level:

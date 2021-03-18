@@ -23,6 +23,7 @@ func _ready():
 	production_tick_timer.stop()
 # warning-ignore:return_value_discarded
 	add_node(global_transform.origin)
+	Global.pipe_built()
 
 func reverse():
 	direction *= -1

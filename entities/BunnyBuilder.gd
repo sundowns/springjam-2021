@@ -27,7 +27,9 @@ var state: int = BunnyStates.IDLE
 signal request_new_target(current_position)
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Global.connect("first_pipe_placed", self, "_play_overlay_music")
+# warning-ignore:return_value_discarded
 	WinResource.connect("game_complete", self, "_play_victory_tune")
 	$AmbientBackgroundMusic.play()
 

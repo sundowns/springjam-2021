@@ -5,6 +5,7 @@ func _ready():
 		PlantItemSlot.new(true, false, 20, [ItemTypes.WATER]),
 		PlantItemSlot.new(false, true, 20, [ItemTypes.SEED])
 	]
+	Global.seedmother_built()
 
 func produce():
 	if item_slots[0].item_count < minimum_producing_water_level:

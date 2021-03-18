@@ -6,6 +6,7 @@ func _ready():
 		PlantItemSlot.new(true, false, 20, [ItemTypes.SEED]),
 		PlantItemSlot.new(false, true, 20, [ItemTypes.SUNSHINE])
 	]
+	Global.sunflower_built()
 
 func produce():
 	if item_slots[0].item_count < minimum_producing_water_level:
