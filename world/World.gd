@@ -311,6 +311,7 @@ func place_schematic(id):
 			new_schematic = pipenetwork_schematic_scene.instance()
 			select_new_schematic = true
 			PlantCosts.purchase("pipe")
+			Global.pipe_placed()
 		1:
 			new_schematic = watervine_schematic_scene.instance()
 			PlantCosts.purchase("watervine")

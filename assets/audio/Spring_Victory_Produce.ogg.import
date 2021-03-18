@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spring_Victory_Produce.ogg-822b80b9f0be9cb2da53387b19f87381.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Spring_Victory_Produce.ogg"
+dest_files=[ "res://.import/Spring_Victory_Produce.ogg-822b80b9f0be9cb2da53387b19f87381.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

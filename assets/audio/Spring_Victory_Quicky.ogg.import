@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spring_Victory_Quicky.ogg-947c367c37d59726dd3c4a1277ab6380.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Spring_Victory_Quicky.ogg"
+dest_files=[ "res://.import/Spring_Victory_Quicky.ogg-947c367c37d59726dd3c4a1277ab6380.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

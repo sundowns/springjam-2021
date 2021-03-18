@@ -27,7 +27,15 @@ var state: int = BunnyStates.IDLE
 signal request_new_target(current_position)
 
 func _ready():
-	$BackgroundMusic.play()
+	Global.connect("first_pipe_placed", self, "_play_overlay_music")
+	WinResource.connect("game_complete", self, "_play_victory_tune")
+	$AmbientBackgroundMusic.play()
+
+func _play_overlay_music():
+	$OverlayBackgroundMusic.play()
+
+func _play_victory_tune():
+	$VictoryTune.play()
 
 func _process(delta):
 	match state:

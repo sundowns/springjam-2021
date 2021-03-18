@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spring_BGM_Overlay.ogg-2dd4a934b2bafcc6eb435f9ec4f18c4f.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/Spring_BGM_Overlay.ogg"
+dest_files=[ "res://.import/Spring_BGM_Overlay.ogg-2dd4a934b2bafcc6eb435f9ec4f18c4f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
