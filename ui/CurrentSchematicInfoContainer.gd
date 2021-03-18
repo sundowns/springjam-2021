@@ -1,11 +1,10 @@
 extends Control
 
-onready var bg: ColorRect = $ColorRect
-
 onready var water_cost_label: Label = $HBoxContainer/WaterCost/Label
 onready var seed_cost_label: Label = $HBoxContainer/SeedCost/Label
 onready var sunshine_cost_label: Label = $HBoxContainer/SunshineCost/Label
-onready var description: Label = $Description
+onready var description: Label = $HBoxContainer/Description
+onready var plant_name_label: Label = $Control/PlantName
 
 export(Color) var unaffordable_text_colour: Color
 export(Color) var affordable_text_colour: Color
@@ -14,7 +13,6 @@ export(Color) var shown_colour: Color
 var plant_index: int = 0
 
 func _ready():
-	bg.modulate = shown_colour
 # warning-ignore:return_value_discarded
 	PlantCosts.connect("wallet_values_updated", self, "update_plant_affordability")
 
@@ -34,26 +32,31 @@ func update_plant_info():
 			water_cost_label.text = String(PlantCosts.costs["pipe"].water)
 			seed_cost_label.text = String(PlantCosts.costs["pipe"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["pipe"].sunshine)
+			plant_name_label.text = "Pipe Network"
 		1: # Watervine
 			description.text = "Produces water"
 			water_cost_label.text = String(PlantCosts.costs["watervine"].water)
 			seed_cost_label.text = String(PlantCosts.costs["watervine"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["watervine"].sunshine)
+			plant_name_label.text = "Watervine"
 		2: # Seedmother
 			description.text = "Produces seeds"
 			water_cost_label.text = String(PlantCosts.costs["seedmother"].water)
 			seed_cost_label.text = String(PlantCosts.costs["seedmother"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["seedmother"].sunshine)
+			plant_name_label.text = "Seedmother"
 		3: # Sunflower
 			description.text = "Produces sunshine"
 			water_cost_label.text = String(PlantCosts.costs["sunflower"].water)
 			seed_cost_label.text = String(PlantCosts.costs["sunflower"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["sunflower"].sunshine)
+			plant_name_label.text = "Sunflower"
 		4: # Incubator
 			description.text = "Refines sunshine"
 			water_cost_label.text = String(PlantCosts.costs["incubator"].water)
 			seed_cost_label.text = String(PlantCosts.costs["incubator"].seeds)
 			sunshine_cost_label.text = String(PlantCosts.costs["incubator"].sunshine)
+			plant_name_label.text = "Sunshine Incubator"
 	update_plant_affordability()
 
 func update_plant_affordability():

@@ -53,14 +53,14 @@ func _on_first_watervine_built():
 	show_text("Your first Watervine is producing!\n\nBuilding plants spends resources from the Builder Inventory (shown top-left), let's automate adding water to the inventory.\n\nTry building a pipe (1) next to our Watervine.")
 
 func _on_first_pipe_built():
-	show_text("Pipes can be extended and destroyed (X) only from their ends.\n\nTry extending a path from a Watervine to the Build Inventory.", 25)
-	prompt_io_timer.start(30)
+	show_text("Pipes can be extended and destroyed (X) only from their ends.\n\nTry extending a path from a Watervine to the Build Inventory.", 35)
+	prompt_io_timer.start(40)
 
 func _on_first_seedmother_built():
 	show_text("You've built a Seedmother, pipe in water to produce seeds!\n\nYou'll need some in the Builder Inventory and some for sunshine production.")
 
 func _on_first_sunflower_built():
-	show_text("You've built a Sunflower, pipe in water and seeds to produce sunshine!\n\nSunshine must be refined in an incubator to progress the season.")
+	show_text("You've built a Sunflower, pipe in water and seeds to produce sunshine!\n\nSunshine must be refined in a Sunshine Incubator to progress the season.")
 
 func _on_first_incubator_built():
 	show_text("You've built a Sunshine Incubator, pipe in water and sunshine to refine it!\n\nRefine 50 sunshine to usher in Spring and complete your garden!")

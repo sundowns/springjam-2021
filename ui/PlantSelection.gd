@@ -4,7 +4,7 @@ export(PackedScene) var build_plants_ui_scene: PackedScene = preload("res://ui/B
 
 onready var current_ui: Control = null
 onready var ui_container: ColorRect = $VBoxContainer/UiContainer
-onready var current_schematic_container: Control = $VBoxContainer/CurrentSchematicInfoContainer
+onready var current_schematic_container: Control = $VBoxContainer/Control/CurrentSchematicInfoContainer
 
 var current_mode: int = HudModes.SELECTION setget set_current_mode
 
