@@ -55,8 +55,8 @@ func _on_first_watervine_built():
 	show_text("Your first Watervine is producing!\n\nBuilding plants spends resources from the Builder Inventory (see: top-left).\n\nTry building a pipe (1) next to our Watervine.")
 
 func _on_first_pipe_built():
-	show_text("You can move resources into your inventory or other plants using pipes! \n\nTry extending a path from a Watervine to the Builder Inventory. \n\nPipes can be extended and destroyed (X) only from their ends.", 40)
-	prompt_io_timer.start(60)
+	show_text("You can move resources into your inventory or other plants using pipes! \n\nTry extending a path from a Watervine to the Builder Inventory. \n\nPipes can be extended and destroyed (X) only from their ends.\n\nSelect a plant to configure how it pushes and pulls from pipes", 60)
+	prompt_io_timer.start(65)
 
 func _on_first_seedmother_built():
 	show_text("You've built a Seedmother, pipe in water to produce seeds!\n\nYou'll need some in your inventory to build new plants and some to produce sunshine.")
