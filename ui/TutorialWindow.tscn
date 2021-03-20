@@ -59,6 +59,9 @@ __meta__ = {
 [node name="DismissTimer" type="Timer" parent="."]
 
 [node name="PromptIOTimer" type="Timer" parent="."]
+
+[node name="IOReminderTimer" type="Timer" parent="."]
 [connection signal="pressed" from="DismissButton" to="." method="_on_DismissButton_pressed"]
 [connection signal="timeout" from="DismissTimer" to="." method="_on_DismissTimer_timeout"]
 [connection signal="timeout" from="PromptIOTimer" to="." method="_on_PromptIOTimer_timeout"]
+[connection signal="timeout" from="IOReminderTimer" to="." method="_on_IOReminderTimer_timeout"]

@@ -6,8 +6,10 @@ onready var dismiss_button: Button = $DismissButton
 const auto_dismiss := 60.0
 
 onready var prompt_io_timer: Timer = $PromptIOTimer
-
 var has_shown_io_prompt := false
+
+onready var io_reminder_timer: Timer = $IOReminderTimer
+var has_shown_io_reminder := false
 
 func _ready():
 	visible = false
@@ -47,17 +49,18 @@ func _process(_delta):
 	dismiss_button.text = "Dismiss (%d)" % dismiss_timer.time_left
 
 func _on_inventory_ready():
-	show_text("Place new plant schematics by selecting one with the number keys (1-5) and clicking on unoccupied space in the garden.\n\nTry placing a Watervine (2) to start water production!")
+	show_text("Welcome to Plantorio!\n\nSelect a schematic by pressing a number key (1-5) and place it by clicking an unoccupied space in the garden.\n\nTry placing a Watervine (2) to start water production!")
 
 func _on_first_watervine_built():
-	show_text("Your first Watervine is producing!\n\nBuilding plants spends resources from the Builder Inventory (shown top-left), let's automate adding water to the inventory.\n\nTry building a pipe (1) next to our Watervine.")
+	show_text("Your first Watervine is producing!\n\nBuilding plants spends resources from the Builder Inventory (see: top-left).\n\nTry building a pipe (1) next to our Watervine.")
 
 func _on_first_pipe_built():
-	show_text("Pipes can be extended and destroyed (X) only from their ends.\n\nTry extending a path from a Watervine to the Build Inventory.", 35)
-	prompt_io_timer.start(40)
+	show_text("You can move resources into your inventory or other plants using pipes! \n\nTry extending a path from a Watervine to the Builder Inventory. \n\nPipes can be extended and destroyed (X) only from their ends.", 40)
+	prompt_io_timer.start(60)
 
 func _on_first_seedmother_built():
-	show_text("You've built a Seedmother, pipe in water to produce seeds!\n\nYou'll need some in the Builder Inventory and some for sunshine production.")
+	show_text("You've built a Seedmother, pipe in water to produce seeds!\n\nYou'll need some in your inventory to build new plants and some to produce sunshine.")
+	io_reminder_timer.start(65)
 
 func _on_first_sunflower_built():
 	show_text("You've built a Sunflower, pipe in water and seeds to produce sunshine!\n\nSunshine must be refined in a Sunshine Incubator to progress the season.")
@@ -65,12 +68,23 @@ func _on_first_sunflower_built():
 func _on_first_incubator_built():
 	show_text("You've built a Sunshine Incubator, pipe in water and sunshine to refine it!\n\nRefine 50 sunshine to usher in Spring and complete your garden!")
 
+func _on_IOReminderTimer_timeout():
+	if has_shown_io_reminder:
+		return
+	else:
+		if visible:
+			io_reminder_timer.start(20)
+		else:
+			show_text("Don't forget to check if all your plants are inputting and outputting resources! \n\nClick on a plant to see what it currently holds, as well as from where it inputs and outputs resources.", 60)
+			has_shown_io_reminder = true
+
 func _on_PromptIOTimer_timeout():
 	if has_shown_io_prompt:
 		return
 	else:
 		if visible:
-			prompt_io_timer.start(10)
+			prompt_io_timer.start(20)
 		else:
 			show_text("To push and pull produce from pipes, you must configure the inputs and outputs of a plant.\n\nSelect a plant and click on the overlay UI to set I/O behaviour for a direction.", 60)
 			has_shown_io_prompt = true
+
